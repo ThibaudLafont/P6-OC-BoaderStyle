@@ -5,7 +5,7 @@ This project will be a snowboard jump wiki. It will use Symfony.
 ## Project's roadmap
 
 The engineering of requested web-application will be segmented according to above step-point : 
- - Wireframes (1.5day)
+ - ~~Wireframes (1.5day)~~ -> 1.5day
  - Symfony implementation (30min)
  - Entities and database creation (0.5day)
  - Creation of home and show pages (0.5day)
@@ -18,4 +18,4 @@ The engineering of requested web-application will be segmented according to abov
  - Front work on forms  (0.5day)
 
 > Legend :
-> NameOfGitIssue (EstimatedTime) SpendedTime
+> NameOfGitIssue (EstimatedTime) -> SpendedTime
