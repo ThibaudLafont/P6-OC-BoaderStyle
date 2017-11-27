@@ -67,7 +67,7 @@ class User
     private $messages;
 
     /**
-     * @ORM\OneToMany(targetEntity="Trick", mappedBy="user")
+     * @ORM\OneToMany(targetEntity="Trick", mappedBy="author")
      */
     private $tricks;
 

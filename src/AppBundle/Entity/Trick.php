@@ -38,7 +38,7 @@ class Trick
     /**
      * @ORM\ManyToOne(targetEntity="User", inversedBy="tricks")
      */
-    private $user;
+    private $author;
 
     /**
      * @ORM\ManyToOne(targetEntity="Category", inversedBy="tricks")
@@ -117,6 +117,20 @@ class Trick
     public function getDescription()
     {
         return $this->description;
+    }
+
+    public function getAuthor(){
+        return $this->author;
+    }
+    public function setAuthor($author){
+        $this->author = $author;
+    }
+
+    public function getCategory(){
+        return $this->category;
+    }
+    public function setCategory($category){
+        $this->category = $category;
     }
 }
 

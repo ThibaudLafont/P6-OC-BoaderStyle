@@ -12,6 +12,7 @@ The requested web-application's engineering will be segmented, according to abov
  - ✓ Symfony implementation ~~(30min)~~ > 30min
  - ✓ Entities and database creation ~~(0.5days)~~ > 0.25day
  - ✓ Gulp implementation ~~(0.5day)~~ > 0.25day
+ - ✕ DataFixtures creation (0.25day)
  - ✕ Home and show pages creation (0.5days)
  - ✕ Add/edit/delete figure features creation (1.5days)
  - ✕ Chat feature creation (1day)

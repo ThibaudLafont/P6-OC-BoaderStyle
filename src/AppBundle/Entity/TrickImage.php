@@ -20,8 +20,17 @@ class TrickImage
      */
     private $trick;
 
-    private function setFormat(String $format){
+    public function setFormat($format){
         $supported = ['jpg', 'png', 'gif'];
-        return in_array($format, $supported);
+        if(in_array($format, $supported)){
+            $this->format = $format;
+        }
+    }
+
+    public function getTrick(){
+        return $this->trick;
+    }
+    public function setTrick($trick){
+        $this->trick = $trick;
     }
 }

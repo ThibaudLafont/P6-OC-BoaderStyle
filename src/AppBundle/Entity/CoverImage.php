@@ -5,12 +5,12 @@ use Doctrine\ORM\Mapping as ORM;
 use AppBundle\Entity\Traits\Media;
 
 /**
- * UserImage
+ * TrickMedia
  *
- * @ORM\Table(name="user_image")
- * @ORM\Entity(repositoryClass="AppBundle\Repository\UserImageRepository")
+ * @ORM\Table(name="cover_image")
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\CoverImageRepository")
  */
-class UserImage
+class CoverImage
 {
 
     use Media;
@@ -21,4 +21,5 @@ class UserImage
             $this->format = $format;
         }
     }
+
 }

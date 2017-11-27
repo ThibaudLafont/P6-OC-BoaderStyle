@@ -43,4 +43,36 @@ trait Media
      */
     private $alt;
 
+    public function getName(){
+        return $this->name;
+    }
+
+    public function setName($name){
+        $length = strlen($name);
+        if($length>0 && $length<256){
+            $this->name = $name;
+        }
+        return $this;
+    }
+
+    public function getPath(){
+        return $this->path;
+    }
+
+    public function setPath($path){
+        $this->path = $path;
+        return $this;
+    }
+
+    public function getFormat(){
+        return $this->format;
+    }
+
+    public function getAlt(){
+        return $this->alt;
+    }
+    public function setAlt($alt){
+        $this->alt = $alt;
+    }
+
 }

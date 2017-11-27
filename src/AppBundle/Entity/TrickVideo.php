@@ -16,12 +16,41 @@ class TrickVideo
     use Media;
 
     /**
+     * @ORM\OneToOne(
+     *     targetEntity="CoverImage",
+     *     cascade={"persist", "remove"}
+     * )
+     */
+    private $cover;
+
+    /**
      * @ORM\ManyToOne(targetEntity="Trick", inversedBy="imgs")
      */
     private $trick;
 
-    private function setFormat(String $format){
-        $supported = ['mp3', 'wav'];
-        return in_array($format, $supported);
+    /**
+     * @param String $format
+     * @return bool
+     */
+    public function setFormat($format){
+        $supported = ['mp3', 'wav', 'mp4'];
+        if(in_array($format, $supported)){
+            $this->format = $format;
+        }
     }
+
+    public function getTrick(){
+        return $this->trick;
+    }
+    public function setTrick($trick){
+        $this->trick = $trick;
+    }
+
+    public function getCover(){
+        return $this->cover;
+    }
+    public function setCover($cover){
+        $this->cover = $cover;
+    }
+
 }
