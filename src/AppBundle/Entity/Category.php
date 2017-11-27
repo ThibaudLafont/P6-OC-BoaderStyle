@@ -29,9 +29,9 @@ class Category
     private $name;
 
     /**
-     * @ORM\OneToMany(targetEntity="figure", mappedBy="category")
+     * @ORM\OneToMany(targetEntity="Trick", mappedBy="category")
      */
-    private $category;
+    private $tricks;
 
     /**
      * Get id

@@ -7,10 +7,10 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Figure
  *
- * @ORM\Table(name="figure")
- * @ORM\Entity(repositoryClass="AppBundle\Repository\FigureRepository")
+ * @ORM\Table(name="trick")
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\TrickRepository")
  */
-class Figure
+class Trick
 {
     /**
      * @var int
@@ -36,22 +36,27 @@ class Figure
     private $description;
 
     /**
-     * @ORM\ManyToOne(targetEntity="user", inversedBy="figures")
+     * @ORM\ManyToOne(targetEntity="User", inversedBy="tricks")
      */
-    private $author;
+    private $user;
 
     /**
-     * @ORM\ManyToOne(targetEntity="category", inversedBy="figures")
+     * @ORM\ManyToOne(targetEntity="Category", inversedBy="tricks")
      */
     private $category;
 
     /**
-     * @ORM\OneToMany(targetEntity="image", mappedBy="figure")
+     * @ORM\OneToMany(targetEntity="TrickImage", mappedBy="trick")
      */
     private $imgs;
 
     /**
-     * @ORM\OneToMany(targetEntity="message", mappedBy="figure")
+     * @ORM\OneToMany(targetEntity="TrickVideo", mappedBy="trick")
+     */
+    private $videos;
+
+    /**
+     * @ORM\OneToMany(targetEntity="Message", mappedBy="trick")
      */
     private $messages;
 
@@ -71,7 +76,7 @@ class Figure
      *
      * @param string $name
      *
-     * @return Figure
+     * @return Trick
      */
     public function setName($name)
     {
@@ -95,7 +100,7 @@ class Figure
      *
      * @param string $description
      *
-     * @return Figure
+     * @return Trick
      */
     public function setDescription($description)
     {

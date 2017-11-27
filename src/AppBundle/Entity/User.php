@@ -3,7 +3,7 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use AppBundle\Entity\Image as Image;
+use AppBundle\Entity\UserImage as Image;
 
 /**
  * User
@@ -51,20 +51,25 @@ class User
     private $password;
 
     /**
-     * @ORM\OneToOne(targetEntity="image")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\OneToOne(
+     *     targetEntity="UserImage",
+     *     cascade={"persist", "remove"}
+     * )
      */
     private $img;
 
     /**
-     * @ORM\OneToMany(targetEntity="message", mappedBy="user")
+     * @ORM\OneToMany(
+     *     targetEntity="Message",
+     *     mappedBy="user"
+     * )
      */
     private $messages;
 
     /**
-     * @ORM\OneToMany(targetEntity="figure", mappedBy="author")
+     * @ORM\OneToMany(targetEntity="Trick", mappedBy="user")
      */
-    private $figures;
+    private $tricks;
 
     /**
      * Get id
@@ -81,7 +86,7 @@ class User
      *
      * @param string $firstName
      *
-     * @return User
+     * @return UserImage
      */
     public function setFirstName($firstName)
     {
@@ -105,7 +110,7 @@ class User
      *
      * @param string $lastName
      *
-     * @return User
+     * @return UserImage
      */
     public function setLastName($lastName)
     {
@@ -129,7 +134,7 @@ class User
      *
      * @param string $userName
      *
-     * @return User
+     * @return UserImage
      */
     public function setUserName($userName)
     {
@@ -153,7 +158,7 @@ class User
      *
      * @param string $password
      *
-     * @return User
+     * @return UserImage
      */
     public function setPassword($password)
     {

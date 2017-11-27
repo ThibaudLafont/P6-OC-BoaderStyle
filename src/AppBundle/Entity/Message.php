@@ -36,14 +36,14 @@ class Message
     private $content;
 
     /**
-     * @ORM\ManyToOne(targetEntity="user", inversedBy="messages")
+     * @ORM\ManyToOne(targetEntity="User", inversedBy="messages")
      */
     private $user;
 
     /**
-     * @ORM\ManyToOne(targetEntity="figure", inversedBy="messages")
+     * @ORM\ManyToOne(targetEntity="Trick", inversedBy="messages")
      */
-    private $figure;
+    private $trick;
 
 
     /**
