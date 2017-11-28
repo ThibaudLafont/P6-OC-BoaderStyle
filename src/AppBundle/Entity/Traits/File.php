@@ -1,9 +1,9 @@
 <?php
-namespace AppBundle\Entity\Traits;
+namespace AppBundle\Entity\Trait;
 
 use Doctrine\ORM\Mapping as ORM;
 
-trait Media
+abstract class File
 {
 
     /**
@@ -25,13 +25,6 @@ trait Media
     /**
      * @var string
      *
-     * @ORM\Column(name="path", type="string", length=255)
-     */
-    private $path;
-
-    /**
-     * @var string
-     *
      * @ORM\Column(name="format", type="string", length=255)
      */
     private $format;
@@ -42,6 +35,10 @@ trait Media
      * @ORM\Column(name="alt", type="string", length=255)
      */
     private $alt;
+
+    // CONSTS
+    const WEB_DIRECTORY = 'web/directory/for/this/type/of/file';
+    const VALID_FORMATS = ['expected', 'formats'];
 
     public function getName(){
         return $this->name;
@@ -67,12 +64,20 @@ trait Media
     public function getFormat(){
         return $this->format;
     }
+    public function setFormat($format){
+        if(in_array($format, self::VALID_FORMATS))  $this->format = $format;
+    }
 
     public function getAlt(){
         return $this->alt;
     }
     public function setAlt($alt){
         $this->alt = $alt;
+    }
+
+    public function getUrl(){
+        $url = '/web/media' . $this->getPath() . $this->getName() . '.' . $this->getFormat();
+        return $url;
     }
 
 }
