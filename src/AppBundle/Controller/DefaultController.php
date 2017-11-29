@@ -16,7 +16,7 @@ class DefaultController extends Controller
         $em = $this->getDoctrine()->getManager()->getRepository('AppBundle:Trick');
         $tricks = $em->findAll();
 
-        return $this->render('list.html.twig', compact('tricks'));
+        return $this->render('trick/_list.html.twig', compact('tricks'));
     }
 
     /**
@@ -27,6 +27,6 @@ class DefaultController extends Controller
         $em = $this->getDoctrine()->getManager()->getRepository('AppBundle:Trick');
         $trick = $em->find($id);
 
-        return $this->render('show.html.twig', compact('trick'));
+        return $this->render('trick/_show.html.twig', compact('trick'));
     }
 }
