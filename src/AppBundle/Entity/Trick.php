@@ -139,5 +139,12 @@ class Trick
     public function getVideos(){
         return $this->videos;
     }
+
+    public function getUrl(){
+        return '/trick/' . $this->getId();
+    }
+    public function getDescriptionFrag(){
+        return substr($this->description, 0, 200);
+    }
 }
 

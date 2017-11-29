@@ -19,7 +19,7 @@ class TrickImage extends TrickMedia
     private $trick;
 
     // CONSTS
-    const WEB_DIRECTORY = '/web/media/img/tricks/';
+    const WEB_DIRECTORY = '/media/img/tricks/';
     const VALID_FORMATS = ['jpg', 'png'];
 
 }

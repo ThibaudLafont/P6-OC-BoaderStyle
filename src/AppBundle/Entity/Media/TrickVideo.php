@@ -18,7 +18,7 @@ class TrickVideo extends TrickMedia
     private $trick;
 
     // CONSTS
-    const WEB_DIRECTORY = '/web/media/video/tricks/';
+    const WEB_DIRECTORY = '/media/video/tricks/';
     const VALID_FORMATS = ['mp4', 'avi'];
 
 }

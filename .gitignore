@@ -19,5 +19,5 @@
 
 /node_modules/*
 /package-lock.json
-/media/img/tricks/*
-/media/videos/tricks/*
+/web/media/img/tricks/*
+/web/media/video/tricks/*
