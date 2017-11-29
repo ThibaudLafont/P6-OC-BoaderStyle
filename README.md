@@ -14,8 +14,8 @@ The requested web-application's engineering will be segmented, according to abov
 | ✓ | 3  | Entities and database creation              | ~~0.5day~~  | 0.25day |
 | ✓ | 14 | Gulp implementation                         | ~~0.5day~~  | 0.25day |
 | ✕ | 16 | UML diagrams creation                       | 1day        |         |
-| ✕ | 17 | DataFixtures creation                       | ~~0.25day~~ | 0.5day  |
-| ✕ | 2  | Entities rework                             | ~~1day~~    | 2days   | 
+| ✓ | 17 | DataFixtures creation                       | ~~0.25day~~ | 0.5day  |
+| ✓ | 2  | Entities rework                             | ~~1day~~    | 2days   | 
 | ✕ | 4  | Home and show pages creation                | 0.5days     |         |
 | ✕ | 5  | Add/edit/delete figure features creation    | 1.5days     |         |
 | ✕ | 6  | Chat feature creation                       | 1 day       |         |
