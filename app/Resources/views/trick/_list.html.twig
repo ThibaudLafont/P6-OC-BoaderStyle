@@ -1,0 +1,25 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+    <h1>Liste des figures</h1>
+
+    {% for trick in tricks %}
+        <article>
+            <h2>{{ trick.name }}</h2>
+            <img src="{{ trick.imgs[0].url }}" alt="{{ trick.imgs[0].alt }}">
+
+            <p>
+                <img src="{{ trick.author.img.url }}" alt="{{ trick.author.img.alt }}" style="width:50px">
+                <span>Posté par {{ trick.author.fullName }}</span>
+            </p>
+
+            <p>
+                {{ trick.descriptionFrag }}
+                <a href="{{ trick.url }}">Voir la figure</a>
+            </p>
+        </article>
+        <hr>
+    {% endfor %}
+    
+{% endblock %}

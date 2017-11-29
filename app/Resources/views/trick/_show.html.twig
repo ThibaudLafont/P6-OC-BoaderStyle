@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+    <h1>
+        {{ trick.name }}
+    </h1>
+    <article>
+        <p>
+            <a href="/edit/{{ trick.id }}">Modifier</a>
+            <a href="/delete/{{ trick.id }}">Supprimer</a>
+        </p>
+        <p>
+            <img src="{{ trick.author.img.url }}" alt="{{ trick.author.img.alt }}" style="width:50px">
+            Posté par {{ trick.author.fullName }}
+        </p>
+
+        <div>
+            {% for img in trick.imgs %}
+                    <img src="{{ img.url }}" alt="{{ img.alt }}">
+            {% endfor %}
+        </div>
+
+        <div>
+            {% for video in trick.videos %}
+                    <video controls>
+                        <source src="{{ video.url }}" type="video/mp4">
+                        <p>{{ video.alt }}</p>
+                    </video>
+            {% endfor %}
+        </div>
+
+        <h2>Explications</h2>
+        <p>{{ trick.description }}</p>
+
+    </article>
+    
+{% endblock %}

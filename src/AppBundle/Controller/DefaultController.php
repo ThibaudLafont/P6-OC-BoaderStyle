@@ -9,13 +9,24 @@ use Symfony\Component\HttpFoundation\Request;
 class DefaultController extends Controller
 {
     /**
-     * @Route("/", name="homepage")
+     * @Route("/", name="trick_list")
      */
-    public function indexAction(Request $request)
+    public function listAction(Request $request)
     {
-        // replace this example code with whatever you need
-        return $this->render('default/index.html.twig', [
-            'base_dir' => realpath($this->getParameter('kernel.project_dir')).DIRECTORY_SEPARATOR,
-        ]);
+        $em = $this->getDoctrine()->getManager()->getRepository('AppBundle:Trick');
+        $tricks = $em->findAll();
+
+        return $this->render('trick/_list.html.twig', compact('tricks'));
+    }
+
+    /**
+     * @Route("/trick/{id}", name="trick_show")
+     */
+    public function Action(Request $request, $id)
+    {
+        $em = $this->getDoctrine()->getManager()->getRepository('AppBundle:Trick');
+        $trick = $em->find($id);
+
+        return $this->render('trick/_show.html.twig', compact('trick'));
     }
 }
