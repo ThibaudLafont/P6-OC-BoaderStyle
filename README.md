@@ -13,9 +13,9 @@ The requested web-application's engineering will be segmented, according to abov
 | ✓ | 2  | Symfony implementation                      | ~~30min~~   | 30min   |
 | ✓ | 3  | Entities and database creation              | ~~0.5day~~  | 0.25day |
 | ✓ | 14 | Gulp implementation                         | ~~0.5day~~  | 0.25day |
-| ✕ | ?  | UML diagrams creation                       | 0.75day     |         |
-| ✕ | ?  | DataFixtures creation                       | 0.25day     |         |
-| ✕ | 2  | Entities rework                             | 1 day       |         | 
+| ✕ | 16 | UML diagrams creation                       | 1day        |         |
+| ✕ | 17 | DataFixtures creation                       | ~~0.25day~~ | 0.5day  |
+| ✕ | 2  | Entities rework                             | ~~1day~~    | 2days   | 
 | ✕ | 4  | Home and show pages creation                | 0.5days     |         |
 | ✕ | 5  | Add/edit/delete figure features creation    | 1.5days     |         |
 | ✕ | 6  | Chat feature creation                       | 1 day       |         |
@@ -25,4 +25,4 @@ The requested web-application's engineering will be segmented, according to abov
 | ✕ | 8  | Home and show pages front-work              | 2days       |         |
 | ✕ | 9  | Chat feature front-work                     | 3.5days     |         |
 | ✕ | 10 | Forms front-work                            | 0.5day      |         |
-| ✕ | ?  | Graphical charter                           | 1 hour      |         |
+| ✕ | 12 | Graphical charter                           | 1 hour      |         |

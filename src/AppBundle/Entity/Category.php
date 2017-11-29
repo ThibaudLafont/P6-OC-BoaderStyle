@@ -66,5 +66,9 @@ class Category
     {
         return $this->name;
     }
+
+    public function getTricks(){
+        return $this->tricks;
+    }
 }
 

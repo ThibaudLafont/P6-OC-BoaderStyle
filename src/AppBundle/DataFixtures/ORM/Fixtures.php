@@ -2,14 +2,14 @@
 namespace AppBundle\DataFixtures\ORM;
 
 // Uses
+use AppBundle\Entity\Message;
 use AppBundle\Entity\User;
 use AppBundle\Entity\Trick;
 use AppBundle\Entity\Category;
 
-use AppBundle\Entity\TrickVideo;
-use AppBundle\Entity\TrickImage;
-use AppBundle\Entity\CoverImage;
-use AppBundle\Entity\UserImage;
+use AppBundle\Entity\Media\TrickVideo;
+use AppBundle\Entity\Media\TrickImage;
+use AppBundle\Entity\Media\UserImage;
 
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\Persistence\ObjectManager;
@@ -19,15 +19,17 @@ class Fixtures extends Fixture
 
     public function load(ObjectManager $manager){
 
-        $this->usersLoad($manager);
+        $this->loadUsers($manager);
 
         $this->loadCategories($manager);
 
-        $this->tricksLoad($manager);
+        $this->loadTricks($manager);
+
+        $this->loadMessages($manager);
 
     }
 
-    private function usersLoad($manager){
+    private function loadUsers($manager){
         $users =
             [
                 [
@@ -59,7 +61,6 @@ class Fixtures extends Fixture
             $img->setName($imgName);
             $img->setAlt($imgAlt);
             $img->setFormat('jpg');
-            $img->setPath('/img/users/');
 
             $user = new User();
             $user->setFirstName($value['FirstName']);
@@ -76,8 +77,8 @@ class Fixtures extends Fixture
     private function loadCategories($manager){
         $categories =
             [
-                'Style One',
-                'Style Two'
+                'One',
+                'Two'
             ];
 
         foreach($categories as $value){
@@ -88,7 +89,7 @@ class Fixtures extends Fixture
         $manager->flush();
     }
 
-    private function tricksLoad($manager)
+    private function loadTricks($manager)
     {
 
         $tricks =
@@ -104,7 +105,7 @@ class Fixtures extends Fixture
                     cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
                     proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
                     'author' => 'BoucheBee',
-                    'category' => 'Style One',
+                    'category' => 'One',
                     'images' =>
                         [
                             [
@@ -128,24 +129,12 @@ class Fixtures extends Fixture
                             [
                                 'name' => 'Vid1_Trick1',
                                 'alt' => 'Vidéo 1 de la figure 1',
-                                'format' => 'mp4',
-                                'cover' =>
-                                    [
-                                        'name' => 'Front_Vid1_Trick1',
-                                        'format' => 'jpg',
-                                        'alt' => 'Représente X'
-                                    ]
+                                'format' => 'mp4'
                             ],
                             [
                                 'name' => 'Vid2_Trick1',
                                 'alt' => 'Vidéo 2 de la figure 1',
-                                'format' => 'mp4',
-                                'cover' =>
-                                    [
-                                        'name' => 'Front_Vid2_Trick1',
-                                        'format' => 'jpg',
-                                        'alt' => 'Représente X'
-                                    ]
+                                'format' => 'mp4'
                             ]
                         ]
                 ],
@@ -161,7 +150,7 @@ class Fixtures extends Fixture
                         cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
                         proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
                     'author' => 'Barbichel',
-                    'category' => 'Style One',
+                    'category' => 'One',
                     'images' =>
                         [
                             [
@@ -175,24 +164,12 @@ class Fixtures extends Fixture
                             [
                                 'name' => 'Vid1_Trick2',
                                 'alt' => 'Vidéo 1 de la figure 2',
-                                'format' => 'mp4',
-                                'cover' =>
-                                    [
-                                        'name' => 'Front_Vid1_Trick2',
-                                        'format' => 'jpg',
-                                        'alt' => 'Représente X'
-                                    ]
+                                'format' => 'mp4'
                             ],
                             [
                                 'name' => 'Vid2_Trick2',
                                 'alt' => 'Vidéo 2 de la figure 2',
-                                'format' => 'mp4',
-                                'cover' =>
-                                    [
-                                        'name' => 'Front_Vid2_Trick2',
-                                        'format' => 'jpg',
-                                        'alt' => 'Représente X'
-                                    ]
+                                'format' => 'mp4'
                             ],
                         ]
                 ],
@@ -208,7 +185,7 @@ class Fixtures extends Fixture
                         cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
                         proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
                     'author' => 'Marie',
-                    'category' => 'Style Two',
+                    'category' => 'Two',
                     'images' =>
                         [
                             [
@@ -232,24 +209,12 @@ class Fixtures extends Fixture
                             [
                                 'name' => 'Vid1_Trick3',
                                 'alt' => 'Vidéo 1 de la figure 3',
-                                'format' => 'mp4',
-                                'cover' =>
-                                    [
-                                        'name' => 'Front_Vid1_Trick3',
-                                        'format' => 'jpg',
-                                        'alt' => 'Représente X'
-                                    ]
+                                'format' => 'mp4'
                             ],
                             [
                                 'name' => 'Vid2_Trick3',
                                 'alt' => 'Vidéo 2 de la figure 3',
-                                'format' => 'mp4',
-                                'cover' =>
-                                    [
-                                        'name' => 'Front_Vid2_Trick3',
-                                        'format' => 'jpg',
-                                        'alt' => 'Représente X'
-                                    ]
+                                'format' => 'mp4'
                             ]
                         ]
                 ]
@@ -278,7 +243,6 @@ class Fixtures extends Fixture
                 $img = new TrickImage();
                 $img->setName($img_value['name']);
                 $img->setFormat($img_value['format']);
-                $img->setPath('/img/tricks/');
                 $img->setAlt($img_value['alt']);
                 $img->setTrick($trick);
 
@@ -288,29 +252,46 @@ class Fixtures extends Fixture
 
             // Videos creation
             foreach ($value['videos'] as $video_value) {
-                // CoverImage creation
-                $img = new CoverImage();
-                $img->setName($video_value['cover']['name']);
-                $img->setFormat($video_value['cover']['format']);
-                $img->setPath('/img/tricks/video_covers/');
-                $img->setAlt($video_value['cover']['alt']);
-
-                $manager->persist($img);
-                $manager->flush();
-
                 // Video creation
                 $video = new TrickVideo();
                 $video->setName($video_value['name']);
                 $video->setFormat($video_value['format']);
-                $video->setPath('/videos/tricks/');
                 $video->setAlt($video_value['alt']);
-                $video->setCover($img);
                 $video->setTrick($trick);
 
                 $manager->persist($video);
                 $manager->flush();
             }
         }
+    }
+
+    private function loadMessages($manager){
+        // Users find
+        $em = $manager->getRepository('AppBundle:User');
+        $users = $em->findAll();
+        $userMax = count($users) - 1;
+
+
+        // Tricks find
+        $em = $manager->getRepository('AppBundle:Trick');
+        $tricks = $em->findAll();
+        $trickMax = count($tricks) - 1;
+
+        for($i=0; $i<25; $i++){
+            $user = $users[mt_rand(0, $userMax)];
+            $trick = $tricks[mt_rand(0, $trickMax)];
+            $date = new \DateTime('now', new \DateTimeZone('Europe/Paris'));
+
+            $message = new Message();
+            $message->setTrick($trick);
+            $message->setUser($user);
+            $message->setContent('lorem ipsum et blabla bla blablabla');
+            $message->setCreationDate($date);
+
+            $manager->persist($message);
+        }
+
+        $manager->flush();
     }
 
 }

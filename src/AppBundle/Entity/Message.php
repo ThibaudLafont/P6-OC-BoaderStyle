@@ -127,5 +127,12 @@ class Message
     {
         return $this->user;
     }
+
+    public function getTrick(){
+        return $this->trick;
+    }
+    public function setTrick($trick){
+        $this->trick = $trick;
+    }
 }
 

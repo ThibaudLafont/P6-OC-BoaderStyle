@@ -3,7 +3,7 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use AppBundle\Entity\UserImage as Image;
+use AppBundle\Entity\Media\UserImage;
 
 /**
  * User
@@ -52,7 +52,7 @@ class User
 
     /**
      * @ORM\OneToOne(
-     *     targetEntity="UserImage",
+     *     targetEntity="\AppBundle\Entity\Media\UserImage",
      *     cascade={"persist", "remove"}
      * )
      */
@@ -178,9 +178,9 @@ class User
     }
 
     /**
-     * @param Image $img
+     * @param UserImage $img
      */
-    public function setImg(Image $img){
+    public function setImg(UserImage $img){
         $this->img = $img;
     }
 
@@ -188,7 +188,11 @@ class User
      * @return \AppBundle\Image
      */
     public function getImg(){
-        return $this->img();
+        return $this->img;
+    }
+
+    public function getFullName(){
+        return $this->getFirstName() . ' ' . $this->getLastName();
     }
 }
 

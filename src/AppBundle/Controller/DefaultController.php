@@ -13,7 +13,7 @@ class DefaultController extends Controller
      */
     public function indexAction(Request $request)
     {
-        $em = $this->getDoctrine()->getManager()->getRepository('AppBundle:Figure');
+        $em = $this->getDoctrine()->getManager()->getRepository('AppBundle:Trick');
         $tricks = $em->findAll();
 
         return $this->render('list.html.twig', compact('tricks'));

@@ -46,12 +46,12 @@ class Trick
     private $category;
 
     /**
-     * @ORM\OneToMany(targetEntity="TrickImage", mappedBy="trick")
+     * @ORM\OneToMany(targetEntity="\AppBundle\Entity\Media\TrickImage", mappedBy="trick")
      */
     private $imgs;
 
     /**
-     * @ORM\OneToMany(targetEntity="TrickVideo", mappedBy="trick")
+     * @ORM\OneToMany(targetEntity="\AppBundle\Entity\Media\TrickVideo", mappedBy="trick")
      */
     private $videos;
 
@@ -131,6 +131,13 @@ class Trick
     }
     public function setCategory($category){
         $this->category = $category;
+    }
+
+    public function getImgs(){
+        return $this->imgs;
+    }
+    public function getVideos(){
+        return $this->videos;
     }
 }
 
