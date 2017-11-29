@@ -12,8 +12,13 @@ use Doctrine\ORM\Mapping as ORM;
 class TrickVideo extends TrickMedia
 {
 
+    /**
+     * @ORM\ManyToOne(targetEntity="\AppBundle\Entity\Trick", inversedBy="videos")
+     */
+    private $trick;
+
     // CONSTS
-    const WEB_DIRECTORY = '/web/video/tricks/';
+    const WEB_DIRECTORY = '/web/media/video/tricks/';
     const VALID_FORMATS = ['mp4', 'avi'];
 
 }

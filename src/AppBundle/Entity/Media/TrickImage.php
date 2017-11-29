@@ -13,8 +13,13 @@ use AppBundle\Entity\Trick;
 class TrickImage extends TrickMedia
 {
 
+    /**
+     * @ORM\ManyToOne(targetEntity="\AppBundle\Entity\Trick", inversedBy="imgs")
+     */
+    private $trick;
+
     // CONSTS
-    const WEB_DIRECTORY = '/web/img/tricks/';
+    const WEB_DIRECTORY = '/web/media/img/tricks/';
     const VALID_FORMATS = ['jpg', 'png'];
 
 }

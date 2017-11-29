@@ -17,11 +17,6 @@ use Doctrine\ORM\Mapping as ORM;
 abstract class TrickMedia extends File
 {
 
-    /**
-     * @ORM\ManyToOne(targetEntity="\AppBundle\Entity\Trick", inversedBy="imgs")
-     */
-    private $trick;
-
     public function getTrick(){
         return $this->trick;
     }

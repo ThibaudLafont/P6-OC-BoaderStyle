@@ -13,7 +13,7 @@ class UserImage extends File
 {
 
     // CONSTS
-    const WEB_DIRECTORY = '/web/img/users/';
+    const WEB_DIRECTORY = '/web/media/img/users/';
     const VALID_FORMATS = ['jpg'];
 
 }
