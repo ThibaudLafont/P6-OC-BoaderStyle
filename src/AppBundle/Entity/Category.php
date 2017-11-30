@@ -33,19 +33,12 @@ class Category
      */
     private $tricks;
 
-    /**
-     * Get id
-     *
-     * @return int
-     */
-    public function getId()
-    {
-        return $this->id;
-    }
+
+    ///////////////////
+    ///// SETTERS /////
+    ///////////////////
 
     /**
-     * Set name
-     *
      * @param string $name
      *
      * @return Category
@@ -58,6 +51,32 @@ class Category
     }
 
     /**
+     * @param Trick $trick
+     *
+     * @return Category
+     */
+    public function setTricks(Trick $trick){
+        $this->tricks[] = $trick;
+
+        return $this;
+    }
+
+
+    ///////////////////
+    ///// GETTERS /////
+    ///////////////////
+
+    /**
+     * Get id
+     *
+     * @return int
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
      * Get name
      *
      * @return string
@@ -67,6 +86,9 @@ class Category
         return $this->name;
     }
 
+    /**
+     * @return Trick
+     */
     public function getTricks(){
         return $this->tricks;
     }

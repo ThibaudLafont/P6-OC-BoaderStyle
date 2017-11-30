@@ -46,15 +46,9 @@ class Message
     private $trick;
 
 
-    /**
-     * Get id
-     *
-     * @return int
-     */
-    public function getId()
-    {
-        return $this->id;
-    }
+    ///////////////////
+    ///// SETTERS /////
+    ///////////////////
 
     /**
      * Set creationDate
@@ -68,16 +62,6 @@ class Message
         $this->creationDate = $creationDate;
 
         return $this;
-    }
-
-    /**
-     * Get creationDate
-     *
-     * @return \DateTime
-     */
-    public function getCreationDate()
-    {
-        return $this->creationDate;
     }
 
     /**
@@ -95,6 +79,52 @@ class Message
     }
 
     /**
+     * Set user
+     *
+     * @param User $user
+     *
+     * @return Message
+     */
+    public function setUser(User $user)
+    {
+        $this->user = $user;
+
+        return $this;
+    }
+
+    /**
+     * @param Trick $trick
+     */
+    public function setTrick(Trick $trick){
+        $this->trick = $trick;
+    }
+
+
+    ///////////////////
+    ///// GETTERS /////
+    ///////////////////
+
+    /**
+     * Get id
+     *
+     * @return int
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Get creationDate
+     *
+     * @return \DateTime
+     */
+    public function getCreationDate()
+    {
+        return $this->creationDate;
+    }
+
+    /**
      * Get content
      *
      * @return string
@@ -105,34 +135,20 @@ class Message
     }
 
     /**
-     * Set user
-     *
-     * @param \stdClass $user
-     *
-     * @return Message
-     */
-    public function setUser($user)
-    {
-        $this->user = $user;
-
-        return $this;
-    }
-
-    /**
      * Get user
      *
-     * @return \stdClass
+     * @return User
      */
     public function getUser()
     {
         return $this->user;
     }
 
+    /**
+     * @return Trick
+     */
     public function getTrick(){
         return $this->trick;
-    }
-    public function setTrick($trick){
-        $this->trick = $trick;
     }
 }
 

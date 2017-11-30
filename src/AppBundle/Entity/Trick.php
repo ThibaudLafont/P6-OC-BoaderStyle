@@ -2,6 +2,8 @@
 
 namespace AppBundle\Entity;
 
+use AppBundle\Entity\Media\TrickImage;
+use AppBundle\Entity\Media\TrickVideo;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -61,19 +63,34 @@ class Trick
     private $messages;
 
 
+      ///////////////////
+     ///// SPECIFIC ////
+    ///////////////////
+
     /**
-     * Get id
+     * Return url to trick_show
      *
-     * @return int
+     * @return string
      */
-    public function getId()
-    {
-        return $this->id;
+    public function getUrl(){
+        return '/trick/' . $this->getId();
     }
 
     /**
-     * Set name
+     * Return the 200 first characters of trick's description
      *
+     * @return bool|string
+     */
+    public function getDescriptionFrag(){
+        return substr($this->description, 0, 200);
+    }
+
+
+      ///////////////////
+     ///// SETTERS /////
+    ///////////////////
+
+    /**
      * @param string $name
      *
      * @return Trick
@@ -86,18 +103,6 @@ class Trick
     }
 
     /**
-     * Get name
-     *
-     * @return string
-     */
-    public function getName()
-    {
-        return $this->name;
-    }
-
-    /**
-     * Set description
-     *
      * @param string $description
      *
      * @return Trick
@@ -110,8 +115,82 @@ class Trick
     }
 
     /**
-     * Get description
+     * @param User $author
      *
+     * @return Trick
+     */
+    public function setAuthor(User $author){
+        $this->author = $author;
+
+        return $this;
+    }
+
+    /**
+     * @param Category $category
+     *
+     * @return Trick
+     */
+    public function setCategory(Category $category){
+        $this->category = $category;
+
+        return $this;
+    }
+
+    /**
+     * @param TrickImage $img
+     *
+     * @return Trick
+     */
+    public function setImgs(TrickImage $img){
+        $this->img[] = $img;
+
+        return $this;
+    }
+
+    /**
+     * @param TrickVideo $video
+     *
+     * @return Trick
+     */
+    public function setVideos(TrickVideo $video){
+        $this->videos[] = $video;
+
+        return $this;
+    }
+
+    /**
+     * @param Message $message
+     *
+     * @return Trick
+     */
+    public function setMessages(Message $message){
+        $this->messages[] = $message;
+
+        return $this;
+    }
+
+
+    ///////////////////
+    ///// GETTERS /////
+    ///////////////////
+
+    /**
+     * @return int
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * @return string
+     */
+    public function getName()
+    {
+        return $this->name;
+    }
+
+    /**
      * @return string
      */
     public function getDescription()
@@ -119,32 +198,40 @@ class Trick
         return $this->description;
     }
 
+    /**
+     * @return User
+     */
     public function getAuthor(){
         return $this->author;
     }
-    public function setAuthor($author){
-        $this->author = $author;
-    }
 
+    /**
+     * @return Category
+     */
     public function getCategory(){
         return $this->category;
     }
-    public function setCategory($category){
-        $this->category = $category;
-    }
 
-    public function getImgs(){
+    /**
+     * @return TrickImage
+     */
+    public function getImgs()
+    {
         return $this->imgs;
     }
+
+    /**
+     * @return TrickVideo
+     */
     public function getVideos(){
         return $this->videos;
     }
 
-    public function getUrl(){
-        return '/trick/' . $this->getId();
-    }
-    public function getDescriptionFrag(){
-        return substr($this->description, 0, 200);
+    /**
+     * @return Message
+     */
+    public function getMessages(){
+        return $this->messages;
     }
 }
 

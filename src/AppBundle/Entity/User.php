@@ -71,15 +71,24 @@ class User
      */
     private $tricks;
 
+
+      ///////////////////
+     ///// SPECIFIC ////
+    ///////////////////
+
     /**
-     * Get id
+     * Concat and return Firstname + lastname
      *
-     * @return int
+     * @return string
      */
-    public function getId()
-    {
-        return $this->id;
+    public function getFullName(){
+        return $this->getFirstName() . ' ' . $this->getLastName();
     }
+
+
+      ///////////////////
+     ///// SETTERS /////
+    ///////////////////
 
     /**
      * Set firstName
@@ -93,16 +102,6 @@ class User
         $this->firstName = $firstName;
 
         return $this;
-    }
-
-    /**
-     * Get firstName
-     *
-     * @return string
-     */
-    public function getFirstName()
-    {
-        return $this->firstName;
     }
 
     /**
@@ -120,16 +119,6 @@ class User
     }
 
     /**
-     * Get lastName
-     *
-     * @return string
-     */
-    public function getLastName()
-    {
-        return $this->lastName;
-    }
-
-    /**
      * Set userName
      *
      * @param string $userName
@@ -141,16 +130,6 @@ class User
         $this->userName = $userName;
 
         return $this;
-    }
-
-    /**
-     * Get userName
-     *
-     * @return string
-     */
-    public function getUserName()
-    {
-        return $this->userName;
     }
 
     /**
@@ -168,6 +147,58 @@ class User
     }
 
     /**
+     * @param UserImage $img
+     */
+    public function setImg(UserImage $img){
+        $this->img = $img;
+    }
+
+
+    ///////////////////
+    ///// GETTERS /////
+    ///////////////////
+
+    /**
+     * Get id
+     *
+     * @return int
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Get firstName
+     *
+     * @return string
+     */
+    public function getFirstName()
+    {
+        return $this->firstName;
+    }
+
+    /**
+     * Get lastName
+     *
+     * @return string
+     */
+    public function getLastName()
+    {
+        return $this->lastName;
+    }
+
+    /**
+     * Get userName
+     *
+     * @return string
+     */
+    public function getUserName()
+    {
+        return $this->userName;
+    }
+
+    /**
      * Get password
      *
      * @return string
@@ -178,21 +209,11 @@ class User
     }
 
     /**
-     * @param UserImage $img
-     */
-    public function setImg(UserImage $img){
-        $this->img = $img;
-    }
-
-    /**
-     * @return \AppBundle\Image
+     * @return UserImage
      */
     public function getImg(){
         return $this->img;
     }
 
-    public function getFullName(){
-        return $this->getFirstName() . ' ' . $this->getLastName();
-    }
 }
 

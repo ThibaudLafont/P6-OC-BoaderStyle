@@ -9,6 +9,7 @@
 namespace AppBundle\Entity\Media;
 
 
+use AppBundle\Entity\Trick;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -17,11 +18,27 @@ use Doctrine\ORM\Mapping as ORM;
 abstract class TrickMedia extends File
 {
 
+    ///////////////////
+    ///// SETTERS /////
+    ///////////////////
+
+    /**
+     * @param Trick $trick
+     */
+    public function setTrick(Trick $trick){
+        $this->trick = $trick;
+    }
+
+
+    ///////////////////
+    ///// GETTERS /////
+    ///////////////////
+
+    /**
+     * @return Trick
+     */
     public function getTrick(){
         return $this->trick;
-    }
-    public function setTrick($trick){
-        $this->trick = $trick;
     }
 
 }
