@@ -2,6 +2,7 @@
 namespace AppBundle\Entity\Media;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 use AppBundle\Entity\Trick;
 
 /**
@@ -14,12 +15,33 @@ class TrickImage extends TrickMedia
 {
 
     /**
-     * @ORM\ManyToOne(targetEntity="\AppBundle\Entity\Trick", inversedBy="imgs")
+     * @ORM\ManyToOne(
+     *     targetEntity="\AppBundle\Entity\Trick",
+     *     inversedBy="imgs",
+     *     cascade={"persist"}
+     * )
      */
-    private $trick;
+    protected $trick;
+
+    /**
+     * @ORM\Column(type="string")
+     *
+     * @Assert\NotBlank(message="Please, upload the product brochure as a PDF file.")
+     * @Assert\Image(
+     *     mimeTypes={ "image/jpeg", "image/png" }
+     * )
+     */
+    private $file;
 
     // CONSTS
     const WEB_DIRECTORY = '/media/img/tricks/';
-    const VALID_FORMATS = ['jpg', 'png'];
+    const VALID_FORMATS = ['jpeg', 'jpg', 'png'];
+
+    public function getFile(){
+        return $this->file;
+    }
+    public function setFile($file){
+        $this->file = $file;
+    }
 
 }

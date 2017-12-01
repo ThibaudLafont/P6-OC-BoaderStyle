@@ -2,6 +2,7 @@
 namespace AppBundle\Entity\Media;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\MappedSuperclass()
@@ -21,7 +22,14 @@ abstract class File
     /**
      * @var string
      *
-     * @ORM\Column(name="name", type="string", length=255, unique=true)
+     * @ORM\Column(name="name", type="string", length=255)
+     * @Assert\NotBlank(message="Le nom est obligatoire")
+     * @Assert\Length(
+     *      min = 2,
+     *      max = 55,
+     *      minMessage = "Le nom doit faire au moins {{ limit }} caractères",
+     *      maxMessage = "Le nom doit faire moins de {{ limit }} caractères"
+     * )
      */
     protected $name;
 
@@ -36,6 +44,13 @@ abstract class File
      * @var string
      *
      * @ORM\Column(name="alt", type="string", length=255)
+     * @Assert\NotBlank(message="La description alternative est obligatoire")
+     * @Assert\Length(
+     *      min = 2,
+     *      max = 55,
+     *      minMessage = "La description alternative doit faire au moins {{ limit }} caractères",
+     *      maxMessage = "La description alternative doit faire moins de {{ limit }} caractères"
+     * )
      */
     protected $alt;
 
@@ -79,8 +94,11 @@ abstract class File
     }
 
     public function getUrl(){
-        $url = static::WEB_DIRECTORY . $this->getName() . '.' . $this->getFormat();
+        $url = static::WEB_DIRECTORY . $this->getFullFileName();
         return $url;
     }
 
+    public function getFullFileName(){
+        return $this->getName() . '.' . $this->getFormat();
+    }
 }

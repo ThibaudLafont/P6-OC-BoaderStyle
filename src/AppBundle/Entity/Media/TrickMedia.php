@@ -1,11 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: thib
- * Date: 29/11/17
- * Time: 09:39
- */
-
 namespace AppBundle\Entity\Media;
 
 
