@@ -5,7 +5,29 @@
     <h1>Ajouter une figure</h1>
 
     {{ form_start(form) }}
-    {{ form_widget(form) }}
-    {{ form_end(form) }}
+    <h3>Figure</h3>
+    {# render the task's only field: description #}
+    {{ form_row(form.name) }}</br>
+    {{ form_row(form.description) }}</br>
+    {{ form_row(form.category) }}</br>
+    {{ form_row(form.author) }}</br>
+
+    <h3>Photos</h3>
+    <ul class="imgs" data-prototype="{{ form_widget(form.imgs.vars.prototype)|e('html_attr') }}">
+        {# iterate over each existing tag and render its only field: name #}
+        {% for img in form.imgs %}
+            <li>{{ form_row(img) }}</li>
+        {% endfor %}
+    </ul>
+
+    {{ form_row(form.save) }}</br>
+    {{ form_rest(form) }}
+{% endblock %}
+
+{% block javascripts %}
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="/js/main.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
 {% endblock %}

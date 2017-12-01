@@ -94,6 +94,10 @@ class Trick
         return '/trick/' . $this->getId();
     }
 
+    public function removeImg(TrickImage $img){
+        $this->tags->removeElement($img);
+    }
+
     /**
      * Return the 200 first characters of trick's description
      *
@@ -159,8 +163,23 @@ class Trick
      *
      * @return Trick
      */
-    public function setImgs(TrickImage $img){
+    public function setImg(TrickImage $img){
         $this->imgs[] = $img;
+
+        return $this;
+    }
+
+    /**
+     * @param \Array $imgs
+     *
+     * @return Trick
+     */
+    public function setImgs(Array $imgs){
+        foreach($imgs as $img){
+            if(!$img instanceof TrickImage) return;
+        }
+
+        $this->imgs = $imgs;
 
         return $this;
     }

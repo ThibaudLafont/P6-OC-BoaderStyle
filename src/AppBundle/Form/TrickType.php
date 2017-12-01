@@ -26,8 +26,8 @@ class TrickType extends AbstractType
                 [
                     'label' => 'Nom'
                 ]
-            )
-            ->add(
+            );
+        $builder->add(
                 'category',
                 EntityType::class,
                 [
@@ -53,10 +53,12 @@ class TrickType extends AbstractType
                 'imgs',
                 CollectionType::class,
                 [
-                    'entry_type' => ImageType::class
+                    'entry_type' => ImageType::class,
+                    'allow_add' => true,
+                    'allow_delete' => true
                 ]
             )
-            ->add('Save', SubmitType::class);
+            ->add('save', SubmitType::class);
     }
 
     /**
@@ -65,7 +67,11 @@ class TrickType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'AppBundle\Entity\Trick'
+            'data_class' => 'AppBundle\Entity\Trick',
+            'csrf_protection' => true,
+            'csrf_field_name' => '_token',
+            // a unique key to help generate the secret token
+            'csrf_token_id'   => '2799158ad58cb741f1e0b663fd3cd423',
         ));
     }
 

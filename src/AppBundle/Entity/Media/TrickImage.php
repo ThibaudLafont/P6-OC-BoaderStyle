@@ -31,7 +31,7 @@ class TrickImage extends TrickMedia
      *     mimeTypes={ "image/jpeg", "image/png" }
      * )
      */
-    private $file;
+    public $file;
 
     // CONSTS
     const WEB_DIRECTORY = '/media/img/tricks/';
