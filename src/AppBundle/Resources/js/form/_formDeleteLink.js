@@ -1,4 +1,4 @@
-function addImgFormDeleteLink($tagFormLi) {
+function formDeleteLink($tagFormLi) {
     var $removeFormA = $('<a href="#">delete this tag</a>');
     $tagFormLi.append($removeFormA);
 

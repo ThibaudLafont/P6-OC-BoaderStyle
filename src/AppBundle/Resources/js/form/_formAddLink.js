@@ -1,4 +1,4 @@
-function addFormLink($collectionHolder, $newLinkLi) {
+function formAddLink($collectionHolder, $newLinkLi) {
     // Get the data-prototype explained earlier
     var prototype = $collectionHolder.data('prototype');
 
@@ -21,5 +21,5 @@ function addFormLink($collectionHolder, $newLinkLi) {
     // Display the form in the page in an li, before the "Add a tag" link li
     var $newFormLi = $('<li></li>').append(newForm);
     $newLinkLi.before($newFormLi);
-    addImgFormDeleteLink($newFormLi);
+    formDeleteLink($newFormLi);
 }

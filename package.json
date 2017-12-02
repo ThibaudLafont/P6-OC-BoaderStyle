@@ -11,5 +11,8 @@
     "gulp-concat": "^2.6.1",
     "gulp-livereload": "^3.8.1",
     "gulp-sourcemaps": "^2.6.1"
+  },
+  "dependencies": {
+    "symfony-collection": "github:ninsuo/symfony-collection"
   }
 }

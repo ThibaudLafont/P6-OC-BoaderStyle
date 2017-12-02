@@ -10,7 +10,6 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
-use Symfony\Component\Form\Extension\Core\Type\FileType;
 
 class TrickType extends AbstractType
 {
@@ -26,8 +25,12 @@ class TrickType extends AbstractType
                 [
                     'label' => 'Nom'
                 ]
-            );
-        $builder->add(
+            )
+            ->add(
+                'description',
+                TextareaType::class
+            )
+            ->add(
                 'category',
                 EntityType::class,
                 [
@@ -46,16 +49,16 @@ class TrickType extends AbstractType
                 ]
             )
             ->add(
-                'description',
-                TextareaType::class
-            )
-            ->add(
                 'imgs',
                 CollectionType::class,
                 [
                     'entry_type' => ImageType::class,
                     'allow_add' => true,
-                    'allow_delete' => true
+                    'allow_delete' => true,
+                    'prototype' => true,
+                    'attr' => [
+                        'class' => 'container',
+                    ]
                 ]
             )
             ->add('save', SubmitType::class);

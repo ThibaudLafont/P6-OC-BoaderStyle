@@ -20,6 +20,6 @@ jQuery(document).ready(function() {
         e.preventDefault();
 
         // add a new tag form (see next code block)
-        addImgForm($collectionHolder, $newLinkLi);
+        formAddLink($collectionHolder, $newLinkLi);
     });
 });

@@ -1,4 +1,4 @@
-function addFormFrag($collectionHolder, $newLinkLi) {
+function formAddLink($collectionHolder, $newLinkLi) {
     // Get the data-prototype explained earlier
     var prototype = $collectionHolder.data('prototype');
 
@@ -20,8 +20,8 @@ function addFormFrag($collectionHolder, $newLinkLi) {
 
     // Display the form in the page in an li, before the "Add a tag" link li
     var $newFormLi = $('<li></li>').append(newForm);
-    formDeleteLink($newFormLi);
     $newLinkLi.before($newFormLi);
+    formDeleteLink($newFormLi);
 }
 
 function formDeleteLink($tagFormLi) {
@@ -58,8 +58,7 @@ jQuery(document).ready(function() {
         e.preventDefault();
 
         // add a new tag form (see next code block)
-        addFormFrag($collectionHolder, $newLinkLi);
+        formAddLink($collectionHolder, $newLinkLi);
     });
 });
-
 //# sourceMappingURL=main.js.map
