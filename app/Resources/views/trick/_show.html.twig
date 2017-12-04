@@ -23,10 +23,7 @@
 
         <div>
             {% for video in trick.videos %}
-                    <video controls>
-                        <source src="{{ video.url }}" type="video/mp4">
-                        <p>{{ video.alt }}</p>
-                    </video>
+                <embed width="250" height="120" src="{{ video.src }}">
             {% endfor %}
         </div>
 

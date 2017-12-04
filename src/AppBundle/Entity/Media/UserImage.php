@@ -9,7 +9,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table(name="user_image")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\UserImageRepository")
  */
-class UserImage extends File
+class UserImage extends Local
 {
 
     // CONSTS

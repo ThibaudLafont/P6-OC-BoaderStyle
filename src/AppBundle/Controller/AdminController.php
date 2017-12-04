@@ -3,6 +3,7 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Entity\Media\TrickImage;
+use AppBundle\Entity\Media\TrickVideo;
 use AppBundle\Entity\Trick;
 use AppBundle\Form\TrickType;
 use AppBundle\Form\TrickImageType;

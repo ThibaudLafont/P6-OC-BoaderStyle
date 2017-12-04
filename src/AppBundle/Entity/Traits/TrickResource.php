@@ -1,15 +1,17 @@
 <?php
-namespace AppBundle\Entity\Media;
+namespace AppBundle\Entity\Traits;
 
 
 use AppBundle\Entity\Trick;
 use Doctrine\ORM\Mapping as ORM;
 
-/**
- * @ORM\MappedSuperclass()
- */
-abstract class TrickMedia extends File
+trait TrickResource
 {
+
+    /**
+     * @ORM\Column(name="position", type="integer")
+     */
+    protected $position;
 
     ///////////////////
     ///// SETTERS /////
@@ -20,6 +22,9 @@ abstract class TrickMedia extends File
      */
     public function setTrick(Trick $trick){
         $this->trick = $trick;
+    }
+    public function setPosition($position){
+        $this->position = $position;
     }
 
 
@@ -32,6 +37,9 @@ abstract class TrickMedia extends File
      */
     public function getTrick(){
         return $this->trick;
+    }
+    public function getPosition(){
+        return $this->position;
     }
 
 }

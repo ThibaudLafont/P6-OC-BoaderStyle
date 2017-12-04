@@ -189,6 +189,17 @@ class Trick
      *
      * @return Trick
      */
+    public function setVideo(TrickVideo $video){
+        $this->videos[] = $video;
+
+        return $this;
+    }
+
+    /**
+     * @param TrickVideo $video
+     *
+     * @return Trick
+     */
     public function setVideos(TrickVideo $video){
         $this->videos[] = $video;
 

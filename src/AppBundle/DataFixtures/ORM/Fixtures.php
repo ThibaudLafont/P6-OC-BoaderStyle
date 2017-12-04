@@ -129,12 +129,12 @@ class Fixtures extends Fixture
                             [
                                 'name' => 'Vid1_Trick1',
                                 'alt' => 'Vidéo 1 de la figure 1',
-                                'format' => 'mp4'
+                                'src' => 'https://www.youtube.com/watch?v=eRsRIgepQtM'
                             ],
                             [
                                 'name' => 'Vid2_Trick1',
                                 'alt' => 'Vidéo 2 de la figure 1',
-                                'format' => 'mp4'
+                                'src' => 'https://www.youtube.com/watch?v=eRsRIgepQtM'
                             ]
                         ]
                 ],
@@ -164,12 +164,12 @@ class Fixtures extends Fixture
                             [
                                 'name' => 'Vid1_Trick2',
                                 'alt' => 'Vidéo 1 de la figure 2',
-                                'format' => 'mp4'
+                                'src' => 'https://www.youtube.com/watch?v=eRsRIgepQtM'
                             ],
                             [
                                 'name' => 'Vid2_Trick2',
                                 'alt' => 'Vidéo 2 de la figure 2',
-                                'format' => 'mp4'
+                                'src' => 'https://www.youtube.com/watch?v=eRsRIgepQtM'
                             ],
                         ]
                 ],
@@ -209,12 +209,12 @@ class Fixtures extends Fixture
                             [
                                 'name' => 'Vid1_Trick3',
                                 'alt' => 'Vidéo 1 de la figure 3',
-                                'format' => 'mp4'
+                                'src' => 'https://www.youtube.com/watch?v=eRsRIgepQtM'
                             ],
                             [
                                 'name' => 'Vid2_Trick3',
                                 'alt' => 'Vidéo 2 de la figure 3',
-                                'format' => 'mp4'
+                                'src' => 'https://www.youtube.com/watch?v=eRsRIgepQtM'
                             ]
                         ]
                 ]
@@ -239,25 +239,31 @@ class Fixtures extends Fixture
             $manager->flush();
 
             // Images creation
+            $i=1;
             foreach ($value['images'] as $img_value) {
                 $img = new TrickImage();
                 $img->setName($img_value['name']);
                 $img->setFormat($img_value['format']);
                 $img->setAlt($img_value['alt']);
                 $img->setTrick($trick);
+                $img->setPosition($i);
+                $i++;
 
                 $manager->persist($img);
                 $manager->flush();
             }
 
             // Videos creation
+            $i=1;
             foreach ($value['videos'] as $video_value) {
                 // Video creation
                 $video = new TrickVideo();
                 $video->setName($video_value['name']);
-                $video->setFormat($video_value['format']);
+                $video->setSrc($video_value['src']);
                 $video->setAlt($video_value['alt']);
                 $video->setTrick($trick);
+                $video->setPosition($i);
+                $i++;
 
                 $manager->persist($video);
                 $manager->flush();

@@ -34,3 +34,8 @@ services:
         resource: '../../src/AppBundle/Entity/Media'
         public: true
         tags: ['media_entity.service_arguments']
+
+    AppBundle\Entity\Traits\:
+        resource: '../../src/AppBundle/Entity/Traits'
+        public: true
+        tags: ['media_trait.service_arguments']
