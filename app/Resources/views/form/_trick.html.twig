@@ -4,7 +4,9 @@
 
     <h1>Ajouter une figure</h1>
     <div class="container">
-        {% form_theme form 'form/jquery.collection.html.twig' %}
+        {% form_theme form
+            'form/jquery.collection.html.twig'
+        %}
         {{ form(form) }}
     </div>
 
@@ -51,12 +53,9 @@
     <script src="/js/jquery.collection.js"></script>
 
     <script type="text/javascript">
-//        $('.container').collection({
-//            'prefix': 'first-collection'
-//        });
-
-        $('#appbundle_trick_imgs').collection({
-            'prefix': 'second-collection'
+        $('.img').collection({
+            min: 1,
+            position_field_selector: '.img-position'
         });
     </script>
 

@@ -33,6 +33,11 @@ class TrickImage extends TrickMedia
      */
     public $file;
 
+    /**
+     * @ORM\Column(name="position", type="integer")
+     */
+    private $position;
+
     // CONSTS
     const WEB_DIRECTORY = '/media/img/tricks/';
     const VALID_FORMATS = ['jpeg', 'jpg', 'png'];
@@ -42,6 +47,13 @@ class TrickImage extends TrickMedia
     }
     public function setFile($file){
         $this->file = $file;
+    }
+
+    public function setPosition($position){
+        $this->position = $position;
+    }
+    public function getPosition(){
+        return $this->position;
     }
 
 }

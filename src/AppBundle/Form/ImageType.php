@@ -4,6 +4,7 @@ namespace AppBundle\Form;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 // Fields
@@ -38,6 +39,15 @@ class ImageType extends AbstractType
                 [
                     'label' => '↪'
                 ]
+            )
+            ->add(
+                'position',
+                HiddenType::class,
+                [
+                    'attr' => [
+                        'class' => 'img_position',
+                    ]
+                ]
             );
     }
 
@@ -56,7 +66,7 @@ class ImageType extends AbstractType
      */
     public function getBlockPrefix()
     {
-        return 'appbundle_trick_image';
+        return 'ImageType';
     }
 
 }

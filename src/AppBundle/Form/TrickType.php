@@ -57,7 +57,7 @@ class TrickType extends AbstractType
                     'allow_delete' => true,
                     'prototype' => true,
                     'attr' => [
-                        'class' => 'container',
+                        'class' => 'img',
                     ]
                 ]
             )

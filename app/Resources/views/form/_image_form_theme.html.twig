@@ -1,0 +1,40 @@
+{% block ImageType_row %}
+    <tr>
+        <td>
+            {{ form_label(form.name) }}
+        </td>
+        <td>
+            {{ form_row(form.name) }}
+        </td>
+    </tr>
+{% endblock %}
+
+{% block ImageType_widget %}
+    <table>
+        <tr>
+            <td>
+                {{ form_label(form.name) }}
+            </td>
+            <td>
+                {{ form_row(form.name) }}
+            </td>
+        </tr>
+        <tr>
+            <td>
+                {{ form_row(form.alt) }}
+            </td>
+        </tr>
+        <tr>
+            <td>
+                {{ form_row(form.file) }}
+            </td>
+        </tr>
+    </table>
+    <br/>
+    <p class="text-center">
+        <a href="#" class="collection-up btn btn-default">&lt;</a>
+        <a href="#" class="collection-remove btn btn-default">-</a>
+        <a href="#" class="collection-add btn btn-default">+</a>
+        <a href="#" class="collection-down btn btn-default">&gt;</a>
+    </p>
+{% endblock %}
