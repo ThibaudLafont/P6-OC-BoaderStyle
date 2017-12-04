@@ -16,8 +16,16 @@ class TrickVideo extends External
     use TrickResource;
 
     /**
-     * @ORM\ManyToOne(targetEntity="\AppBundle\Entity\Trick", inversedBy="videos")
+     * @ORM\ManyToOne(
+     *     targetEntity="\AppBundle\Entity\Trick",
+     *     inversedBy="videos",
+     *     cascade={"persist"}
+     * )
      */
     private $trick;
 
+    public function setSrc($src){
+        if(strpos($src, 'watch?v=')) $src = str_replace('watch?v=', 'embed/', $src);
+        $this->src = $src;
+    }
 }

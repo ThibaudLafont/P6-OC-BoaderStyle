@@ -24,6 +24,7 @@ trait TrickResource
         $this->trick = $trick;
     }
     public function setPosition($position){
+        if($position == null) $position = 0;
         $this->position = $position;
     }
 

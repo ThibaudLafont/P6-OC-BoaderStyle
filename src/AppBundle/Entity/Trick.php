@@ -71,7 +71,11 @@ class Trick
     private $imgs;
 
     /**
-     * @ORM\OneToMany(targetEntity="\AppBundle\Entity\Media\TrickVideo", mappedBy="trick")
+     * @ORM\OneToMany(
+     *     targetEntity="\AppBundle\Entity\Media\TrickVideo",
+     *     mappedBy="trick",
+     *     cascade={"persist"}
+     * )
      */
     private $videos;
 
@@ -196,12 +200,16 @@ class Trick
     }
 
     /**
-     * @param TrickVideo $video
+     * @param \Array $videos
      *
      * @return Trick
      */
-    public function setVideos(TrickVideo $video){
-        $this->videos[] = $video;
+    public function setVideos(Array $videos){
+        foreach($videos as $video){
+            if(!$video instanceof TrickVideo) return;
+        }
+
+        $this->videos = $videos;
 
         return $this;
     }

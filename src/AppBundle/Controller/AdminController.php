@@ -29,6 +29,11 @@ class AdminController extends Controller
         if ($form->isSubmitted() && $form->isValid()) {
             $trick = $form->getData();
             $imgs = $trick->getImgs();
+            $videos = $trick->getVideos();
+
+            foreach($videos as $video){
+                $video->setTrick($trick);
+            }
 
             foreach($imgs as $img){
                 $file = $img->getFile();

@@ -23,11 +23,4 @@ abstract class External extends Resource
     public function setSrc($src){
         $this->src = $src;
     }
-
-    public function getType(){
-        return $this->type;
-    }
-    public function setType($type){
-        $this->type = $type;
-    }
 }
