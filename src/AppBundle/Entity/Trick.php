@@ -5,6 +5,8 @@ namespace AppBundle\Entity;
 use AppBundle\Entity\Media\TrickImage;
 use AppBundle\Entity\Media\TrickVideo;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+
 
 /**
  * Figure
@@ -27,6 +29,13 @@ class Trick
      * @var string
      *
      * @ORM\Column(name="name", type="string", length=255, unique=true)
+     * @Assert\NotBlank(message="Le nom est obligatoire")
+     * @Assert\Length(
+     *      min = 2,
+     *      max = 55,
+     *      minMessage = "Le nom doit faire au moins {{ limit }} caractères",
+     *      maxMessage = "Le nom doit faire moins de {{ limit }} caractères"
+     * )
      */
     private $name;
 
@@ -34,6 +43,11 @@ class Trick
      * @var string
      *
      * @ORM\Column(name="description", type="text")
+     * @Assert\NotBlank(message="Le nom est obligatoire")
+     * @Assert\Length(
+     *      min = 10,
+     *      minMessage = "La description doit faire au moins {{ limit }} caractères"
+     * )
      */
     private $description;
 
@@ -48,12 +62,20 @@ class Trick
     private $category;
 
     /**
-     * @ORM\OneToMany(targetEntity="\AppBundle\Entity\Media\TrickImage", mappedBy="trick")
+     * @ORM\OneToMany(
+     *     targetEntity="\AppBundle\Entity\Media\TrickImage",
+     *     mappedBy="trick",
+     *     cascade={"persist"}
+     *     )
      */
     private $imgs;
 
     /**
-     * @ORM\OneToMany(targetEntity="\AppBundle\Entity\Media\TrickVideo", mappedBy="trick")
+     * @ORM\OneToMany(
+     *     targetEntity="\AppBundle\Entity\Media\TrickVideo",
+     *     mappedBy="trick",
+     *     cascade={"persist"}
+     * )
      */
     private $videos;
 
@@ -74,6 +96,10 @@ class Trick
      */
     public function getUrl(){
         return '/trick/' . $this->getId();
+    }
+
+    public function removeImg(TrickImage $img){
+        $this->tags->removeElement($img);
     }
 
     /**
@@ -141,8 +167,23 @@ class Trick
      *
      * @return Trick
      */
-    public function setImgs(TrickImage $img){
-        $this->img[] = $img;
+    public function setImg(TrickImage $img){
+        $this->imgs[] = $img;
+
+        return $this;
+    }
+
+    /**
+     * @param \Array $imgs
+     *
+     * @return Trick
+     */
+    public function setImgs(Array $imgs){
+        foreach($imgs as $img){
+            if(!$img instanceof TrickImage) return;
+        }
+
+        $this->imgs = $imgs;
 
         return $this;
     }
@@ -152,8 +193,23 @@ class Trick
      *
      * @return Trick
      */
-    public function setVideos(TrickVideo $video){
+    public function setVideo(TrickVideo $video){
         $this->videos[] = $video;
+
+        return $this;
+    }
+
+    /**
+     * @param \Array $videos
+     *
+     * @return Trick
+     */
+    public function setVideos(Array $videos){
+        foreach($videos as $video){
+            if(!$video instanceof TrickVideo) return;
+        }
+
+        $this->videos = $videos;
 
         return $this;
     }

@@ -22,8 +22,8 @@ gulp.task('reload', function(){
 
 // Js
 gulp.task('js', function(){
-    gulp.watch('src/AppBundle/Resources/js/*.js', function(){
-        gulp.src('src/AppBundle/Resources/js/*.js')
+    gulp.watch('src/AppBundle/Resources/js/form/*.js', function(){
+        gulp.src('src/AppBundle/Resources/js/form/*.js')
             .pipe(sourcemaps.init())
             .pipe(concat('main.js'))
             .pipe(sourcemaps.write('.'))
