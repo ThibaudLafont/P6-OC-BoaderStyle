@@ -41,6 +41,10 @@ class ImageType extends AbstractType
                 ]
             )
             ->add(
+                'url',
+                TextwType::class
+            )
+            ->add(
                 'position',
                 HiddenType::class,
                 [

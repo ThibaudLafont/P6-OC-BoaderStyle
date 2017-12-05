@@ -1,0 +1,22 @@
+{% block ImageType_row %}
+    <img src="{{ asset(image_url) }}"/>
+    <table>
+        <tr>
+            <td>
+                {{ form_label(form.name) }}
+            </td>
+            <td>
+                {{ form_widget(form.name) }}
+            </td>
+        </tr>
+        <tr>
+            <td>
+                {{ form_label(form.alt) }}
+            </td>
+            <td>
+                {{ form_widget(form.alt) }}
+            </td>
+        </tr>
+        {{ form_widget(form.position) }}
+    </table>
+{% endblock %}

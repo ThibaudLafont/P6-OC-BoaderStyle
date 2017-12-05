@@ -49,7 +49,7 @@ class AdminController extends Controller
             $em->flush();
         }
 
-        return $this->render('form/_trick.html.twig', ['form' => $form->createView()]);
+        return $this->render('trick/_add.html.twig', ['form' => $form->createView()]);
 
     }
 
@@ -69,7 +69,7 @@ class AdminController extends Controller
 //            return $this->redirectToRoute('trick_list');
         }
 
-        return $this->render('form/_trick.html.twig', ['form' => $form->createView(), 'task' => $trick]);
+        return $this->render('trick/_edit.html.twig', ['form' => $form->createView(), 'trick' => $trick]);
 
     }
 
