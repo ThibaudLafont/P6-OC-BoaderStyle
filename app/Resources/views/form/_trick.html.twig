@@ -5,44 +5,13 @@
     <h1>Ajouter une figure</h1>
     <div class="container">
         {% form_theme form
+            'form_table_layout.html.twig'
             'form/jquery.collection.html.twig'
+            'form/_image_form_theme.html.twig'
+            'form/_video_form_theme.html.twig'
         %}
         {{ form(form) }}
     </div>
-
-
-    {#{{ form_start(form) }}#}
-        {#<h3>Figure</h3>#}
-
-        {#<table>#}
-            {#<tr>#}
-                {#<td>{{ form_label(form.name) }}</td>#}
-                {#<td>{{ form_widget(form.name) }}</td>#}
-            {#</tr>#}
-            {#<tr>#}
-                {#<td>{{ form_label(form.description) }}</td>#}
-                {#<td>{{ form_widget(form.description) }}</td>#}
-            {#</tr>#}
-            {#<tr>#}
-                {#<td>{{ form_label(form.category) }}</td>#}
-                {#<td>{{ form_widget(form.category) }}</td>#}
-            {#</tr>#}
-            {#<tr>#}
-                {#<td>{{ form_label(form.author) }}</td>#}
-                {#<td>{{ form_widget(form.author) }}</td>#}
-            {#</tr>#}
-        {#</table>#}
-
-        {#<h3>Photos</h3>#}
-        {#<ul class="imgs" data-prototype="{{ form_widget(form.imgs.vars.prototype)|e('html_attr') }}">#}
-            {# iterate over each existing tag and render its only field: name #}
-            {#{% for img in form.imgs %}#}
-                {#<li>{{ form_row(img) }}</li>#}
-            {#{% endfor %}#}
-        {#</ul>#}
-
-        {#{{ form_widget(form.save) }}#}
-    {#{{ form_end(form) }}#}
 
 {% endblock %}
 
@@ -54,11 +23,13 @@
     <script type="text/javascript">
         $('.img').collection({
             min: 1,
-            position_field_selector: '.img_position'
+            position_field_selector: '.img_position',
+            elements_selector: '> table'
         });
         $('.vid').collection({
             min: 0,
-            position_field_selector: '.vid_position'
+            position_field_selector: '.vid_position',
+            elements_selector: '> table'
         });
     </script>
 
