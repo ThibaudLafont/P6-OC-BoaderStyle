@@ -96,7 +96,7 @@ class TrickType extends AbstractType
      */
     public function getBlockPrefix()
     {
-        return 'appbundle_trick';
+        return 'TrickType';
     }
 
 

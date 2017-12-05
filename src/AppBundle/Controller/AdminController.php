@@ -20,8 +20,6 @@ class AdminController extends Controller
     public function addAction(Request $request)
     {
         $trick = new Trick();
-        $img = new TrickImage();
-        $trick->setImg($img);
 
         $form = $this->get('form.factory')->create(TrickType::class, $trick);
         $form->handleRequest($request);
