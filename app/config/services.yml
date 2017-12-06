@@ -39,3 +39,12 @@ services:
         resource: '../../src/AppBundle/Entity/Traits'
         public: true
         tags: ['media_trait.service_arguments']
+
+
+    AppBundle\Form\Extension\ImageTypeExtension:
+            tags:
+                - { name: form.type_extension, extended_type: Symfony\Component\Form\Extension\Core\Type\FileType }
+
+    AppBundle\Form\Extension\VideoTypeExtension:
+            tags:
+                - { name: form.type_extension, extended_type: Symfony\Component\Form\Extension\Core\Type\UrlType }

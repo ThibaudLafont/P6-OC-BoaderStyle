@@ -5,6 +5,7 @@ use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
+use Symfony\Component\Form\Extension\Core\Type\UrlType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 // Fields
@@ -35,9 +36,10 @@ class VideoType extends AbstractType
             )
             ->add(
                 'src',
-                TextType::class,
+                UrlType::class,
                 [
-                    'label' => 'Url'
+                    'label' => 'Url',
+                    'video_property' => 'src'
                 ]
             )
             ->add(
