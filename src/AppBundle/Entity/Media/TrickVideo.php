@@ -25,6 +25,7 @@ class TrickVideo extends External
     private $trick;
 
     public function setSrc($src){
+        if($src === null) return;
         if(strpos($src, 'watch?v=')) $src = str_replace('watch?v=', 'embed/', $src);
         $this->src = $src;
     }

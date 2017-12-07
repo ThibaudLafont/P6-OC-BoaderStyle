@@ -18,10 +18,10 @@ class TrickImage extends Local
     use TrickResource;
 
     /**
-     * @ORM\ManyToOne(
+     * @ORM\ManyToMany(
      *     targetEntity="\AppBundle\Entity\Trick",
      *     inversedBy="imgs",
-     *     cascade={"persist"}
+     *     cascade={"persist", "remove"}
      * )
      */
     protected $trick;
@@ -29,4 +29,11 @@ class TrickImage extends Local
     // CONSTS
     const WEB_DIRECTORY = '/media/img/tricks/';
     const VALID_FORMATS = ['jpeg', 'jpg', 'png'];
+
+    public function addTrick(Trick $trick){
+        $this->trick->add($trick);
+    }
+    public function removeTrick(Trick $trick){
+        $this->trick->removeElement($trick);
+    }
 }

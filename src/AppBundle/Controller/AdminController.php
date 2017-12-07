@@ -2,12 +2,11 @@
 
 namespace AppBundle\Controller;
 
-use AppBundle\Entity\Media\TrickImage;
-use AppBundle\Entity\Media\TrickVideo;
 use AppBundle\Entity\Trick;
 use AppBundle\Form\TrickType;
 use AppBundle\Form\TrickImageType;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -58,18 +57,38 @@ class AdminController extends Controller
      */
     public function editAction(Request $request, $id)
     {
-
         $trick = $this->getDoctrine()->getRepository('AppBundle:Trick')->find($id);
 
         $form = $this->get('form.factory')->create(TrickType::class, $trick);
-
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-//            return $this->redirectToRoute('trick_list');
+
+            $trick = $form->getData();
+//            foreach($trick->getImgs() as $img){
+//                if($img->getId() === null){
+//                    $file = $img->getFile();
+//                    $img->setFormat($file->guessExtension());
+//                    $img->setTrick($trick);
+//
+//                    $file->move(
+//                        $this->getParameter('trick_image_directory'),
+//                        $img->getFullFileName()
+//                    );
+//                }
+//            }
+//
+//            foreach($trick->getVideos() as $video){
+//                if($video->getId() === null) $video->setTrick($trick);
+//            }
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($trick);
+            $em->flush();
+
+            return $this->redirectToRoute('trick_show', ['id' => 1]);
         }
 
-        return $this->render('trick/_edit.html.twig', ['form' => $form->createView(), 'trick' => $trick]);
+        return $this->render('trick/_form.html.twig', ['form' => $form->createView()]);
 
     }
 

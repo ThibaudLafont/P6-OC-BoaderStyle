@@ -4,6 +4,7 @@ namespace AppBundle\Entity;
 
 use AppBundle\Entity\Media\TrickImage;
 use AppBundle\Entity\Media\TrickVideo;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -62,10 +63,10 @@ class Trick
     private $category;
 
     /**
-     * @ORM\OneToMany(
+     * @ORM\ManyToMany(
      *     targetEntity="\AppBundle\Entity\Media\TrickImage",
      *     mappedBy="trick",
-     *     cascade={"persist"}
+     *     cascade={"persist", "remove"}
      *     )
      */
     private $imgs;
@@ -84,6 +85,10 @@ class Trick
      */
     private $messages;
 
+    public function __construct()
+    {
+        $this->imgs = new ArrayCollection();
+    }
 
       ///////////////////
      ///// SPECIFIC ////
@@ -98,8 +103,13 @@ class Trick
         return '/trick/' . $this->getId();
     }
 
+    public function addImg(TrickImage $img){
+//        $img->setTrick($this);
+        $img->addTrick($this);
+        $this->imgs->add($img);
+    }
     public function removeImg(TrickImage $img){
-        $this->tags->removeElement($img);
+        $this->imgs->removeElement($img);
     }
 
     /**
@@ -167,52 +177,52 @@ class Trick
      *
      * @return Trick
      */
-    public function setImg(TrickImage $img){
-        $this->imgs[] = $img;
-
-        return $this;
-    }
+//    public function setImg(TrickImage $img){
+//        $this->imgs->add($img);
+//
+//        return $this;
+//    }
 
     /**
      * @param \Array $imgs
      *
      * @return Trick
      */
-    public function setImgs(Array $imgs){
-        foreach($imgs as $img){
-            if(!$img instanceof TrickImage) return;
-        }
-
-        $this->imgs = $imgs;
-
-        return $this;
-    }
+//    public function setImgs(Array $imgs){
+//        foreach($imgs as $img){
+//            if(!$img instanceof TrickImage) return;
+//        }
+//
+//        $this->imgs->add($imgs);
+//
+//        return $this;
+//    }
 
     /**
      * @param TrickVideo $video
      *
      * @return Trick
      */
-    public function setVideo(TrickVideo $video){
-        $this->videos[] = $video;
-
-        return $this;
-    }
+//    public function setVideo(TrickVideo $video){
+//        $this->videos->add($video);
+//
+//        return $this;
+//    }
 
     /**
      * @param \Array $videos
      *
      * @return Trick
      */
-    public function setVideos(Array $videos){
-        foreach($videos as $video){
-            if(!$video instanceof TrickVideo) return;
-        }
-
-        $this->videos = $videos;
-
-        return $this;
-    }
+//    public function setVideos(Array $videos){
+//        foreach($videos as $video){
+//            if(!$video instanceof TrickVideo) return;
+//        }
+//
+//        $this->videos->add($videos);
+//
+//        return $this;
+//    }
 
     /**
      * @param Message $message

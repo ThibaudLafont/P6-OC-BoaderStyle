@@ -22,7 +22,7 @@ class PublicController extends Controller
     /**
      * @Route("/trick/{id}", name="trick_show")
      */
-    public function Action(Request $request, $id)
+    public function showAction(Request $request, $id)
     {
         $em = $this->getDoctrine()->getManager()->getRepository('AppBundle:Trick');
         $trick = $em->find($id);
