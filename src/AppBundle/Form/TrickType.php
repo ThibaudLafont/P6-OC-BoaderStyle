@@ -71,7 +71,7 @@ class TrickType extends AbstractType
                     'allow_delete' => true,
                     'prototype' => true,
                     'attr' => [
-                        'class' => 'vid',
+                        'class' => 'video',
                     ]
                 ]
             )

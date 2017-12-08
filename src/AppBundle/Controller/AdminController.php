@@ -29,13 +29,13 @@ class AdminController extends Controller
             $videos = $trick->getVideos();
 
             foreach($videos as $video){
-                $video->setTrick($trick);
+                $video->addTrick($trick);
             }
 
             foreach($imgs as $img){
                 $file = $img->getFile();
                 $img->setFormat($file->guessExtension());
-                $img->setTrick($trick);
+                $img->addTrick($trick);
 
                 $file->move(
                     $this->getParameter('trick_image_directory'),
@@ -64,7 +64,6 @@ class AdminController extends Controller
 
         if ($form->isSubmitted() && $form->isValid()) {
 
-            $trick = $form->getData();
 //            foreach($trick->getImgs() as $img){
 //                if($img->getId() === null){
 //                    $file = $img->getFile();
@@ -85,7 +84,7 @@ class AdminController extends Controller
             $em->persist($trick);
             $em->flush();
 
-            return $this->redirectToRoute('trick_show', ['id' => 1]);
+//            return $this->redirectToRoute('trick_show', ['id' => 1]);
         }
 
         return $this->render('trick/_form.html.twig', ['form' => $form->createView()]);

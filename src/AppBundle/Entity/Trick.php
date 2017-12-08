@@ -72,10 +72,10 @@ class Trick
     private $imgs;
 
     /**
-     * @ORM\OneToMany(
+     * @ORM\ManyToMany(
      *     targetEntity="\AppBundle\Entity\Media\TrickVideo",
      *     mappedBy="trick",
-     *     cascade={"persist"}
+     *     cascade={"persist", "remove"}
      * )
      */
     private $videos;
@@ -88,6 +88,7 @@ class Trick
     public function __construct()
     {
         $this->imgs = new ArrayCollection();
+        $this->videos = new ArrayCollection();
     }
 
       ///////////////////
@@ -104,12 +105,21 @@ class Trick
     }
 
     public function addImg(TrickImage $img){
-//        $img->setTrick($this);
-        $img->addTrick($this);
         $this->imgs->add($img);
     }
     public function removeImg(TrickImage $img){
+        $img->removeTrick($this);
         $this->imgs->removeElement($img);
+    }
+
+
+    public function addVideo(TrickVideo $video){
+        $this->videos->add($video);
+    }
+    public function removeVideos(TrickVideo $video){
+        echo 'coucou';
+        $video->removeTrick($this);
+        $this->videos->removeElement($video);
     }
 
     /**
@@ -171,58 +181,6 @@ class Trick
 
         return $this;
     }
-
-    /**
-     * @param TrickImage $img
-     *
-     * @return Trick
-     */
-//    public function setImg(TrickImage $img){
-//        $this->imgs->add($img);
-//
-//        return $this;
-//    }
-
-    /**
-     * @param \Array $imgs
-     *
-     * @return Trick
-     */
-//    public function setImgs(Array $imgs){
-//        foreach($imgs as $img){
-//            if(!$img instanceof TrickImage) return;
-//        }
-//
-//        $this->imgs->add($imgs);
-//
-//        return $this;
-//    }
-
-    /**
-     * @param TrickVideo $video
-     *
-     * @return Trick
-     */
-//    public function setVideo(TrickVideo $video){
-//        $this->videos->add($video);
-//
-//        return $this;
-//    }
-
-    /**
-     * @param \Array $videos
-     *
-     * @return Trick
-     */
-//    public function setVideos(Array $videos){
-//        foreach($videos as $video){
-//            if(!$video instanceof TrickVideo) return;
-//        }
-//
-//        $this->videos->add($videos);
-//
-//        return $this;
-//    }
 
     /**
      * @param Message $message

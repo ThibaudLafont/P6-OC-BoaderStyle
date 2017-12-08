@@ -16,13 +16,13 @@ class TrickVideo extends External
     use TrickResource;
 
     /**
-     * @ORM\ManyToOne(
+     * @ORM\ManyToMany(
      *     targetEntity="\AppBundle\Entity\Trick",
      *     inversedBy="videos",
-     *     cascade={"persist"}
+     *     cascade={"persist", "remove"}
      * )
      */
-    private $trick;
+    protected $trick;
 
     public function setSrc($src){
         if($src === null) return;
