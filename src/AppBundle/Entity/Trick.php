@@ -105,6 +105,7 @@ class Trick
     }
 
     public function addImg(TrickImage $img){
+        if($img->getId() === null) $img->addTrick($this);
         $this->imgs->add($img);
     }
     public function removeImg(TrickImage $img){
@@ -114,10 +115,10 @@ class Trick
 
 
     public function addVideo(TrickVideo $video){
+        if($video->getId() === null) $video->addTrick($this);
         $this->videos->add($video);
     }
-    public function removeVideos(TrickVideo $video){
-        echo 'coucou';
+    public function removeVideo(TrickVideo $video){
         $video->removeTrick($this);
         $this->videos->removeElement($video);
     }

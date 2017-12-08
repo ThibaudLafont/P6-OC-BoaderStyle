@@ -24,31 +24,16 @@ class AdminController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $trick = $form->getData();
-            $imgs = $trick->getImgs();
-            $videos = $trick->getVideos();
-
-            foreach($videos as $video){
-                $video->addTrick($trick);
-            }
-
-            foreach($imgs as $img){
-                $file = $img->getFile();
-                $img->setFormat($file->guessExtension());
-                $img->addTrick($trick);
-
-                $file->move(
-                    $this->getParameter('trick_image_directory'),
-                    $img->getFullFileName()
-                );
-            }
 
             $em = $this->getDoctrine()->getManager();
             $em->persist($trick);
             $em->flush();
+
+            return $this->redirectToRoute('trick_show', ['id' => $trick->getId()]);
+
         }
 
-        return $this->render('trick/_add.html.twig', ['form' => $form->createView()]);
+        return $this->render('trick/_form.html.twig', ['form' => $form->createView()]);
 
     }
 
@@ -64,31 +49,27 @@ class AdminController extends Controller
 
         if ($form->isSubmitted() && $form->isValid()) {
 
-//            foreach($trick->getImgs() as $img){
-//                if($img->getId() === null){
-//                    $file = $img->getFile();
-//                    $img->setFormat($file->guessExtension());
-//                    $img->setTrick($trick);
-//
-//                    $file->move(
-//                        $this->getParameter('trick_image_directory'),
-//                        $img->getFullFileName()
-//                    );
-//                }
-//            }
-//
-//            foreach($trick->getVideos() as $video){
-//                if($video->getId() === null) $video->setTrick($trick);
-//            }
             $em = $this->getDoctrine()->getManager();
-            $em->persist($trick);
             $em->flush();
 
-//            return $this->redirectToRoute('trick_show', ['id' => 1]);
+            return $this->redirectToRoute('trick_show', ['id' => $trick->getId()]);
+
         }
 
         return $this->render('trick/_form.html.twig', ['form' => $form->createView()]);
 
+    }
+
+    /**
+     * @Route("/delete/{id}", name="trick_delete")
+     */
+    public function deleteAction(Request $request, $id){
+        $em = $this->getDoctrine()->getManager();
+        $trick = $em->getRepository('AppBundle:Trick')->find($id);
+        $em->remove($trick);
+        $em->flush();
+
+        return $this->redirectToRoute('trick_list');
     }
 
 }
