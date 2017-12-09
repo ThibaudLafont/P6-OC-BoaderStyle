@@ -40,7 +40,6 @@ services:
         public: true
         tags: ['media_trait.service_arguments']
 
-
     AppBundle\Form\Extension\ImageTypeExtension:
             tags:
                 - { name: form.type_extension, extended_type: Symfony\Component\Form\Extension\Core\Type\FileType }
@@ -48,3 +47,11 @@ services:
     AppBundle\Form\Extension\VideoTypeExtension:
             tags:
                 - { name: form.type_extension, extended_type: Symfony\Component\Form\Extension\Core\Type\UrlType }
+
+    AppBundle\Service\TrickImageFileUpload:
+        arguments:
+            $targetDir: '%trick_image_directory%'
+
+    AppBundle\EventListener\TrickImageUploadListener:
+          tags:
+              - { name: doctrine.event_listener, event: prePersist }

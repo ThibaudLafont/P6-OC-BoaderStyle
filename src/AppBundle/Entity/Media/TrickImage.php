@@ -33,17 +33,4 @@ class TrickImage extends Local
     const WEB_DIRECTORY = '/media/img/tricks/';
     const VALID_FORMATS = ['jpeg', 'jpg', 'png'];
 
-    /**
-     * @ORM\PrePersist
-     */
-    public function prePersist()
-    {
-        $file = $this->getFile();
-        $this->setFormat($file->guessExtension());
-
-        $file->move(
-            '/var/www/html/web/media/img/tricks',
-            $this->getFullFileName()
-        );
-    }
 }

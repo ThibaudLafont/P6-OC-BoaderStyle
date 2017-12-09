@@ -2,10 +2,13 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\AppBundle;
 use AppBundle\Entity\Trick;
 use AppBundle\Form\TrickType;
 use AppBundle\Form\TrickImageType;
 
+use AppBundle\Service\Sluggifier;
+use AppBundle\Service\TrickImageFileUpload;
 use Doctrine\Common\Collections\ArrayCollection;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -16,7 +19,7 @@ class AdminController extends Controller
     /**
      * @Route("/add/trick", name="trick_add")
      */
-    public function addAction(Request $request)
+    public function addAction(Request $request, TrickImageFileUpload $uploader)
     {
         $trick = new Trick();
 
@@ -64,12 +67,14 @@ class AdminController extends Controller
      * @Route("/delete/{id}", name="trick_delete")
      */
     public function deleteAction(Request $request, $id){
+
         $em = $this->getDoctrine()->getManager();
         $trick = $em->getRepository('AppBundle:Trick')->find($id);
         $em->remove($trick);
         $em->flush();
 
         return $this->redirectToRoute('trick_list');
+
     }
 
 }
