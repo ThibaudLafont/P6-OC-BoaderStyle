@@ -48,7 +48,7 @@ trait TrickResource
     /**
      * @return Trick
      */
-    public function getTrick(){
+    public function getTricks(){
         return $this->trick;
     }
     public function getPosition(){
