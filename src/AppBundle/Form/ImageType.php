@@ -37,7 +37,8 @@ class ImageType extends AbstractType
                 'file',
                 FileType::class,
                 [
-                    'label' => '↪'
+                    'label' => '↪',
+                    'image_property' => 'url'
                 ]
             )
             ->add(

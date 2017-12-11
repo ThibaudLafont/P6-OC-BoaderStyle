@@ -1,4 +1,5 @@
 {% block TrickType_widget %}
+    {{ form_errors(form) }}
     <table>
         <tr>
             <td>
@@ -36,6 +37,6 @@
     <h3>Images</h3>
     {{ form_row(form.imgs) }}
     <h3>Vidéos</h3>
-    {{ form_widget(form.videos) }}
+    {{ form_row(form.videos) }}
     {{ form_widget(form.save) }}
 {% endblock %}

@@ -1,5 +1,25 @@
+{% block url_widget %}
+    {% spaceless %}
+
+        {% if video_url is not null %}
+            <embed width="250" height="120" src="{{ asset(video_url) }}">
+        {% else %}
+            {{ block('form_widget') }}
+        {% endif %}
+
+    {% endspaceless %}
+{% endblock %}
+
 {% block VideoType_row %}
     <table>
+        <tr>
+            <td>
+                {{ form_label(form.src) }}
+            </td>
+            <td>
+                {{ form_widget(form.src) }}
+            </td>
+        </tr>
         <tr>
             <td>
                 {{ form_label(form.name) }}
@@ -14,14 +34,6 @@
             </td>
             <td>
                 {{ form_widget(form.alt) }}
-            </td>
-        </tr>
-        <tr>
-            <td>
-                {{ form_label(form.src) }}
-            </td>
-            <td>
-                {{ form_widget(form.src) }}
             </td>
         </tr>
         {{ form_widget(form.position) }}

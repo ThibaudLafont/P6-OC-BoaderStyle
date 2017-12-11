@@ -2,8 +2,6 @@
 
 namespace AppBundle\Controller;
 
-use AppBundle\Entity\Media\TrickImage;
-use AppBundle\Entity\Media\TrickVideo;
 use AppBundle\Entity\Trick;
 use AppBundle\Form\TrickType;
 use AppBundle\Form\TrickImageType;
@@ -21,35 +19,22 @@ class AdminController extends Controller
     {
         $trick = new Trick();
 
+        // Creation of form
         $form = $this->get('form.factory')->create(TrickType::class, $trick);
         $form->handleRequest($request);
 
+        // Action if submitted data are valid
         if ($form->isSubmitted() && $form->isValid()) {
-            $trick = $form->getData();
-            $imgs = $trick->getImgs();
-            $videos = $trick->getVideos();
-
-            foreach($videos as $video){
-                $video->setTrick($trick);
-            }
-
-            foreach($imgs as $img){
-                $file = $img->getFile();
-                $img->setFormat($file->guessExtension());
-                $img->setTrick($trick);
-
-                $file->move(
-                    $this->getParameter('trick_image_directory'),
-                    $img->getFullFileName()
-                );
-            }
 
             $em = $this->getDoctrine()->getManager();
             $em->persist($trick);
             $em->flush();
+
+            return $this->redirectToRoute('trick_show', ['id' => $trick->getId()]);
+
         }
 
-        return $this->render('form/_trick.html.twig', ['form' => $form->createView()]);
+        return $this->render('trick/_form.html.twig', ['form' => $form->createView()]);
 
     }
 
@@ -59,17 +44,42 @@ class AdminController extends Controller
     public function editAction(Request $request, $id)
     {
 
+        // Get the trick related to asked id
         $trick = $this->getDoctrine()->getRepository('AppBundle:Trick')->find($id);
 
-        $form = $this->get('form.factory')->create(TrickType::class, $trick);
+        // Form handling is same as addAction one
 
+        // Creation of form
+        $form = $this->get('form.factory')->create(TrickType::class, $trick);
         $form->handleRequest($request);
 
+        // Action if submitted data are valid
         if ($form->isSubmitted() && $form->isValid()) {
-//            return $this->redirectToRoute('trick_list');
+
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($trick);
+            $em->flush();
+
+//            return $this->redirectToRoute('trick_show', ['id' => $trick->getId()]);
+
         }
 
-        return $this->render('form/_trick.html.twig', ['form' => $form->createView(), 'task' => $trick]);
+        return $this->render('trick/_form.html.twig', ['form' => $form->createView()]);
+
+    }
+
+    /**
+     * @Route("/delete/{id}", name="trick_delete")
+     */
+    public function deleteAction($id){
+
+        $em = $this->getDoctrine()->getManager();
+        $trick = $em->getRepository('AppBundle:Trick')->find($id); // Get the trick related to asked id
+
+        $em->remove($trick);
+        $em->flush();
+
+        return $this->redirectToRoute('trick_list');
 
     }
 
