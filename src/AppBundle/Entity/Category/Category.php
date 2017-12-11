@@ -1,6 +1,6 @@
 <?php
 
-namespace AppBundle\Entity;
+namespace AppBundle\Entity\Category;
 
 use Doctrine\ORM\Mapping as ORM;
 
@@ -29,7 +29,7 @@ class Category
     private $name;
 
     /**
-     * @ORM\OneToMany(targetEntity="Trick", mappedBy="category")
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Trick\Trick", mappedBy="category")
      */
     private $tricks;
 

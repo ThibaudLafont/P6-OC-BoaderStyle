@@ -1,17 +1,16 @@
 <?php
-namespace AppBundle\Form;
+namespace AppBundle\Form\User;
 
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use AppBundle\Form\Trick\ImageType;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\FileType;
-use Symfony\Component\Form\Extension\Core\Type\HiddenType;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 // Fields
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
-class ImageType extends AbstractType
+class RegisterType extends AbstractType
 {
     /**
      * {@inheritdoc}
@@ -20,36 +19,38 @@ class ImageType extends AbstractType
     {
         $builder
             ->add(
-                'name',
+                'firstName',
                 TextType::class,
                 [
-                    'label' => 'Nom'
+                    'label' => 'Prénom'
                 ]
             )
             ->add(
-                'alt',
+                'lastName',
                 TextType::class,
                 [
-                    'label' => 'Description'
+                    'label' => 'Nom de famille'
                 ]
             )
             ->add(
-                'file',
-                FileType::class,
+                'userName',
+                TextType::class,
                 [
-                    'label' => '↪',
-                    'image_property' => 'url'
+                    'label' => 'Nom d\'utilisateur'
                 ]
             )
             ->add(
-                'position',
-                HiddenType::class,
+                'password',
+                TextType::class,
                 [
-                    'attr' => [
-                        'class' => 'img_position',
-                    ]
+                    'label' => 'Mot de passe'
                 ]
-            );
+            )
+            ->add(
+                'img',
+                ImageType::class
+            )
+            ->add('save', SubmitType::class);
     }
 
     /**
@@ -58,7 +59,7 @@ class ImageType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'AppBundle\Entity\Media\TrickImage'
+            'data_class' => 'AppBundle\Entity\User\User'
         ));
     }
 
@@ -67,7 +68,7 @@ class ImageType extends AbstractType
      */
     public function getBlockPrefix()
     {
-        return 'ImageType';
+        return 'UserType';
     }
 
 }

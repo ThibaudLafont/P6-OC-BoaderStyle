@@ -1,6 +1,7 @@
 <?php
-namespace AppBundle\Entity\Media;
+namespace AppBundle\Entity\Trick;
 
+use AppBundle\Entity\Media\External;
 use AppBundle\Entity\Traits\TrickResource;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -17,7 +18,7 @@ class TrickVideo extends External
 
     /**
      * @ORM\ManyToMany(
-     *     targetEntity="\AppBundle\Entity\Trick",
+     *     targetEntity="Trick",
      *     inversedBy="videos",
      *     cascade={"persist", "remove"}
      * )

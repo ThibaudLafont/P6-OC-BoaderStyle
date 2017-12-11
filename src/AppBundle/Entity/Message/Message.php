@@ -1,6 +1,6 @@
 <?php
 
-namespace AppBundle\Entity;
+namespace AppBundle\Entity\Message;
 
 use Doctrine\ORM\Mapping as ORM;
 
@@ -36,12 +36,12 @@ class Message
     private $content;
 
     /**
-     * @ORM\ManyToOne(targetEntity="User", inversedBy="messages")
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\User\User", inversedBy="messages")
      */
     private $user;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Trick", inversedBy="messages")
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Trick\Trick", inversedBy="messages")
      */
     private $trick;
 

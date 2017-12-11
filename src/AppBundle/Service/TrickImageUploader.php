@@ -1,7 +1,7 @@
 <?php
 namespace AppBundle\Service;
 
-use AppBundle\Entity\Media\TrickImage;
+use AppBundle\Entity\Trick\TrickImage;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 class TrickImageUploader extends Uploader

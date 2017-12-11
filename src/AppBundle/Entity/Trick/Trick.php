@@ -1,9 +1,7 @@
 <?php
 
-namespace AppBundle\Entity;
+namespace AppBundle\Entity\Trick;
 
-use AppBundle\Entity\Media\TrickImage;
-use AppBundle\Entity\Media\TrickVideo;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -53,18 +51,18 @@ class Trick
     private $description;
 
     /**
-     * @ORM\ManyToOne(targetEntity="User", inversedBy="tricks")
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\User\User", inversedBy="tricks")
      */
     private $author;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Category", inversedBy="tricks")
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Category\Category", inversedBy="tricks")
      */
     private $category;
 
     /**
      * @ORM\ManyToMany(
-     *     targetEntity="\AppBundle\Entity\Media\TrickImage",
+     *     targetEntity="TrickImage",
      *     mappedBy="trick",
      *     cascade={"persist", "remove"}
      *     )
@@ -73,7 +71,7 @@ class Trick
 
     /**
      * @ORM\ManyToMany(
-     *     targetEntity="\AppBundle\Entity\Media\TrickVideo",
+     *     targetEntity="TrickVideo",
      *     mappedBy="trick",
      *     cascade={"persist", "remove"}
      * )
@@ -81,7 +79,7 @@ class Trick
     private $videos;
 
     /**
-     * @ORM\OneToMany(targetEntity="Message", mappedBy="trick")
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Message\Message", mappedBy="trick")
      */
     private $messages;
 

@@ -1,11 +1,11 @@
 <?php
-namespace AppBundle\Entity\Media;
+namespace AppBundle\Entity\Trick;
 
+use AppBundle\Entity\Media\Local;
 use AppBundle\Entity\Traits\TrickResource;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
-use AppBundle\Entity\Trick;
 use Doctrine\ORM\Events;
 
 /**
@@ -22,7 +22,7 @@ class TrickImage extends Local
 
     /**
      * @ORM\ManyToMany(
-     *     targetEntity="\AppBundle\Entity\Trick",
+     *     targetEntity="Trick",
      *     inversedBy="imgs",
      *     cascade={"persist", "remove"}
      * )

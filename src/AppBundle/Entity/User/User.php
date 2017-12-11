@@ -1,9 +1,8 @@
 <?php
 
-namespace AppBundle\Entity;
+namespace AppBundle\Entity\User;
 
 use Doctrine\ORM\Mapping as ORM;
-use AppBundle\Entity\Media\UserImage;
 
 /**
  * User
@@ -52,7 +51,7 @@ class User
 
     /**
      * @ORM\OneToOne(
-     *     targetEntity="\AppBundle\Entity\Media\UserImage",
+     *     targetEntity="UserImage",
      *     cascade={"persist", "remove"}
      * )
      */
@@ -60,14 +59,14 @@ class User
 
     /**
      * @ORM\OneToMany(
-     *     targetEntity="Message",
+     *     targetEntity="AppBundle\Entity\Message\Message",
      *     mappedBy="user"
      * )
      */
     private $messages;
 
     /**
-     * @ORM\OneToMany(targetEntity="Trick", mappedBy="author")
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Trick\Trick", mappedBy="author")
      */
     private $tricks;
 

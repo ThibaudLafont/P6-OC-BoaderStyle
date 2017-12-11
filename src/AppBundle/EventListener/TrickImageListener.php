@@ -8,8 +8,8 @@
 
 namespace AppBundle\EventListener;
 
-use AppBundle\Entity\Media\TrickImage;
-use AppBundle\Entity\Media\TrickVideo;
+use AppBundle\Entity\Trick\TrickImage;
+use AppBundle\Entity\Trick\TrickVideo;
 use AppBundle\Service\TrickImageUploader;
 use Doctrine\ORM\Event\LifecycleEventArgs;
 use Doctrine\ORM\Event\PreUpdateEventArgs;
@@ -56,7 +56,7 @@ class TrickImageListener
     public function postRemove(LifecycleEventArgs $args)
     {
         $img = $args->getEntity();
-        if(!$img instanceof TrickImage) $this->uploader->removeImg($img);
+        if($img instanceof TrickImage) $this->uploader->removeImg($img);
     }
 
 }

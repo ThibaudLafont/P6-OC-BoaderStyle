@@ -30,8 +30,8 @@ services:
         tags: ['controller.service_arguments']
 
     # Entity Trait
-    AppBundle\Entity\Media\:
-        resource: '../../src/AppBundle/Entity/Media'
+    AppBundle\Entity\:
+        resource: '../../src/AppBundle/Entity/'
         public: true
         tags: ['media_entity.service_arguments']
 

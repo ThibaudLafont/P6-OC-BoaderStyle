@@ -1,5 +1,5 @@
 <?php
-namespace AppBundle\Form;
+namespace AppBundle\Form\Trick;
 
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
@@ -35,7 +35,7 @@ class TrickType extends AbstractType
                 EntityType::class,
                 [
                     'label' => 'Catégorie',
-                    'class' => 'AppBundle:Category',
+                    'class' => 'AppBundle:Category\Category',
                     'choice_label' => 'name'
                 ]
             )
@@ -44,7 +44,7 @@ class TrickType extends AbstractType
                 EntityType::class,
                 [
                     'label' => 'Auteur',
-                    'class' => 'AppBundle:User',
+                    'class' => 'AppBundle:User\User',
                     'choice_label' => 'fullName'
                 ]
             )
@@ -85,7 +85,7 @@ class TrickType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'AppBundle\Entity\Trick',
+            'data_class' => 'AppBundle\Entity\Trick\Trick',
             'csrf_protection' => true,
             'csrf_field_name' => '_token',
             // a unique key to help generate the secret token

@@ -1,6 +1,7 @@
 <?php
-namespace AppBundle\Entity\Media;
+namespace AppBundle\Entity\User;
 
+use AppBundle\Entity\Media\Local;
 use Doctrine\ORM\Mapping as ORM;
 
 /**

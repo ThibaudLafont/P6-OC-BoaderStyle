@@ -2,9 +2,9 @@
 
 namespace AppBundle\Controller;
 
-use AppBundle\Entity\Trick;
-use AppBundle\Form\TrickType;
-use AppBundle\Form\TrickImageType;
+use AppBundle\Entity\Trick\Trick;
+use AppBundle\Form\Trick\TrickType;
+use AppBundle\Form\Trick\TrickImageType;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -45,7 +45,7 @@ class AdminController extends Controller
     {
 
         // Get the trick related to asked id
-        $trick = $this->getDoctrine()->getRepository('AppBundle:Trick')->find($id);
+        $trick = $this->getDoctrine()->getRepository('AppBundle:Trick\Trick')->find($id);
 
         // Form handling is same as addAction one
 
@@ -74,7 +74,7 @@ class AdminController extends Controller
     public function deleteAction($id){
 
         $em = $this->getDoctrine()->getManager();
-        $trick = $em->getRepository('AppBundle:Trick')->find($id); // Get the trick related to asked id
+        $trick = $em->getRepository('AppBundle:Trick\Trick')->find($id); // Get the trick related to asked id
 
         $em->remove($trick);
         $em->flush();
