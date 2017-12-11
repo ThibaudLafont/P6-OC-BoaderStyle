@@ -1,16 +1,9 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: thib
- * Date: 08/12/17
- * Time: 16:34
- */
-
 namespace AppBundle\Service;
 
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
-class TrickImageFileUpload
+class Uploader
 {
 
     private $targetDir;

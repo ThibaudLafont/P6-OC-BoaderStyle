@@ -48,11 +48,11 @@ services:
             tags:
                 - { name: form.type_extension, extended_type: Symfony\Component\Form\Extension\Core\Type\UrlType }
 
-    AppBundle\Service\TrickImageFileUpload:
+    AppBundle\Service\TrickImageUploader:
         arguments:
             $targetDir: '%trick_image_directory%'
 
-    AppBundle\EventListener\TrickImageUploadListener:
+    AppBundle\EventListener\TrickImageListener:
           tags:
               - { name: doctrine.event_listener, event: prePersist }
               - { name: doctrine.event_listener, event: preUpdate }
