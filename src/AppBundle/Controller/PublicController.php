@@ -4,9 +4,13 @@ namespace AppBundle\Controller;
 
 use AppBundle\Entity\User\UserImage;
 use AppBundle\Entity\User\User;
-use AppBundle\Form\RegisterType;
+use AppBundle\Form\User\RegisterType;
+use AppBundle\Service\Sluggifier;
+use AppBundle\Service\TrickImageUploader;
+use AppBundle\Service\Uploader;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\Request;
 
 class PublicController extends Controller

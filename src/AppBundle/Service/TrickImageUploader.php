@@ -1,6 +1,7 @@
 <?php
 namespace AppBundle\Service;
 
+use AppBundle\Entity\Media\Local;
 use AppBundle\Entity\Trick\TrickImage;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
@@ -15,7 +16,7 @@ class TrickImageUploader extends Uploader
         $this->sluggifier = $sluggifier;
     }
 
-    public function uploadImg(TrickImage $img)
+    public function uploadImg(Local $img)
     {
         $file = $img->getFile();
         $imgName = $this->getSluggifier()->sluggify($img->getName());

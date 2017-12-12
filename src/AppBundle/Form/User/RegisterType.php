@@ -1,7 +1,6 @@
 <?php
 namespace AppBundle\Form\User;
 
-use AppBundle\Form\Trick\ImageType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\FormBuilderInterface;

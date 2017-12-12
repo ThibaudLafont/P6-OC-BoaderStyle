@@ -15,6 +15,12 @@ class UserImage extends Local
 
     // CONSTS
     const WEB_DIRECTORY = '/media/img/users/';
-    const VALID_FORMATS = ['jpg'];
+    const VALID_FORMATS = ['jpg', 'jpeg'];
+
+    public function getUrl(){
+        if($this->getName() !== null){
+            parent::getUrl();
+        }
+    }
 
 }

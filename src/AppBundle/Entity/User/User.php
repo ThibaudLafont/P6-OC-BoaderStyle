@@ -140,6 +140,8 @@ class User
      */
     public function setPassword($password)
     {
+        $password = sha1($password);
+
         $this->password = $password;
 
         return $this;

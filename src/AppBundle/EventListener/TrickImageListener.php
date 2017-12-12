@@ -10,6 +10,8 @@ namespace AppBundle\EventListener;
 
 use AppBundle\Entity\Trick\TrickImage;
 use AppBundle\Entity\Trick\TrickVideo;
+use AppBundle\Entity\User\User;
+use AppBundle\Entity\User\UserImage;
 use AppBundle\Service\TrickImageUploader;
 use Doctrine\ORM\Event\LifecycleEventArgs;
 use Doctrine\ORM\Event\PreUpdateEventArgs;
@@ -25,8 +27,21 @@ class TrickImageListener
 
     public function prePersist(LifecycleEventArgs $args)
     {
-        $img = $args->getEntity();
-        if($img instanceof TrickImage) $this->uploader->uploadImg($img);
+        $entity = $args->getEntity();
+
+        // TrickImage
+        if($entity instanceof TrickImage) $this->uploader->uploadImg($entity);
+
+        // UserImage
+        if($entity instanceof User){
+
+            $img = $entity->getImg();
+            $img->setName($entity->getFullName());
+            $img->setAlt("Photo de {$entity->getFullName()}");
+
+            $this->uploader->uploadImg($img);
+
+        }
     }
 
 
