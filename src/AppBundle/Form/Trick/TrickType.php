@@ -35,7 +35,7 @@ class TrickType extends AbstractType
                 EntityType::class,
                 [
                     'label' => 'Catégorie',
-                    'class' => 'AppBundle:Category\Category',
+                    'class' => 'AppBundle:Trick\Category',
                     'choice_label' => 'name'
                 ]
             )

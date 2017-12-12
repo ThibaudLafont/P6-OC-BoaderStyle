@@ -11,7 +11,6 @@ namespace AppBundle\EventListener;
 use AppBundle\Entity\Trick\TrickImage;
 use AppBundle\Entity\Trick\TrickVideo;
 use AppBundle\Entity\User\User;
-use AppBundle\Entity\User\UserImage;
 use AppBundle\Service\TrickImageUploader;
 use Doctrine\ORM\Event\LifecycleEventArgs;
 use Doctrine\ORM\Event\PreUpdateEventArgs;
@@ -34,6 +33,8 @@ class TrickImageListener
 
         // UserImage
         if($entity instanceof User){
+            // Chiffrement et assignation du mdp renseigné
+            $entity->setPassword(sha1($entity->getPlainPassword()));
 
             // Hydratation de img selon user
             $img = $entity->getImg();
@@ -41,7 +42,6 @@ class TrickImageListener
             $img->setAlt("Photo de {$entity->getFullName()}");
 
             $this->uploader->uploadImg($img);
-
         }
     }
 

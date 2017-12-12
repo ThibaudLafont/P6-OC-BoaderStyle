@@ -61,7 +61,7 @@ class Trick
     private $author;
 
     /**
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Category\Category", inversedBy="tricks")
+     * @ORM\ManyToOne(targetEntity="Category", inversedBy="tricks")
      */
     private $category;
 

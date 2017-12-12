@@ -2,7 +2,9 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\Entity\Trick\Category;
 use AppBundle\Entity\Trick\Trick;
+use AppBundle\Form\Trick\CategoryType;
 use AppBundle\Form\Trick\TrickType;
 use AppBundle\Form\Trick\TrickImageType;
 
@@ -85,25 +87,25 @@ class AdminController extends Controller
     }
 
     /**
-     * @Route("/user/edit/{id}", name="trick_delete")
+     * @Route("/category/add", name="category_add")
      */
-    public function editUser(Request $request, $id){
-        $user = $this->getDoctrine()->getRepository('AppBundle:User\User')->find($id);
+    public function addCategory(Request $request){
+        $category = new Category();
 
         // Creation of form
-        $form = $this->get('form.factory')->create(RegisterType::class, $user);
+        $form = $this->get('form.factory')->create(CategoryType::class, $category);
         $form->handleRequest($request);
 
         // Action if submitted data are valid
         if ($form->isSubmitted() && $form->isValid()) {
 
-//            $em = $this->getDoctrine()->getManager();
-//            $em->persist($user);
-//            $em->flush();
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($category);
+            $em->flush();
 
         }
 
-        return $this->render('user/_register.html.twig', ['form' => $form->createView(), 'user' => $user]);
+        return $this->render('trick/_category_form.html.twig', ['form' => $form->createView()]);
     }
 
 }

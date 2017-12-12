@@ -3,6 +3,8 @@ namespace AppBundle\Form\User;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
+use Symfony\Component\Form\Extension\Core\Type\PasswordType;
+use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 // Fields
@@ -39,21 +41,21 @@ class RegisterType extends AbstractType
                 ]
             )
             ->add(
-                'password',
-                TextType::class,
-                [
-                    'label' => 'Mot de passe',
-                    'attr' => [
-                        'placeholder' => 'Première saisie'
-                    ]
-                ]
-            )
-            ->add(
                 'plainPassword',
-                TextType::class,
+                RepeatedType::class,
                 [
-                    'attr' => [
-                        'placeholder' => 'Vérification'
+                    'type' => PasswordType::class,
+                    'first_options' => [
+                        'label' => false,
+                        'attr' => [
+                            'placeholder' => 'Mot de passe'
+                        ]
+                    ],
+                    'second_options' => [
+                        'label' => false,
+                        'attr' => [
+                            'placeholder' => 'Répétez le mot de passe'
+                        ]
                     ]
                 ]
             )
