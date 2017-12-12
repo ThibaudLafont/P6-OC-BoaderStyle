@@ -3,6 +3,7 @@
 namespace AppBundle\Entity\User;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * User
@@ -42,10 +43,17 @@ class User
      */
     private $userName;
 
+
+    /**
+     * @Assert\NotBlank()
+     */
+    private $plainPassword;
+
     /**
      * @var string
      *
      * @ORM\Column(name="password", type="string", length=255)
+     * @Assert\NotBlank()
      */
     private $password;
 
@@ -83,7 +91,6 @@ class User
     public function getFullName(){
         return $this->getFirstName() . ' ' . $this->getLastName();
     }
-
 
       ///////////////////
      ///// SETTERS /////
@@ -131,6 +138,10 @@ class User
         return $this;
     }
 
+    public function setPlainPassword($plainPassword){
+        $this->plainPassword = $plainPassword;
+    }
+
     /**
      * Set password
      *
@@ -140,8 +151,6 @@ class User
      */
     public function setPassword($password)
     {
-        $password = sha1($password);
-
         $this->password = $password;
 
         return $this;
@@ -197,6 +206,10 @@ class User
     public function getUserName()
     {
         return $this->userName;
+    }
+
+    public function getPlainPassword(){
+        return $this->plainPassword;
     }
 
     /**

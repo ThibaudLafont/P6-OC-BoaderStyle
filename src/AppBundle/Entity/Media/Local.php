@@ -48,8 +48,9 @@ abstract class Local extends Resource
     }
 
     public function getUrl(){
-        $url = static::WEB_DIRECTORY . $this->getFullName();
-        return $url;
+        if($this->getId() !== null){
+            return static::WEB_DIRECTORY . $this->getFullName();
+        }
     }
 
     public function getFullName(){

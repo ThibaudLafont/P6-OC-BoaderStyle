@@ -42,7 +42,19 @@ class RegisterType extends AbstractType
                 'password',
                 TextType::class,
                 [
-                    'label' => 'Mot de passe'
+                    'label' => 'Mot de passe',
+                    'attr' => [
+                        'placeholder' => 'Première saisie'
+                    ]
+                ]
+            )
+            ->add(
+                'plainPassword',
+                TextType::class,
+                [
+                    'attr' => [
+                        'placeholder' => 'Vérification'
+                    ]
                 ]
             )
             ->add(
