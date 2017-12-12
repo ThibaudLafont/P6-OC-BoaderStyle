@@ -6,6 +6,7 @@ use AppBundle\Entity\User\User;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use AppBundle\Validator\Constraints as AppAssert;
 
 
 /**
@@ -47,6 +48,9 @@ class Trick
      * @Assert\Length(
      *      min = 10,
      *      minMessage = "La description doit faire au moins {{ limit }} caractères"
+     * )
+     * @AppAssert\AllowedTags(
+     *     allowedTags = "<h3><h2>"
      * )
      */
     private $description;

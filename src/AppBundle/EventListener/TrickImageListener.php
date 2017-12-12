@@ -35,6 +35,7 @@ class TrickImageListener
         // UserImage
         if($entity instanceof User){
 
+            // Hydratation de img selon user
             $img = $entity->getImg();
             $img->setName($entity->getFullName());
             $img->setAlt("Photo de {$entity->getFullName()}");

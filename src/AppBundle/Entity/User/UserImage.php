@@ -17,10 +17,10 @@ class UserImage extends Local
     const WEB_DIRECTORY = '/media/img/users/';
     const VALID_FORMATS = ['jpg', 'jpeg'];
 
-    public function getUrl(){
-        if($this->getName() !== null){
-            parent::getUrl();
-        }
-    }
+//    public function getUrl(){
+//        if($this->getName() !== null){
+//            parent::getUrl();
+//        }
+//    }
 
 }

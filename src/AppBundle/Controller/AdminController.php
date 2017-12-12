@@ -6,6 +6,7 @@ use AppBundle\Entity\Trick\Trick;
 use AppBundle\Form\Trick\TrickType;
 use AppBundle\Form\Trick\TrickImageType;
 
+use AppBundle\Form\User\RegisterType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -81,6 +82,28 @@ class AdminController extends Controller
 
         return $this->redirectToRoute('trick_list');
 
+    }
+
+    /**
+     * @Route("/user/edit/{id}", name="trick_delete")
+     */
+    public function editUser(Request $request, $id){
+        $user = $this->getDoctrine()->getRepository('AppBundle:User\User')->find($id);
+
+        // Creation of form
+        $form = $this->get('form.factory')->create(RegisterType::class, $user);
+        $form->handleRequest($request);
+
+        // Action if submitted data are valid
+        if ($form->isSubmitted() && $form->isValid()) {
+
+//            $em = $this->getDoctrine()->getManager();
+//            $em->persist($user);
+//            $em->flush();
+
+        }
+
+        return $this->render('user/_register.html.twig', ['form' => $form->createView(), 'user' => $user]);
     }
 
 }
