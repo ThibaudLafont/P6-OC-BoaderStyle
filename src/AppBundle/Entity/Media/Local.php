@@ -43,6 +43,10 @@ abstract class Local extends Resource
         $this->file = $file;
     }
 
+    public function getWebDir(){
+        return static::WEB_DIRECTORY;
+    }
+
     public function getUrl(){
         $url = static::WEB_DIRECTORY . $this->getFullName();
         return $url;

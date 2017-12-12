@@ -50,7 +50,7 @@ services:
 
     AppBundle\Service\TrickImageUploader:
         arguments:
-            $targetDir: '%trick_image_directory%'
+            $targetDir: '%web_root_dir%'
 
     AppBundle\EventListener\TrickImageListener:
           tags:

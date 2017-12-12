@@ -25,7 +25,11 @@ class TrickImageUploader extends Uploader
         $img->setFormat($imgExt);
         $img->setName($imgName);
 
-        $this->upload($file, $img->getFullName());
+        $this->upload(
+            $file,
+            $img->getFullName(),
+            $img->getWebDir()
+        );
     }
 
     public function renameImg(TrickImage $img, $oldName){
