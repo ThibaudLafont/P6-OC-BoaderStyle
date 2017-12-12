@@ -31,18 +31,6 @@ class TrickImageListener
         // TrickImage
         if($entity instanceof TrickImage) $this->uploader->uploadImg($entity);
 
-        // UserImage
-        if($entity instanceof User){
-            // Chiffrement et assignation du mdp renseigné
-            $entity->setPassword(sha1($entity->getPlainPassword()));
-
-            // Hydratation de img selon user
-            $img = $entity->getImg();
-            $img->setName($entity->getFullName());
-            $img->setAlt("Photo de {$entity->getFullName()}");
-
-            $this->uploader->uploadImg($img);
-        }
     }
 
 

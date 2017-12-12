@@ -40,6 +40,16 @@ services:
         public: true
         tags: ['media_trait.service_arguments']
 
+#    AppBundle\Service\:
+#        resource: '../../src/AppBundle/Service'
+#        public: true
+#        tags: ['app_service.service_arguments']
+#
+#    AppBundle\EventListener\:
+#        resource: '../../src/AppBundle/EventListener'
+#        public: true
+#        tags: ['app_listeners.service_arguments']
+#
     AppBundle\Form\Extension\ImageTypeExtension:
             tags:
                 - { name: form.type_extension, extended_type: Symfony\Component\Form\Extension\Core\Type\FileType }
@@ -47,14 +57,26 @@ services:
     AppBundle\Form\Extension\VideoTypeExtension:
             tags:
                 - { name: form.type_extension, extended_type: Symfony\Component\Form\Extension\Core\Type\UrlType }
-
-    AppBundle\Service\TrickImageUploader:
+#
+    AppBundle\Service\Uploader:
         arguments:
-            $targetDir: '%web_root_dir%'
+            $webRootDir: '%web_root_dir%'
 
-    AppBundle\EventListener\TrickImageListener:
-          tags:
-              - { name: doctrine.event_listener, event: prePersist }
-              - { name: doctrine.event_listener, event: preUpdate }
-              - { name: doctrine.event_listener, event: postUpdate }
-              - { name: doctrine.event_listener, event: postRemove }
+    user_listener:
+        class: AppBundle\EventListener\UserListener
+        tags:
+            - { name: doctrine.orm.entity_listener }
+            - { name: doctrine.orm.entity_listener, entity_manager: custom }
+
+    _listener:
+        class: AppBundle\EventListener\UserListener
+        tags:
+            - { name: doctrine.orm.entity_listener }
+            - { name: doctrine.orm.entity_listener, entity_manager: custom }
+
+#    AppBundle\EventListener\TrickImageListener:
+#          tags:
+#              - { name: doctrine.event_listener, event: prePersist }
+#              - { name: doctrine.event_listener, event: preUpdate }
+#              - { name: doctrine.event_listener, event: postUpdate }
+#              - { name: doctrine.event_listener, event: postRemove }

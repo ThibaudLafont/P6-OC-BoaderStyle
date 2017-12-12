@@ -5,15 +5,16 @@ use AppBundle\Entity\Media\Local;
 use AppBundle\Entity\Trick\TrickImage;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
-class TrickImageUploader extends Uploader
+class TrickImageUploader
 {
 
+    private $uploader;
     private $sluggifier;
 
-    public function __construct($targetDir, Sluggifier $sluggifier)
+    public function __construct(Uploader $uploader, Sluggifier $sluggifier)
     {
-        parent::__construct($targetDir);
         $this->sluggifier = $sluggifier;
+        $this->uploader = $uploader;
     }
 
     public function uploadImg(Local $img)
@@ -25,7 +26,7 @@ class TrickImageUploader extends Uploader
         $img->setFormat($imgExt);
         $img->setName($imgName);
 
-        $this->upload(
+        $this->getUploader->upload(
             $file,
             $img->getFullName(),
             $img->getWebDir()
@@ -52,4 +53,7 @@ class TrickImageUploader extends Uploader
         return $this->sluggifier;
     }
 
+    public function getUploader(){
+        return $this->sluggifier;
+    }
 }

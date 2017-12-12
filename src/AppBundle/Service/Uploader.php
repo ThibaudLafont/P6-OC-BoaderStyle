@@ -8,7 +8,7 @@ class Uploader
 
     private $webRootDir;
 
-    public function __construct($webRootDir)
+    public function __construct(String $webRootDir)
     {
         $this->webRootDir = $webRootDir;
     }
