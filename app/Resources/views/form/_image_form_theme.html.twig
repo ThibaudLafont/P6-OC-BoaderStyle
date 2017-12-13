@@ -1,0 +1,51 @@
+{% block file_widget %}
+    {% spaceless %}
+
+        {% if image_url is not null %}
+            <img src="{{ asset(image_url) }}" style="display:block"/>
+        {% else %}
+            {{ block('form_widget') }}
+        {% endif %}
+
+    {% endspaceless %}
+{% endblock %}
+
+{% block ImageType_row %}
+    <table>
+
+        <tr>
+            <td>
+                {{ form_label(form.file) }}
+            </td>
+            <td>
+                {{ form_widget(form.file) }}
+            </td>
+        </tr>
+
+        {% if form.name is defined %}
+            <tr>
+                <td>
+                    {{ form_label(form.name) }}
+                </td>
+                <td>
+                    {{ form_widget(form.name) }}
+                </td>
+            </tr>
+        {% endif %}
+
+        {% if form.alt is defined %}
+            <tr>
+                <td>
+                    {{ form_label(form.alt) }}
+                </td>
+                <td>
+                    {{ form_widget(form.alt) }}
+                </td>
+            </tr>
+        {% endif %}
+
+        {% if form.position is defined %}
+            {{ form_widget(form.position) }}
+        {% endif %}
+    </table>
+{% endblock %}

@@ -17,8 +17,8 @@ The requested web-application's engineering will be segmented, according to abov
 | ✓ | 17 | DataFixtures creation                       | ~~0.25day~~ | 0.5day  |
 | ✓ | 2  | Entities rework                             | ~~1day~~    | 2days   | 
 | ✓ | 4  | Home and show pages creation                | ~~0.5days~~ | 0.5day  |
-| ✕ | 5  | Add/edit/delete figure features creation    | 1.5days     |         |
-| ✕ | 5  | Add/edit/delete features securisation       | 2.5days     |         |
+| ✕ | 5  | Add/edit/delete figure features creation    | ~~1.5days~~ | 5days   |
+| ✕ | 5  | Add/edit/delete features finishes           | ~~2.5days~~ | 4days   |
 | ✕ | 6  | Chat feature creation                       | 1 day       |         |
 | ✕ | 7  | Sign-in/sign-up features creation           | 1 day       |         |
 | ✕ | 11 | Securisation of authenficated features      | 1 day       |         |

@@ -7,7 +7,14 @@
         <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
     </head>
     <body>
-        <a href="/">Liste des figures</a>
+        <p>
+            <a href="/">Liste des figures</a>
+            <a href="/register">S'inscrire</a>
+        </p>
+        <p>
+            <a href="/add/trick">Ajouter une figure</a>
+            <a href="/category/add">Ajouter une catégorie</a>
+        </p>
         {% block body %}{% endblock %}
         {% block javascripts %}{% endblock %}
     </body>

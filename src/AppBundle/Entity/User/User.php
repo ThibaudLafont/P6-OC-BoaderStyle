@@ -1,15 +1,16 @@
 <?php
 
-namespace AppBundle\Entity;
+namespace AppBundle\Entity\User;
 
 use Doctrine\ORM\Mapping as ORM;
-use AppBundle\Entity\Media\UserImage;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * User
  *
  * @ORM\Table(name="user")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\UserRepository")
+ * @ORM\EntityListeners({"AppBundle\EventListener\UserListener"})
  */
 class User
 {
@@ -43,6 +44,12 @@ class User
      */
     private $userName;
 
+
+    /**
+     * @Assert\NotBlank()
+     */
+    private $plainPassword;
+
     /**
      * @var string
      *
@@ -52,7 +59,7 @@ class User
 
     /**
      * @ORM\OneToOne(
-     *     targetEntity="\AppBundle\Entity\Media\UserImage",
+     *     targetEntity="UserImage",
      *     cascade={"persist", "remove"}
      * )
      */
@@ -60,26 +67,34 @@ class User
 
     /**
      * @ORM\OneToMany(
-     *     targetEntity="Message",
+     *     targetEntity="AppBundle\Entity\Message\Message",
      *     mappedBy="user"
      * )
      */
     private $messages;
 
     /**
-     * @ORM\OneToMany(targetEntity="Trick", mappedBy="author")
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Trick\Trick", mappedBy="author")
      */
     private $tricks;
 
+
+      ///////////////////
+     ///// SPECIFIC ////
+    ///////////////////
+
     /**
-     * Get id
+     * Concat and return Firstname + lastname
      *
-     * @return int
+     * @return string
      */
-    public function getId()
-    {
-        return $this->id;
+    public function getFullName(){
+        return $this->getFirstName() . ' ' . $this->getLastName();
     }
+
+      ///////////////////
+     ///// SETTERS /////
+    ///////////////////
 
     /**
      * Set firstName
@@ -93,16 +108,6 @@ class User
         $this->firstName = $firstName;
 
         return $this;
-    }
-
-    /**
-     * Get firstName
-     *
-     * @return string
-     */
-    public function getFirstName()
-    {
-        return $this->firstName;
     }
 
     /**
@@ -120,16 +125,6 @@ class User
     }
 
     /**
-     * Get lastName
-     *
-     * @return string
-     */
-    public function getLastName()
-    {
-        return $this->lastName;
-    }
-
-    /**
      * Set userName
      *
      * @param string $userName
@@ -143,14 +138,8 @@ class User
         return $this;
     }
 
-    /**
-     * Get userName
-     *
-     * @return string
-     */
-    public function getUserName()
-    {
-        return $this->userName;
+    public function setPlainPassword($plainPassword){
+        $this->plainPassword = $plainPassword;
     }
 
     /**
@@ -168,6 +157,62 @@ class User
     }
 
     /**
+     * @param UserImage $img
+     */
+    public function setImg(UserImage $img){
+        $this->img = $img;
+    }
+
+
+    ///////////////////
+    ///// GETTERS /////
+    ///////////////////
+
+    /**
+     * Get id
+     *
+     * @return int
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Get firstName
+     *
+     * @return string
+     */
+    public function getFirstName()
+    {
+        return $this->firstName;
+    }
+
+    /**
+     * Get lastName
+     *
+     * @return string
+     */
+    public function getLastName()
+    {
+        return $this->lastName;
+    }
+
+    /**
+     * Get userName
+     *
+     * @return string
+     */
+    public function getUserName()
+    {
+        return $this->userName;
+    }
+
+    public function getPlainPassword(){
+        return $this->plainPassword;
+    }
+
+    /**
      * Get password
      *
      * @return string
@@ -178,21 +223,11 @@ class User
     }
 
     /**
-     * @param UserImage $img
-     */
-    public function setImg(UserImage $img){
-        $this->img = $img;
-    }
-
-    /**
-     * @return \AppBundle\Image
+     * @return UserImage
      */
     public function getImg(){
         return $this->img;
     }
 
-    public function getFullName(){
-        return $this->getFirstName() . ' ' . $this->getLastName();
-    }
 }
 

@@ -1,0 +1,36 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+    <h1>Ajouter une figure</h1>
+    <div class="container">
+        {% form_theme form
+            'form/_trick_form_theme.html.twig'
+            'form/jquery.collection.html.twig'
+            'form/_image_form_theme.html.twig'
+            'form/_video_form_theme.html.twig'
+        %}
+        {{ form(form) }}
+    </div>
+
+{% endblock %}
+
+{% block javascripts %}
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="/js/jquery.collection.js"></script>
+
+    <script type="text/javascript">
+        $('.img').collection({
+            min: 1,
+            position_field_selector: '.img_position',
+            elements_selector: '> table'
+        });
+        $('.vid').collection({
+            min: 0,
+            position_field_selector: '.vid_position',
+            elements_selector: '> table'
+        });
+    </script>
+
+{% endblock %}

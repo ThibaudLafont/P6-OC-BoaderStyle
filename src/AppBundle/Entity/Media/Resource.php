@@ -2,11 +2,12 @@
 namespace AppBundle\Entity\Media;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\MappedSuperclass()
  */
-abstract class File
+abstract class Resource
 {
 
     /**
@@ -21,27 +22,30 @@ abstract class File
     /**
      * @var string
      *
-     * @ORM\Column(name="name", type="string", length=255, unique=true)
+     * @ORM\Column(name="name", type="string", length=255)
+     * @Assert\NotBlank(message="Le nom est obligatoire")
+     * @Assert\Length(
+     *      min = 2,
+     *      max = 55,
+     *      minMessage = "Le nom doit faire au moins {{ limit }} caractères",
+     *      maxMessage = "Le nom doit faire moins de {{ limit }} caractères"
+     * )
      */
     protected $name;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="format", type="string", length=255)
-     */
-    protected $format;
-
-    /**
-     * @var string
-     *
      * @ORM\Column(name="alt", type="string", length=255)
+     * @Assert\NotBlank(message="La description alternative est obligatoire")
+     * @Assert\Length(
+     *      min = 2,
+     *      max = 55,
+     *      minMessage = "La description alternative doit faire au moins {{ limit }} caractères",
+     *      maxMessage = "La description alternative doit faire moins de {{ limit }} caractères"
+     * )
      */
     protected $alt;
-
-    // CONSTS
-    const WEB_DIRECTORY = '/root/path/to/web/directory/';
-    const VALID_FORMATS = ['expected', 'formats'];
 
     /**
      * Get id
@@ -64,23 +68,10 @@ abstract class File
         return $this;
     }
 
-    public function getFormat(){
-        return $this->format;
-    }
-    public function setFormat($format){
-        if(in_array($format, static::VALID_FORMATS))  $this->format = $format;
-    }
-
     public function getAlt(){
         return $this->alt;
     }
     public function setAlt($alt){
         $this->alt = $alt;
     }
-
-    public function getUrl(){
-        $url = static::WEB_DIRECTORY . $this->getName() . '.' . $this->getFormat();
-        return $url;
-    }
-
 }
