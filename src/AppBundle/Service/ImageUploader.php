@@ -1,21 +1,23 @@
 <?php
 namespace AppBundle\Service;
 
-use AppBundle\Entity\Media\TrickImage;
+use AppBundle\Entity\Media\Local;
+use AppBundle\Entity\Trick\TrickImage;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
-class TrickImageUploader extends Uploader
+class ImageUploader
 {
 
+    private $uploader;
     private $sluggifier;
 
-    public function __construct($targetDir, Sluggifier $sluggifier)
+    public function __construct(Uploader $uploader, Sluggifier $sluggifier)
     {
-        parent::__construct($targetDir);
         $this->sluggifier = $sluggifier;
+        $this->uploader = $uploader;
     }
 
-    public function uploadImg(TrickImage $img)
+    public function upload(Local $img)
     {
         $file = $img->getFile();
         $imgName = $this->getSluggifier()->sluggify($img->getName());
@@ -24,22 +26,26 @@ class TrickImageUploader extends Uploader
         $img->setFormat($imgExt);
         $img->setName($imgName);
 
-        $this->upload($file, $img->getFullName());
+        $this->getUploader()->upload(
+            $file,
+            $img->getFullName(),
+            $img->getWebDir()
+        );
     }
 
     public function renameImg(TrickImage $img, $oldName){
         $imgName = $this->getSluggifier()->sluggify($img->getName());
         $img->setName($imgName);
 
-        $path = $this->getTargetDir().'/';
+        $path = $this->getUploader()->getWebRootDir() . $img->getWebDir();
         $newName = $path . $img->getFullName();
         $oldName = $path . $oldName .'.'. $img->getFormat();
 
         rename($oldName, $newName);
     }
 
-    public function removeImg(TrickImage $img){
-        $imgPath = $this->getTargetDir().'/'.$img->getFullName();
+    public function remove(Local $img){
+        $imgPath = $this->getUploader()->getWebRootDir() . $img->getWebDir() . $img->getFullName();
         unlink($imgPath);
     }
 
@@ -47,4 +53,7 @@ class TrickImageUploader extends Uploader
         return $this->sluggifier;
     }
 
+    public function getUploader(){
+        return $this->uploader;
+    }
 }

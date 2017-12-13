@@ -8,55 +8,53 @@
 
 namespace AppBundle\EventListener;
 
-use AppBundle\Entity\Media\TrickImage;
-use AppBundle\Entity\Media\TrickVideo;
+use AppBundle\Entity\Trick\TrickImage;
+use AppBundle\Entity\Trick\TrickVideo;
+use AppBundle\Service\ImageUploader;
 use AppBundle\Service\TrickImageUploader;
 use Doctrine\ORM\Event\LifecycleEventArgs;
 use Doctrine\ORM\Event\PreUpdateEventArgs;
+use Doctrine\ORM\Mapping as ORM;
 
 class TrickImageListener
 {
     private $uploader;
 
-    public function __construct(TrickImageUploader $uploader)
+    public function __construct(ImageUploader $uploader)
     {
         $this->uploader = $uploader;
     }
 
-    public function prePersist(LifecycleEventArgs $args)
+    /** @ORM\PrePersist */
+    public function prePersist(TrickImage $img, LifecycleEventArgs $args)
     {
-        $img = $args->getEntity();
-        if($img instanceof TrickImage) $this->uploader->uploadImg($img);
+        $this->uploader->upload($img);
     }
 
-
-    public function preUpdate(PreUpdateEventArgs $args)
+    /** @ORM\PreUpdate */
+    public function preUpdate(TrickImage $img, PreUpdateEventArgs $args)
     {
-        $img = $args->getEntity();
-
-        if($img instanceof TrickImage && $args->hasChangedField('name')) {
+        if($args->hasChangedField('name')) {
             $this->uploader->renameImg($img, $args->getOldValue('name'));
         }
     }
 
-    public function postUpdate(LifecycleEventArgs $args){
+    /** @ORM\PostUpdate */
+    public function postUpdate(TrickImage $img, LifecycleEventArgs $args){
 
-        $entity = $args->getEntity();
-        if(!$entity instanceof TrickImage && !$entity instanceof TrickVideo) return;
-
-        if(count($entity->getTricks()) === 0){
+        if(count($img->getTricks()) === 0){
 
             $em = $args->getEntityManager();
-            $em->remove($entity);
+            $em->remove($img);
 
         }
 
     }
 
-    public function postRemove(LifecycleEventArgs $args)
+    /** @ORM\PostRemove */
+    public function postRemove(TrickImage $img, LifecycleEventArgs $args)
     {
-        $img = $args->getEntity();
-        if(!$img instanceof TrickImage) $this->uploader->removeImg($img);
+        $this->uploader->remove($img);
     }
 
 }

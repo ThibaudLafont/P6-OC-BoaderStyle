@@ -2,7 +2,7 @@
 namespace AppBundle\Entity\Traits;
 
 
-use AppBundle\Entity\Trick;
+use AppBundle\Entity\Trick\Trick;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 

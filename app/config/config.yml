@@ -8,6 +8,8 @@ imports:
 parameters:
     locale: en
     trick_image_directory: '%kernel.project_dir%/web/media/img/tricks'
+    user_image_directory: '%kernel.project_dir%/web/media/img/users'
+    web_root_dir: '%kernel.project_dir%/web'
 
 framework:
     #esi: ~

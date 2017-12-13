@@ -1,6 +1,7 @@
 <?php
-namespace AppBundle\Entity\Media;
+namespace AppBundle\Entity\User;
 
+use AppBundle\Entity\Media\Local;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -14,6 +15,6 @@ class UserImage extends Local
 
     // CONSTS
     const WEB_DIRECTORY = '/media/img/users/';
-    const VALID_FORMATS = ['jpg'];
+    const VALID_FORMATS = ['jpg', 'jpeg'];
 
 }

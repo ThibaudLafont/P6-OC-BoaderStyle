@@ -1,15 +1,16 @@
 <?php
 
-namespace AppBundle\Entity;
+namespace AppBundle\Entity\User;
 
 use Doctrine\ORM\Mapping as ORM;
-use AppBundle\Entity\Media\UserImage;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * User
  *
  * @ORM\Table(name="user")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\UserRepository")
+ * @ORM\EntityListeners({"AppBundle\EventListener\UserListener"})
  */
 class User
 {
@@ -43,6 +44,12 @@ class User
      */
     private $userName;
 
+
+    /**
+     * @Assert\NotBlank()
+     */
+    private $plainPassword;
+
     /**
      * @var string
      *
@@ -52,7 +59,7 @@ class User
 
     /**
      * @ORM\OneToOne(
-     *     targetEntity="\AppBundle\Entity\Media\UserImage",
+     *     targetEntity="UserImage",
      *     cascade={"persist", "remove"}
      * )
      */
@@ -60,14 +67,14 @@ class User
 
     /**
      * @ORM\OneToMany(
-     *     targetEntity="Message",
+     *     targetEntity="AppBundle\Entity\Message\Message",
      *     mappedBy="user"
      * )
      */
     private $messages;
 
     /**
-     * @ORM\OneToMany(targetEntity="Trick", mappedBy="author")
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Trick\Trick", mappedBy="author")
      */
     private $tricks;
 
@@ -84,7 +91,6 @@ class User
     public function getFullName(){
         return $this->getFirstName() . ' ' . $this->getLastName();
     }
-
 
       ///////////////////
      ///// SETTERS /////
@@ -130,6 +136,10 @@ class User
         $this->userName = $userName;
 
         return $this;
+    }
+
+    public function setPlainPassword($plainPassword){
+        $this->plainPassword = $plainPassword;
     }
 
     /**
@@ -196,6 +206,10 @@ class User
     public function getUserName()
     {
         return $this->userName;
+    }
+
+    public function getPlainPassword(){
+        return $this->plainPassword;
     }
 
     /**

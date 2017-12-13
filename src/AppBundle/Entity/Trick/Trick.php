@@ -1,12 +1,12 @@
 <?php
 
-namespace AppBundle\Entity;
+namespace AppBundle\Entity\Trick;
 
-use AppBundle\Entity\Media\TrickImage;
-use AppBundle\Entity\Media\TrickVideo;
+use AppBundle\Entity\User\User;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use AppBundle\Validator\Constraints as AppAssert;
 
 
 /**
@@ -49,11 +49,14 @@ class Trick
      *      min = 10,
      *      minMessage = "La description doit faire au moins {{ limit }} caractères"
      * )
+     * @AppAssert\AllowedTags(
+     *     allowedTags = "<h3><h2>"
+     * )
      */
     private $description;
 
     /**
-     * @ORM\ManyToOne(targetEntity="User", inversedBy="tricks")
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\User\User", inversedBy="tricks")
      */
     private $author;
 
@@ -64,7 +67,7 @@ class Trick
 
     /**
      * @ORM\ManyToMany(
-     *     targetEntity="\AppBundle\Entity\Media\TrickImage",
+     *     targetEntity="TrickImage",
      *     mappedBy="trick",
      *     cascade={"persist", "remove"}
      *     )
@@ -73,7 +76,7 @@ class Trick
 
     /**
      * @ORM\ManyToMany(
-     *     targetEntity="\AppBundle\Entity\Media\TrickVideo",
+     *     targetEntity="TrickVideo",
      *     mappedBy="trick",
      *     cascade={"persist", "remove"}
      * )
@@ -81,7 +84,7 @@ class Trick
     private $videos;
 
     /**
-     * @ORM\OneToMany(targetEntity="Message", mappedBy="trick")
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Message\Message", mappedBy="trick")
      */
     private $messages;
 

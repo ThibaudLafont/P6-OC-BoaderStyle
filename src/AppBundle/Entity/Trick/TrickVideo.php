@@ -1,6 +1,7 @@
 <?php
-namespace AppBundle\Entity\Media;
+namespace AppBundle\Entity\Trick;
 
+use AppBundle\Entity\Media\External;
 use AppBundle\Entity\Traits\TrickResource;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -9,6 +10,7 @@ use Doctrine\ORM\Mapping as ORM;
  *
  * @ORM\Table(name="trick_video")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\TrickVideoRepository")
+ * @ORM\EntityListeners({"AppBundle\EventListener\TrickVideoListener"})
  */
 class TrickVideo extends External
 {
@@ -17,7 +19,7 @@ class TrickVideo extends External
 
     /**
      * @ORM\ManyToMany(
-     *     targetEntity="\AppBundle\Entity\Trick",
+     *     targetEntity="Trick",
      *     inversedBy="videos",
      *     cascade={"persist", "remove"}
      * )
