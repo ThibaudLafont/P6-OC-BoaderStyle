@@ -2,6 +2,7 @@
 namespace AppBundle\EventListener;
 
 use AppBundle\Entity\User\User;
+use AppBundle\Service\ImageUploader;
 use AppBundle\Service\Uploader;
 use Doctrine\ORM\Event\LifecycleEventArgs;
 use Doctrine\ORM\Event\PreUpdateEventArgs;
@@ -12,7 +13,7 @@ class UserListener
 
     private $uploader;
 
-    public function __construct(Uploader $uploader)
+    public function __construct(ImageUploader $uploader)
     {
         $this->uploader = $uploader;
     }
@@ -25,21 +26,10 @@ class UserListener
 
         // Hydratation de img selon user
         $img = $user->getImg();
-//        $img->setName($user->getFullName());
+        $img->setName($user->getFullName());
         $img->setAlt("Photo de {$user->getFullName()}");
 
-        $file = $img->getFile();
-        $imgName = 'test';
-        $imgExt = $file->guessExtension();
-
-        $img->setFormat($imgExt);
-        $img->setName($imgName);
-
-        $this->getUploader()->upload(
-            $file,
-            $img->getFullName(),
-            $img->getWebDir()
-        );
+        $this->uploader->upload($img);
     }
 
     public function getUploader(){

@@ -10,6 +10,7 @@ use Doctrine\ORM\Mapping as ORM;
  *
  * @ORM\Table(name="trick_video")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\TrickVideoRepository")
+ * @ORM\EntityListeners({"AppBundle\EventListener\TrickVideoListener"})
  */
 class TrickVideo extends External
 {

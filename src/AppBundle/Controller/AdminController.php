@@ -63,7 +63,7 @@ class AdminController extends Controller
             $em->persist($trick);
             $em->flush();
 
-//            return $this->redirectToRoute('trick_show', ['id' => $trick->getId()]);
+            return $this->redirectToRoute('trick_show', ['id' => $trick->getId()]);
 
         }
 

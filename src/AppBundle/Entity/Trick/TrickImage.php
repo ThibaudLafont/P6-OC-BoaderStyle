@@ -13,7 +13,7 @@ use Doctrine\ORM\Events;
  *
  * @ORM\Table(name="trick_image")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\TrickImageRepository")
- * @ORM\HasLifecycleCallbacks()
+ * @ORM\EntityListeners({"AppBundle\EventListener\TrickImageListener"})
  */
 class TrickImage extends Local
 {

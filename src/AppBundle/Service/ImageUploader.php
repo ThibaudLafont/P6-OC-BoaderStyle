@@ -5,7 +5,7 @@ use AppBundle\Entity\Media\Local;
 use AppBundle\Entity\Trick\TrickImage;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
-class TrickImageUploader
+class ImageUploader
 {
 
     private $uploader;
@@ -17,7 +17,7 @@ class TrickImageUploader
         $this->uploader = $uploader;
     }
 
-    public function uploadImg(Local $img)
+    public function upload(Local $img)
     {
         $file = $img->getFile();
         $imgName = $this->getSluggifier()->sluggify($img->getName());
@@ -26,7 +26,7 @@ class TrickImageUploader
         $img->setFormat($imgExt);
         $img->setName($imgName);
 
-        $this->getUploader->upload(
+        $this->getUploader()->upload(
             $file,
             $img->getFullName(),
             $img->getWebDir()
@@ -37,15 +37,15 @@ class TrickImageUploader
         $imgName = $this->getSluggifier()->sluggify($img->getName());
         $img->setName($imgName);
 
-        $path = $this->getTargetDir().'/';
+        $path = $this->getUploader()->getWebRootDir() . $img->getWebDir();
         $newName = $path . $img->getFullName();
         $oldName = $path . $oldName .'.'. $img->getFormat();
 
         rename($oldName, $newName);
     }
 
-    public function removeImg(TrickImage $img){
-        $imgPath = $this->getTargetDir().'/'.$img->getFullName();
+    public function remove(Local $img){
+        $imgPath = $this->getUploader()->getWebRootDir() . $img->getWebDir() . $img->getFullName();
         unlink($imgPath);
     }
 
@@ -54,6 +54,6 @@ class TrickImageUploader
     }
 
     public function getUploader(){
-        return $this->sluggifier;
+        return $this->uploader;
     }
 }
