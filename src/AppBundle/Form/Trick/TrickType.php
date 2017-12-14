@@ -40,15 +40,6 @@ class TrickType extends AbstractType
                 ]
             )
             ->add(
-                'author',
-                EntityType::class,
-                [
-                    'label' => 'Auteur',
-                    'class' => 'AppBundle:User\User',
-                    'choice_label' => 'fullName'
-                ]
-            )
-            ->add(
                 'imgs',
                 CollectionType::class,
                 [

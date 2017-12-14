@@ -6,15 +6,10 @@ use AppBundle\Entity\User\UserImage;
 use AppBundle\Entity\User\User;
 use AppBundle\Form\User\LoginType;
 use AppBundle\Form\User\RegisterType;
-use AppBundle\Service\Sluggifier;
 use AppBundle\Service\TrickImageUploader;
-use AppBundle\Service\Uploader;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Session\Session;
-use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
@@ -76,42 +71,12 @@ class PublicController extends Controller
     /**
      * @Route("/login", name="user_login")
      */
-    public function loginAction(Request $request, AuthenticationUtils $authUtils){
+    public function loginAction(Request $request){
         $user = new User();
 
         // Creation of form
         $form = $this->get('form.factory')->create(LoginType::class, $user);
-//        $form->handleRequest($request);
-
-//        // Action if submitted data are valid
-//        if ($form->isSubmitted() && $form->isValid()) {
-//
-//            $expectUser = $this
-//                ->getDoctrine()
-//                ->getRepository('AppBundle:User\User')
-//                ->findOneBy([
-//                    'userName'=>$user->getUserName()
-//                ]);
-//
-//            // When a user is found with same username/password
-//            if(sha1($user->getPlainPassword()) === $expectUser->getPassword()){
-////                echo '<pre>';
-////                var_dump($request->headers);
-////                echo '</pre>';
-//            }
-//
-//        }
 
         return $this->render('user/_login.html.twig', ['form' => $form->createView()]);
-        // get the login error if there is one
-//        $error = $authUtils->getLastAuthenticationError();
-//
-//        // last username entered by the user
-//        $lastUsername = $authUtils->getLastUsername();
-//
-//        return $this->render('user/_login.html.twig', array(
-//            'last_username' => $lastUsername,
-//            'error'         => $error,
-//        ));
     }
 }

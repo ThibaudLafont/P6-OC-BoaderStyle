@@ -20,4 +20,5 @@
 /node_modules/*
 /package-lock.json
 /web/media/img/tricks/*
+/web/media/img/users/*
 /web/media/video/tricks/*

@@ -6,13 +6,15 @@
         {{ trick.name }}
     </h1>
     <article>
+        {% if is_granted('ROLE_ADMIN') %}
+            <p>
+                <a href="/admin/edit/trick/{{ trick.id }}">Modifier</a>
+                <a href="/admin/delete/trick/{{ trick.id }}">Supprimer</a>
+            </p>
+        {% endif %}
         <p>
-            <a href="/edit/{{ trick.id }}">Modifier</a>
-            <a href="/delete/{{ trick.id }}">Supprimer</a>
-        </p>
-        <p>
-            {#<img src="{{ trick.author.img.url }}" alt="{{ trick.author.img.alt }}" style="width:50px">#}
-            {#Posté par {{ trick.author.fullName }}#}
+            <img src="{{ trick.author.img.url }}" alt="{{ trick.author.img.alt }}" style="width:50px">
+            Posté par {{ trick.author.fullName }}
         </p>
 
         <div>

@@ -20,7 +20,7 @@ The requested web-application's engineering will be segmented, according to abov
 | ✕ | 5  | Add/edit/delete figure features creation    | ~~1.5days~~ | 5days   |
 | ✕ | 5  | Add/edit/delete features finishes           | ~~2.5days~~ | 4days   |
 | ✕ | 6  | Chat feature creation                       | 1 day       |         |
-| ✕ | 7  | Sign-in/sign-up features creation           | 1 day       |         |
+| ✕ | 7  | Sign-in/sign-up features creation           | ~~1 day~~   | 1.5days |
 | ✕ | 11 | Securisation of authenficated features      | 1 day       |         |
 | ✕ | 13 | YALM with initals figures                   | 2days       |         |
 | ✕ | 8  | Home and show pages front-work              | 2days       |         |

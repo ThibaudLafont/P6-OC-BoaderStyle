@@ -29,11 +29,14 @@ class AdminController extends Controller
         // Action if submitted data are valid
         if ($form->isSubmitted() && $form->isValid()) {
 
+            $author = $this->getUser();
+            $trick->setAuthor($author);
+
             $em = $this->getDoctrine()->getManager();
             $em->persist($trick);
             $em->flush();
 
-            return $this->redirectToRoute('trick_show', ['id' => $trick->getId()]);
+            return $this->redirectToRoute('trick_list');
 
         }
 
@@ -102,6 +105,8 @@ class AdminController extends Controller
             $em = $this->getDoctrine()->getManager();
             $em->persist($category);
             $em->flush();
+
+            $this->redirectToRoute('trick_list');
 
         }
 
