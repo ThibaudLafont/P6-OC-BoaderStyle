@@ -1,7 +1,6 @@
 <?php
 namespace AppBundle\Security;
 
-use Doctrine\ORM\EntityManager;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -12,7 +11,6 @@ use Symfony\Component\Security\Core\User\UserProviderInterface;
 use Symfony\Component\Security\Guard\AbstractGuardAuthenticator;
 
 class UserAuthenticator extends AbstractGuardAuthenticator{
-
     /**
      * Returns a response that directs the user to authenticate.
      *
@@ -64,7 +62,7 @@ class UserAuthenticator extends AbstractGuardAuthenticator{
      */
     public function getCredentials(Request $request)
     {
-        return $request->getSession('user_auth');
+        // TODO: Implement getCredentials() method.
     }
 
     /**
@@ -84,6 +82,7 @@ class UserAuthenticator extends AbstractGuardAuthenticator{
      */
     public function getUser($credentials, UserProviderInterface $userProvider)
     {
+        // TODO: Implement getUser() method.
     }
 
     /**
@@ -104,7 +103,7 @@ class UserAuthenticator extends AbstractGuardAuthenticator{
      */
     public function checkCredentials($credentials, UserInterface $user)
     {
-
+        // TODO: Implement checkCredentials() method.
     }
 
     /**
@@ -123,7 +122,7 @@ class UserAuthenticator extends AbstractGuardAuthenticator{
      */
     public function onAuthenticationFailure(Request $request, AuthenticationException $exception)
     {
-        return new RedirectResponse('/login');
+        // TODO: Implement onAuthenticationFailure() method.
     }
 
     /**
@@ -143,7 +142,7 @@ class UserAuthenticator extends AbstractGuardAuthenticator{
      */
     public function onAuthenticationSuccess(Request $request, TokenInterface $token, $providerKey)
     {
-        return new RedirectResponse('/');
+        // TODO: Implement onAuthenticationSuccess() method.
     }
 
     /**

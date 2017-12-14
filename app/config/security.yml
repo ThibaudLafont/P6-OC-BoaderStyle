@@ -2,9 +2,9 @@
 # https://symfony.com/doc/current/security.html
 security:
 
-#    encoders:
-#        AppBundle\Entity\User\User:
-#            algorithm: sha1
+    encoders:
+        AppBundle\Entity\User\User:
+            algorithm: bcrypt
 
     # https://symfony.com/doc/current/security.html#b-configuring-how-users-are-loaded
     providers:
@@ -17,20 +17,20 @@ security:
 
     firewalls:
         # disables authentication for assets and the profiler, adapt it according to your needs
-        dev:
-            pattern: ^/(_(profiler|wdt)|css|images|js)/
-            security: false
-
-        main:
-            anonymous: ~
+#        dev:
+#            pattern: ^/(_(profiler|wdt)|css|images|js)/
+#            security: false
+#
+#        main:
+#            anonymous: ~
 
         test:
-            pattern: ^/
+            pattern: /trick
             http_basic: ~
             provider: user_provider
-            guard:
-                authenticators:
-                    - AppBundle\Security\UserAuthenticator
+#            form_login:
+#                login_path: user_login
+#                check_path: user_login
             # activate different ways to authenticate
 
             # https://symfony.com/doc/current/security.html#a-configuring-how-your-users-will-authenticate

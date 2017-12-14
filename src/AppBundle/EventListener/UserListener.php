@@ -7,6 +7,7 @@ use AppBundle\Service\Uploader;
 use Doctrine\ORM\Event\LifecycleEventArgs;
 use Doctrine\ORM\Event\PreUpdateEventArgs;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 class UserListener
 {
@@ -19,10 +20,11 @@ class UserListener
     }
 
     /** @ORM\PrePersist */
-    public function prePersist(User $user, LifecycleEventArgs $args)
+    public function prePersist(User $user, LifecycleEventArgs $args, UserPasswordEncoderInterface $encoder)
     {
         // Chiffrement et assignation du mdp renseigné
-        $user->setPassword(sha1($user->getPlainPassword()));
+        $pwd = $encoder->encodePassword($user, $user->getPlainPassword());
+        $user->setPassword($pwd);
 
         // Hydratation de img selon user
         $img = $user->getImg();
