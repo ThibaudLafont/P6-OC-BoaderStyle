@@ -3,8 +3,7 @@
 security:
 
     encoders:
-        AppBundle\Entity\User\User:
-            algorithm: bcrypt
+        AppBundle\Entity\User\User: bcrypt
 
     # https://symfony.com/doc/current/security.html#b-configuring-how-users-are-loaded
     providers:

@@ -15,6 +15,7 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 class PublicController extends Controller
 {
@@ -43,7 +44,7 @@ class PublicController extends Controller
     /**
      * @Route("/register", name="user_register")
      */
-    public function registerAction(Request $request)
+    public function registerAction(Request $request, UserPasswordEncoderInterface $encoder)
     {
         $user = new User();
         $img = new UserImage();
@@ -55,6 +56,9 @@ class PublicController extends Controller
 
         // Action if submitted data are valid
         if ($form->isSubmitted() && $form->isValid()) {
+
+            $pwd = $encoder->encodePassword($user, $user->getPlainPassword());
+            $user->setPassword($pwd);
 
             $em = $this->getDoctrine()->getManager();
             $em->persist($user);

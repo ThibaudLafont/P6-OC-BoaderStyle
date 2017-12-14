@@ -20,11 +20,11 @@ class UserListener
     }
 
     /** @ORM\PrePersist */
-    public function prePersist(User $user, LifecycleEventArgs $args, UserPasswordEncoderInterface $encoder)
+    public function prePersist(User $user, LifecycleEventArgs $args)
     {
-        // Chiffrement et assignation du mdp renseigné
-        $pwd = $encoder->encodePassword($user, $user->getPlainPassword());
-        $user->setPassword($pwd);
+//        // Chiffrement et assignation du mdp renseigné
+//        $pwd = $encoder->encodePassword($user, $user->getPlainPassword());
+//        $user->setPassword($pwd);
 
         // Hydratation de img selon user
         $img = $user->getImg();
