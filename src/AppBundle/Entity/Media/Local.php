@@ -7,7 +7,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 /**
  * @ORM\MappedSuperclass()
  */
-abstract class Local extends Resource
+abstract class Local extends Media
 {
 
     /**

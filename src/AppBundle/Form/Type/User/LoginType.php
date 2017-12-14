@@ -1,15 +1,17 @@
 <?php
-namespace AppBundle\Form\Trick;
+namespace AppBundle\Form\Type\User;
 
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
+use Symfony\Component\Form\Extension\Core\Type\PasswordType;
+use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-
 // Fields
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
-class CategoryType extends AbstractType
+class LoginType extends AbstractType
 {
     /**
      * {@inheritdoc}
@@ -18,16 +20,17 @@ class CategoryType extends AbstractType
     {
         $builder
             ->add(
-                'name',
+                'userName',
                 TextType::class,
                 [
-                    'label' => 'Nom'
+                    'label' => 'Nom d\'utilisateur'
                 ]
             )
             ->add(
-                'Save',
-                SubmitType::class
-            );
+                'plainPassword',
+                PasswordType::class
+            )
+            ->add('Log in', SubmitType::class);
     }
 
     /**
@@ -36,7 +39,7 @@ class CategoryType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'AppBundle\Entity\Trick\Category'
+            'data_class' => 'AppBundle\Entity\User\User'
         ));
     }
 
@@ -45,6 +48,7 @@ class CategoryType extends AbstractType
      */
     public function getBlockPrefix()
     {
-        return 'CategoryType';
+        return 'UserType';
     }
+
 }

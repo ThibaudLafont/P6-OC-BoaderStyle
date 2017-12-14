@@ -1,5 +1,5 @@
 <?php
-namespace AppBundle\Form\User;
+namespace AppBundle\Form\Type\User;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;

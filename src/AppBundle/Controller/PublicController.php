@@ -4,14 +4,13 @@ namespace AppBundle\Controller;
 
 use AppBundle\Entity\User\UserImage;
 use AppBundle\Entity\User\User;
-use AppBundle\Form\User\LoginType;
-use AppBundle\Form\User\RegisterType;
+use AppBundle\Form\Type\User\LoginType;
+use AppBundle\Form\Type\User\RegisterType;
 use AppBundle\Service\TrickImageUploader;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
-use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
 class PublicController extends Controller
 {

@@ -306,4 +306,3 @@ class User implements UserInterface, \Serializable
         $this->setPlainPassword(null);
     }
 }
-

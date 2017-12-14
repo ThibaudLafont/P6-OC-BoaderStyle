@@ -4,11 +4,10 @@ namespace AppBundle\Controller;
 
 use AppBundle\Entity\Trick\Category;
 use AppBundle\Entity\Trick\Trick;
-use AppBundle\Form\Trick\CategoryType;
-use AppBundle\Form\Trick\TrickType;
-use AppBundle\Form\Trick\TrickImageType;
+use AppBundle\Form\Type\Trick\CategoryType;
+use AppBundle\Form\Type\Trick\TrickType;
+use AppBundle\Form\Type\Trick\TrickImageType;
 
-use AppBundle\Form\User\RegisterType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;

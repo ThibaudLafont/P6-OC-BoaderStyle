@@ -1,5 +1,5 @@
 <?php
-namespace AppBundle\Form\User;
+namespace AppBundle\Form\Type\User;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
@@ -11,7 +11,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
-class LoginType extends AbstractType
+class RegisterType extends AbstractType
 {
     /**
      * {@inheritdoc}
@@ -19,6 +19,20 @@ class LoginType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
+            ->add(
+                'firstName',
+                TextType::class,
+                [
+                    'label' => 'Prénom'
+                ]
+            )
+            ->add(
+                'lastName',
+                TextType::class,
+                [
+                    'label' => 'Nom de famille'
+                ]
+            )
             ->add(
                 'userName',
                 TextType::class,
@@ -28,9 +42,28 @@ class LoginType extends AbstractType
             )
             ->add(
                 'plainPassword',
-                PasswordType::class
+                RepeatedType::class,
+                [
+                    'type' => PasswordType::class,
+                    'first_options' => [
+                        'label' => false,
+                        'attr' => [
+                            'placeholder' => 'Mot de passe'
+                        ]
+                    ],
+                    'second_options' => [
+                        'label' => false,
+                        'attr' => [
+                            'placeholder' => 'Répétez le mot de passe'
+                        ]
+                    ]
+                ]
             )
-            ->add('Log in', SubmitType::class);
+            ->add(
+                'img',
+                ImageType::class
+            )
+            ->add('save', SubmitType::class);
     }
 
     /**

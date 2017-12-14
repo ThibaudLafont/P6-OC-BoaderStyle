@@ -2,6 +2,8 @@
 
 namespace AppBundle\Entity\Message;
 
+use AppBundle\Entity\Trick\Trick;
+use AppBundle\Entity\User\User;
 use Doctrine\ORM\Mapping as ORM;
 
 /**

@@ -26,7 +26,7 @@ class TrickImageListener
     }
 
     /** @ORM\PrePersist */
-    public function prePersist(TrickImage $img, LifecycleEventArgs $args)
+    public function prePersist(TrickImage $img)
     {
         $this->uploader->upload($img);
     }
@@ -52,7 +52,7 @@ class TrickImageListener
     }
 
     /** @ORM\PostRemove */
-    public function postRemove(TrickImage $img, LifecycleEventArgs $args)
+    public function postRemove(TrickImage $img)
     {
         $this->uploader->remove($img);
     }
