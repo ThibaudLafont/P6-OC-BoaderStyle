@@ -62,6 +62,9 @@ class AdminController extends Controller
         // Action if submitted data are valid
         if ($form->isSubmitted() && $form->isValid()) {
 
+            $author = $this->getUser();
+            $trick->setAuthor($author);
+
             $em = $this->getDoctrine()->getManager();
             $em->persist($trick);
             $em->flush();
