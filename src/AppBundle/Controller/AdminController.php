@@ -16,7 +16,7 @@ use Symfony\Component\HttpFoundation\Request;
 class AdminController extends Controller
 {
     /**
-     * @Route("/add/trick", name="trick_add")
+     * @Route("/admin/add/trick", name="trick_add")
      */
     public function addAction(Request $request)
     {
@@ -42,7 +42,7 @@ class AdminController extends Controller
     }
 
     /**
-     * @Route("/edit/{id}", name="trick_edit")
+     * @Route("/admin/edit/trick/{id}", name="trick_edit")
      */
     public function editAction(Request $request, $id)
     {
@@ -72,7 +72,7 @@ class AdminController extends Controller
     }
 
     /**
-     * @Route("/delete/{id}", name="trick_delete")
+     * @Route("/admin/delete/trick/{id}", name="trick_delete")
      */
     public function deleteAction($id){
 
@@ -87,7 +87,7 @@ class AdminController extends Controller
     }
 
     /**
-     * @Route("/category/add", name="category_add")
+     * @Route("/admin/add/category", name="category_add")
      */
     public function addCategory(Request $request){
         $category = new Category();

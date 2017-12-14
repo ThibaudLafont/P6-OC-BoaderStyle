@@ -281,7 +281,7 @@ class User implements UserInterface, \Serializable
      */
     public function getRoles()
     {
-        return ['author'];
+        return ['ROLE_ADMIN'];
     }
 
     /**
@@ -303,6 +303,7 @@ class User implements UserInterface, \Serializable
      */
     public function eraseCredentials()
     {
+        $this->setPlainPassword(null);
     }
 }
 

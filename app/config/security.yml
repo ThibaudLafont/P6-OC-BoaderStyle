@@ -20,20 +20,26 @@ security:
 #            pattern: ^/(_(profiler|wdt)|css|images|js)/
 #            security: false
 #
-#        main:
-#            anonymous: ~
-
-        test:
-            pattern: /trick
-            http_basic: ~
+        main:
+            anonymous: ~
             provider: user_provider
-#            form_login:
-#                login_path: user_login
-#                check_path: user_login
-            # activate different ways to authenticate
+            http_basic: ~
+            form_login:
+                login_path: /login
+                check_path: /login
+                username_parameter: UserType[userName]
+                password_parameter: UserType[plainPassword]
+            logout:
+                path:   /logout
+                target: /
 
             # https://symfony.com/doc/current/security.html#a-configuring-how-your-users-will-authenticate
             #http_basic: ~
 
             # https://symfony.com/doc/current/security/form_login_setup.html
             #form_login: ~
+
+    access_control:
+         - { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+         - { path: ^/register, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+         - { path: ^/admin, roles: ROLE_ADMIN }
