@@ -15,6 +15,7 @@ use AppBundle\Validator\Constraints as AppAssert;
  *
  * @ORM\Table(name="trick")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\TrickRepository")
+ * @ORM\EntityListeners({"AppBundle\EventListener\TrickListener"})
  */
 class Trick
 {

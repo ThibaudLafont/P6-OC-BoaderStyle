@@ -28,9 +28,6 @@ class AdminController extends Controller
         // Action if submitted data are valid
         if ($form->isSubmitted() && $form->isValid()) {
 
-            $author = $this->getUser();
-            $trick->setAuthor($author);
-
             $em = $this->getDoctrine()->getManager();
             $em->persist($trick);
             $em->flush();
@@ -52,8 +49,6 @@ class AdminController extends Controller
         // Get the trick related to asked id
         $trick = $this->getDoctrine()->getRepository('AppBundle:Trick\Trick')->find($id);
 
-        // Form handling is same as addAction one
-
         // Creation of form
         $form = $this->get('form.factory')->create(TrickType::class, $trick);
         $form->handleRequest($request);
@@ -61,11 +56,7 @@ class AdminController extends Controller
         // Action if submitted data are valid
         if ($form->isSubmitted() && $form->isValid()) {
 
-            $author = $this->getUser();
-            $trick->setAuthor($author);
-
             $em = $this->getDoctrine()->getManager();
-            $em->persist($trick);
             $em->flush();
 
             return $this->redirectToRoute('trick_show', ['id' => $trick->getId()]);

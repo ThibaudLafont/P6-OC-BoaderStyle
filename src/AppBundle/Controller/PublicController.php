@@ -32,26 +32,20 @@ class PublicController extends Controller
      */
     public function showAction(Request $request, $id)
     {
+        // Getting trick related to given id
         $em = $this->getDoctrine()->getManager()->getRepository('AppBundle:Trick\Trick');
         $trick = $em->find($id);
 
+        // Creation of new message entity
         $message = new Message();
+        $message->setTrick($trick);
+
         // Creation of form
         $form = $this->get('form.factory')->create(MessageType::class, $message);
         $form->handleRequest($request);
 
         // Action if submitted data are valid
         if ($form->isSubmitted() && $form->isValid()) {
-
-            $user = $this->getUser();
-            $now =  new \DateTime(
-                'now',
-                new \DateTimeZone('Europe/Paris')
-            );
-
-            $message->setUser($user);
-            $message->setTrick($trick);
-            $message->setCreationDate($now);
 
             $em = $this->getDoctrine()->getManager();
             $em->persist($message);
@@ -61,16 +55,15 @@ class PublicController extends Controller
 
         }
 
-        $form = $form->createView();
-
-        return $this->render('trick/_show.html.twig', compact('trick', 'form'));
+        return $this->render('trick/_show.html.twig', ['trick' => $trick, 'form' => $form->createView()]);
     }
 
     /**
      * @Route("/register", name="user_register")
      */
-    public function registerAction(Request $request, UserPasswordEncoderInterface $encoder)
+    public function registerAction(Request $request)
     {
+        // Creation of new User entity
         $user = new User();
         $img = new UserImage();
         $user->setImg($img);
@@ -81,9 +74,6 @@ class PublicController extends Controller
 
         // Action if submitted data are valid
         if ($form->isSubmitted() && $form->isValid()) {
-
-            $pwd = $encoder->encodePassword($user, $user->getPlainPassword());
-            $user->setPassword($pwd);
 
             $em = $this->getDoctrine()->getManager();
             $em->persist($user);
@@ -101,6 +91,7 @@ class PublicController extends Controller
      * @Route("/login", name="user_login")
      */
     public function loginAction(Request $request){
+        // Creation of new User entity
         $user = new User();
 
         // Creation of form

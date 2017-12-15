@@ -13,16 +13,20 @@ class UserListener
 {
 
     private $uploader;
+    private $encoder;
 
-    public function __construct(ImageUploader $uploader)
+    public function __construct(ImageUploader $uploader, UserPasswordEncoderInterface $encoder)
     {
         $this->uploader = $uploader;
+        $this->encoder = $encoder;
     }
 
     /** @ORM\PrePersist */
     public function prePersist(User $user)
     {
         // Chiffrement et assignation du mdp renseigné
+        $pwd = $this->encoder->encodePassword($user, $user->getPlainPassword());
+        $user->setPassword($pwd);
 
         // Hydratation de img selon user
         $img = $user->getImg();

@@ -68,6 +68,18 @@ services:
             - { name: doctrine.orm.entity_listener }
             - { name: doctrine.orm.entity_listener, entity_manager: custom }
 
+    message_listener:
+        class: AppBundle\EventListener\MessageListener
+        tags:
+            - { name: doctrine.orm.entity_listener }
+            - { name: doctrine.orm.entity_listener, entity_manager: custom }
+
+    trick_listener:
+        class: AppBundle\EventListener\TrickListener
+        tags:
+            - { name: doctrine.orm.entity_listener }
+            - { name: doctrine.orm.entity_listener, entity_manager: custom }
+
     trick_image_listener:
         class: AppBundle\EventListener\TrickImageListener
         tags:

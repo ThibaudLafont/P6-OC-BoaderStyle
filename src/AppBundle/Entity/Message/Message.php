@@ -11,6 +11,7 @@ use Doctrine\ORM\Mapping as ORM;
  *
  * @ORM\Table(name="message")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\MessageRepository")
+ * @ORM\EntityListeners({"AppBundle\EventListener\MessageListener"})
  */
 class Message
 {
