@@ -36,7 +36,11 @@ class CategoryType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'AppBundle\Entity\Trick\Category'
+            'data_class' => 'AppBundle\Entity\Trick\Category',
+            'csrf_protection' => true,
+            'csrf_field_name' => '_token',
+            // a unique key to help generate the secret token
+            'csrf_token_id'   => 'ca5deb0984fb5ec40b43e7b2e45af4e7942d3434'
         ));
     }
 

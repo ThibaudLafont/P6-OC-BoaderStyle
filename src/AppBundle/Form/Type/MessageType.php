@@ -32,7 +32,11 @@ class MessageType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'AppBundle\Entity\Message\Message'
+            'data_class' => 'AppBundle\Entity\Message\Message',
+            'csrf_protection' => true,
+            'csrf_field_name' => '_token',
+            // a unique key to help generate the secret token
+            'csrf_token_id'   => '3bbe003910bbcac6a22ea2d4a3b591bd3fdef519'
         ));
     }
 
