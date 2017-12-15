@@ -2,8 +2,10 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\Entity\Message\Message;
 use AppBundle\Entity\User\UserImage;
 use AppBundle\Entity\User\User;
+use AppBundle\Form\Type\MessageType;
 use AppBundle\Form\Type\User\LoginType;
 use AppBundle\Form\Type\User\RegisterType;
 use AppBundle\Service\TrickImageUploader;
@@ -33,7 +35,35 @@ class PublicController extends Controller
         $em = $this->getDoctrine()->getManager()->getRepository('AppBundle:Trick\Trick');
         $trick = $em->find($id);
 
-        return $this->render('trick/_show.html.twig', compact('trick'));
+        $message = new Message();
+        // Creation of form
+        $form = $this->get('form.factory')->create(MessageType::class, $message);
+        $form->handleRequest($request);
+
+        // Action if submitted data are valid
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            $user = $this->getUser();
+            $now =  new \DateTime(
+                'now',
+                new \DateTimeZone('Europe/Paris')
+            );
+
+            $message->setUser($user);
+            $message->setTrick($trick);
+            $message->setCreationDate($now);
+
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($message);
+            $em->flush();
+
+            return $this->redirectToRoute('trick_show', ['id' => $trick->getId()]);
+
+        }
+
+        $form = $form->createView();
+
+        return $this->render('trick/_show.html.twig', compact('trick', 'form'));
     }
 
     /**

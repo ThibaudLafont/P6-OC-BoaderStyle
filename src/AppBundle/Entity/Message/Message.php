@@ -47,6 +47,9 @@ class Message
      */
     private $trick;
 
+    public function getFrenchDate(){
+        return $this->getCreationDate()->format('d/m/y à H:i');
+    }
 
     ///////////////////
     ///// SETTERS /////

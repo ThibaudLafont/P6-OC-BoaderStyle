@@ -2,6 +2,7 @@
 
 namespace AppBundle\Entity\Trick;
 
+use AppBundle\Entity\Message\Message;
 use AppBundle\Entity\User\User;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
