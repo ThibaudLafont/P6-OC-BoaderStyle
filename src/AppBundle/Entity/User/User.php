@@ -230,6 +230,14 @@ class User implements UserInterface, \Serializable
         return $this->img;
     }
 
+    public function getTricks(){
+        return $this->tricks;
+    }
+
+    public function getMessages(){
+        return $this->messages;
+    }
+
     /**
      * String representation of object
      * @link http://php.net/manual/en/serializable.serialize.php
