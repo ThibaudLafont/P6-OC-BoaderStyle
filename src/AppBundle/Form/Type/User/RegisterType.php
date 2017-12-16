@@ -3,6 +3,7 @@ namespace AppBundle\Form\Type\User;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
+use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -31,6 +32,25 @@ class RegisterType extends AbstractType
                 TextType::class,
                 [
                     'label' => 'Nom de famille'
+                ]
+            )
+            ->add(
+                'mail',
+                RepeatedType::class,
+                [
+                    'type' => EmailType::class,
+                    'first_options' => [
+                        'label' => false,
+                        'attr' => [
+                            'placeholder' => 'Adresse mail'
+                        ]
+                    ],
+                    'second_options' => [
+                        'label' => false,
+                        'attr' => [
+                            'placeholder' => 'Répétez votre adresse mail'
+                        ]
+                    ]
                 ]
             )
             ->add(

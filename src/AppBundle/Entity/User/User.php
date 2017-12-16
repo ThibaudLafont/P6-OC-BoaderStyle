@@ -45,11 +45,12 @@ class User implements UserInterface, \Serializable
      */
     private $userName;
 
-
     /**
-     * @Assert\NotBlank()
+     * @var string
+     *
+     * @ORM\Column(name="mail", type="string", length=255)
      */
-    private $plainPassword;
+    private $mail;
 
     /**
      * @var string
@@ -57,6 +58,12 @@ class User implements UserInterface, \Serializable
      * @ORM\Column(name="password", type="string", length=255)
      */
     private $password;
+
+
+    /**
+     * @Assert\NotBlank()
+     */
+    private $plainPassword;
 
     /**
      * @ORM\OneToOne(
@@ -137,6 +144,10 @@ class User implements UserInterface, \Serializable
         $this->userName = $userName;
 
         return $this;
+    }
+
+    public function setMail($mail){
+        if(filter_var($mail, FILTER_VALIDATE_EMAIL)) $this->mail = $mail;
     }
 
     public function setPlainPassword($plainPassword){
@@ -221,6 +232,10 @@ class User implements UserInterface, \Serializable
     public function getPassword()
     {
         return $this->password;
+    }
+
+    public function getMail(){
+        return $this->mail;
     }
 
     /**
