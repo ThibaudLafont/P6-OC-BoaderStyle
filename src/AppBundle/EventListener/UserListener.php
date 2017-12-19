@@ -3,9 +3,6 @@ namespace AppBundle\EventListener;
 
 use AppBundle\Entity\User\User;
 use AppBundle\Service\ImageUploader;
-use AppBundle\Service\Uploader;
-use Doctrine\ORM\Event\LifecycleEventArgs;
-use Doctrine\ORM\Event\PreUpdateEventArgs;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
@@ -25,8 +22,8 @@ class UserListener
     public function prePersist(User $user)
     {
         // Chiffrement et assignation du mdp renseigné
-//        $pwd = $this->encoder->encodePassword($user, $user->getPlainPassword());
-//        $user->setPassword($pwd);
+        $pwd = $this->encoder->encodePassword($user, $user->getPlainPassword());
+        $user->setPassword($pwd);
 
         // Hydratation de img selon user
         $img = $user->getImg();
@@ -34,6 +31,34 @@ class UserListener
         $img->setAlt("Photo de {$user->getFullName()}");
 
         $this->uploader->upload($img);
+    }
+
+
+    /** @ORM\PreFlush */
+    public function preFlush(User $user)
+    {
+        if(!is_null($user->getId())){
+
+            // En cas de changement de la photo
+            if(!is_null($user->getImg()->getFile())){
+                $this->uploader->replace($user->getImg());
+            }
+
+            // En cas de changement de mot de passe
+            if(!is_null($user->getPlainPassword())){
+                // Chiffrement et assignation du mdp renseigné
+                $pwd = $this->encoder->encodePassword($user, $user->getPlainPassword());
+                $user->setPassword($pwd);
+            }
+
+        }
+
+        // Hydratation de img selon user
+//        $img = $user->getImg();
+//        $img->setName($user->getFullName());
+//        $img->setAlt("Photo de {$user->getFullName()}");
+//
+//        $this->uploader->upload($img);
     }
 
     public function getUploader(){

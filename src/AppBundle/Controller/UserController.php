@@ -5,6 +5,7 @@ namespace AppBundle\Controller;
 use AppBundle\Entity\User\User;
 use AppBundle\Entity\User\UserImage;
 use AppBundle\Form\Type\Trick\TrickImageType;
+use AppBundle\Form\Type\User\EditType;
 use AppBundle\Form\Type\User\LoginType;
 use AppBundle\Form\Type\User\RegisterType;
 
@@ -56,4 +57,28 @@ class UserController extends Controller
         return $this->render('user/_login.html.twig', ['form' => $form->createView()]);
     }
 
+
+    /**
+     * @Route("/admin/user", name="user_edit")
+     */
+    public function userEdit(Request $request){
+        $user = $this->getUser();
+        $user = $this->getDoctrine()->getRepository('AppBundle:User\User')->find($user->getId());
+
+        // Creation of form
+        $form = $this->get('form.factory')->create(EditType::class, $user);
+        $form->handleRequest($request);
+
+        // Action if submitted data are valid
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            $em = $this->getDoctrine()->getManager();
+            $em->flush();
+
+            return $this->redirectToRoute('trick_list');
+
+        }
+
+        return $this->render('user/_edit.html.twig', ['form' => $form->createView(), 'user', $user]);
+    }
 }

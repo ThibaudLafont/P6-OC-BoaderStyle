@@ -60,9 +60,6 @@ class User implements UserInterface, \Serializable
     private $password;
 
 
-    /**
-     * @Assert\NotBlank()
-     */
     private $plainPassword;
 
     /**

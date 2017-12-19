@@ -49,6 +49,11 @@ class ImageUploader
         unlink($imgPath);
     }
 
+    public function replace(Local $img){
+        $this->remove($img);
+        $this->upload($img);
+    }
+
     public function getSluggifier(){
         return $this->sluggifier;
     }
