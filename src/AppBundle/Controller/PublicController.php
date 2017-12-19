@@ -39,7 +39,7 @@ class PublicController extends Controller
         $form->handleRequest($request);
 
         // Action if submitted data are valid
-        if ($form->isSubmitted() && $form->isValid()) {
+        if ($form->isSubmitted() && $form->isValid() && $this->isGranted('ROLE_ADMIN')) {
 
             $em = $this->getDoctrine()->getManager();
             $em->persist($message);
