@@ -109,7 +109,7 @@ class User implements UserInterface, \Serializable
      *
      * @param string $firstName
      *
-     * @return UserImage
+     * @return User
      */
     public function setFirstName($firstName)
     {
