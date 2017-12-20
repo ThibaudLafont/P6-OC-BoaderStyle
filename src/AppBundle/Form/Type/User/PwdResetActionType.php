@@ -11,7 +11,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
-class LoginType extends AbstractType
+class PwdResetActionType extends AbstractType
 {
     /**
      * {@inheritdoc}
@@ -20,18 +20,26 @@ class LoginType extends AbstractType
     {
         $builder
             ->add(
-                'userName',
-                TextType::class,
+                'plainPassword',
+                RepeatedType::class,
                 [
-                    'label' => 'Nom d\'utilisateur'
+                    'type' => PasswordType::class,
+                    'first_options' => [
+                        'label' => false,
+                        'attr' => [
+                            'placeholder' => 'Mot de passe'
+                        ]
+                    ],
+                    'second_options' => [
+                        'label' => false,
+                        'attr' => [
+                            'placeholder' => 'Répétez le mot de passe'
+                        ]
+                    ]
                 ]
             )
             ->add(
-                'plainPassword',
-                PasswordType::class
-            )
-            ->add(
-                'save',
+                'reset',
                 SubmitType::class
             );
     }

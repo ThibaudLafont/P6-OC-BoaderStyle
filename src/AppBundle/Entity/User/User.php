@@ -83,6 +83,22 @@ class User implements UserInterface, \Serializable
      */
     private $tricks;
 
+    /**
+     * @ORM\OneToMany(
+     *     targetEntity="ResetPassword",
+     *     mappedBy="user"
+     * )
+     */
+    private $resetPwd;
+
+
+    public function setResetPwd(ResetPassword $rp){
+        $this->resetPwd = $rp;
+    }
+
+    public function getResetPwd(){
+        return $this->resetPwd;
+    }
 
       ///////////////////
      ///// SPECIFIC ////

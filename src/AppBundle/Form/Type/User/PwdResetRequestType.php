@@ -11,7 +11,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
-class LoginType extends AbstractType
+class PwdResetRequestType extends AbstractType
 {
     /**
      * {@inheritdoc}
@@ -27,11 +27,7 @@ class LoginType extends AbstractType
                 ]
             )
             ->add(
-                'plainPassword',
-                PasswordType::class
-            )
-            ->add(
-                'save',
+                'reset',
                 SubmitType::class
             );
     }
