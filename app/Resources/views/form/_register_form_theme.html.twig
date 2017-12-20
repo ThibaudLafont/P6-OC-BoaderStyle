@@ -2,12 +2,18 @@
     {{ form_row(form.img) }}
     <table>
         <tr>
+            {{ form_errors(form.firstName) }}
+        </tr>
+        <tr>
             <td>
                 {{ form_label(form.firstName) }}
             </td>
             <td>
                 {{ form_widget(form.firstName) }}
             </td>
+        </tr>
+        <tr>
+            {{ form_errors(form.lastName) }}
         </tr>
         <tr>
             <td>
@@ -18,12 +24,29 @@
             </td>
         </tr>
         <tr>
+            {{ form_errors(form.mail) }}
+        </tr>
+        <tr>
+            <td>
+                {{ form_label(form.mail) }}
+            </td>
+            <td>
+                {{ form_widget(form.mail) }}
+            </td>
+        </tr>
+        <tr>
+            {{ form_errors(form.userName) }}
+        </tr>
+        <tr>
             <td>
                 {{ form_label(form.userName) }}
             </td>
             <td>
                 {{ form_widget(form.userName) }}
             </td>
+        </tr>
+        <tr>
+            {{ form_errors(form.plainPassword) }}
         </tr>
         <tr>
             <td>

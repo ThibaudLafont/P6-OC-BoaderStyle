@@ -1,0 +1,77 @@
+{% block file_widget %}
+    {% spaceless %}
+
+        {% if image_url is not null %}
+            <img src="{{ asset(image_url) }}" style="display:block"/>
+            {{ block('form_widget') }}
+        {% else %}
+            {{ block('form_widget') }}
+        {% endif %}
+
+    {% endspaceless %}
+{% endblock %}
+
+{% block ImageType_row %}
+    <tr>
+        {{ form_errors(form.file) }}
+    </tr>
+    <tr>
+        <td>
+            {{ form_label(form.file) }}
+        </td>
+        <td>
+            {{ form_widget(form.file) }}
+        </td>
+    </tr>
+{% endblock %}
+
+{% block UserType_widget %}
+    <table>
+        {{ form_row(form.img) }}
+        <tr>
+            {{ form_errors(form.firstName) }}
+        </tr>
+        <tr>
+            <td>
+                {{ form_label(form.firstName) }}
+            </td>
+            <td>
+                {{ form_widget(form.firstName) }}
+            </td>
+        </tr>
+        <tr>
+            {{ form_errors(form.lastName) }}
+        </tr>
+        <tr>
+            <td>
+                {{ form_label(form.lastName) }}
+            </td>
+            <td>
+                {{ form_widget(form.lastName) }}
+            </td>
+        </tr>
+        <tr>
+            {{ form_errors(form.mail) }}
+        </tr>
+        <tr>
+            <td>
+                {{ form_label(form.mail) }}
+            </td>
+            <td>
+                {{ form_widget(form.mail) }}
+            </td>
+        </tr>
+        <tr>
+            {{ form_errors(form.plainPassword.pass) }}
+        </tr>
+        <tr>
+            <td>
+                {{ form_label(form.plainPassword) }}
+            </td>
+            <td>
+                {{ form_widget(form.plainPassword.pass) }}
+                {{ form_widget(form.plainPassword.confirm) }}
+            </td>
+        </tr>
+    </table>
+{% endblock %}

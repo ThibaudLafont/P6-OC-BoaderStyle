@@ -1,14 +1,15 @@
 <?php
-namespace AppBundle\Form\User;
+namespace AppBundle\Form\Type\Trick;
 
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+
 // Fields
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 
-class ImageType extends AbstractType
+class CategoryType extends AbstractType
 {
     /**
      * {@inheritdoc}
@@ -17,12 +18,15 @@ class ImageType extends AbstractType
     {
         $builder
             ->add(
-                'file',
-                FileType::class,
+                'name',
+                TextType::class,
                 [
-                    'label' => 'Photo de profil',
-                    'image_property' => 'url'
+                    'label' => 'Nom'
                 ]
+            )
+            ->add(
+                'Save',
+                SubmitType::class
             );
     }
 
@@ -32,7 +36,11 @@ class ImageType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'AppBundle\Entity\User\UserImage'
+            'data_class' => 'AppBundle\Entity\Trick\Category',
+            'csrf_protection' => true,
+            'csrf_field_name' => '_token',
+            // a unique key to help generate the secret token
+            'csrf_token_id'   => 'ca5deb0984fb5ec40b43e7b2e45af4e7942d3434'
         ));
     }
 
@@ -41,7 +49,6 @@ class ImageType extends AbstractType
      */
     public function getBlockPrefix()
     {
-        return 'ImageType';
+        return 'CategoryType';
     }
-
 }

@@ -1,8 +1,9 @@
 <?php
-namespace AppBundle\Form\User;
+namespace AppBundle\Form\Type\User;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
+use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -11,7 +12,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
-class RegisterType extends AbstractType
+class EditType extends AbstractType
 {
     /**
      * {@inheritdoc}
@@ -19,6 +20,13 @@ class RegisterType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
+            ->add(
+                'img',
+                ImageType::class,
+                [
+                    'required' => false
+                ]
+            )
             ->add(
                 'firstName',
                 TextType::class,
@@ -34,10 +42,22 @@ class RegisterType extends AbstractType
                 ]
             )
             ->add(
-                'userName',
-                TextType::class,
+                'mail',
+                RepeatedType::class,
                 [
-                    'label' => 'Nom d\'utilisateur'
+                    'type' => EmailType::class,
+                    'first_options' => [
+                        'label' => false,
+                        'attr' => [
+                            'placeholder' => 'Adresse mail'
+                        ]
+                    ],
+                    'second_options' => [
+                        'label' => false,
+                        'attr' => [
+                            'placeholder' => 'Répétez votre adresse mail'
+                        ]
+                    ]
                 ]
             )
             ->add(
@@ -45,6 +65,10 @@ class RegisterType extends AbstractType
                 RepeatedType::class,
                 [
                     'type' => PasswordType::class,
+                    'required' => false,
+                    'first_name' => 'pass',
+                    'second_name' => 'confirm',
+                    'invalid_message' => 'Les mots de passe ne correspondent pas',
                     'first_options' => [
                         'label' => false,
                         'attr' => [
@@ -53,15 +77,12 @@ class RegisterType extends AbstractType
                     ],
                     'second_options' => [
                         'label' => false,
+                        'required' => false,
                         'attr' => [
                             'placeholder' => 'Répétez le mot de passe'
                         ]
                     ]
                 ]
-            )
-            ->add(
-                'img',
-                ImageType::class
             )
             ->add('save', SubmitType::class);
     }
@@ -72,7 +93,11 @@ class RegisterType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'AppBundle\Entity\User\User'
+            'data_class' => 'AppBundle\Entity\User\User',
+            'csrf_protection' => true,
+            'csrf_field_name' => '_token',
+            // a unique key to help generate the secret token
+            'csrf_token_id'   => '251ac8efaefec102ec789f4a3b9366d2d160c813'
         ));
     }
 

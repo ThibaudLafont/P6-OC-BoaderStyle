@@ -6,13 +6,15 @@
         {{ trick.name }}
     </h1>
     <article>
+        {% if is_granted('ROLE_ADMIN') %}
+            <p>
+                <a href="/admin/edit/trick/{{ trick.id }}">Modifier</a>
+                <a href="/admin/delete/trick/{{ trick.id }}">Supprimer</a>
+            </p>
+        {% endif %}
         <p>
-            <a href="/edit/{{ trick.id }}">Modifier</a>
-            <a href="/delete/{{ trick.id }}">Supprimer</a>
-        </p>
-        <p>
-            {#<img src="{{ trick.author.img.url }}" alt="{{ trick.author.img.alt }}" style="width:50px">#}
-            {#Posté par {{ trick.author.fullName }}#}
+            <img src="{{ trick.author.img.url }}" alt="{{ trick.author.img.alt }}" style="width:50px">
+            Posté par {{ trick.author.fullName }}
         </p>
 
         <div>
@@ -30,6 +32,26 @@
         <h2>Explications</h2>
         <p>{{ trick.description }}</p>
 
+        <h2>Discussion</h2>
+        {% for message in trick.messages %}
+            <h4>{{ message.user.fullName }}</h4>
+            <p>{{ message.content }} <span style="font-size: 8px; font-style: italic">Le {{ message.frenchDate }}</span></p>
+        {% endfor %}
+
+
+        <h3>Participer à la discussion</h3>
+        {% if is_granted('ROLE_ADMIN') %}
+            {% form_theme form
+                'form_table_layout.html.twig'
+            %}
+            {{ form(form) }}
+        {% else %}
+            <p>Pour envoyer des messages, vous devez vous inscrire ou vous connecter</p>
+            <p>
+                <a href="/register">S'inscrire</a>
+                <a href="/login">Se connecter</a>
+            </p>
+        {% endif %}
     </article>
     
 {% endblock %}

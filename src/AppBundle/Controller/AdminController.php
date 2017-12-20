@@ -4,11 +4,10 @@ namespace AppBundle\Controller;
 
 use AppBundle\Entity\Trick\Category;
 use AppBundle\Entity\Trick\Trick;
-use AppBundle\Form\Trick\CategoryType;
-use AppBundle\Form\Trick\TrickType;
-use AppBundle\Form\Trick\TrickImageType;
+use AppBundle\Form\Type\Trick\CategoryType;
+use AppBundle\Form\Type\Trick\TrickType;
+use AppBundle\Form\Type\Trick\TrickImageType;
 
-use AppBundle\Form\User\RegisterType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -16,7 +15,7 @@ use Symfony\Component\HttpFoundation\Request;
 class AdminController extends Controller
 {
     /**
-     * @Route("/add/trick", name="trick_add")
+     * @Route("/admin/add/trick", name="trick_add")
      */
     public function addAction(Request $request)
     {
@@ -29,11 +28,14 @@ class AdminController extends Controller
         // Action if submitted data are valid
         if ($form->isSubmitted() && $form->isValid()) {
 
+            // Persist
             $em = $this->getDoctrine()->getManager();
             $em->persist($trick);
             $em->flush();
 
-            return $this->redirectToRoute('trick_show', ['id' => $trick->getId()]);
+            // Flash message
+            $this->addFlash('success', 'Vous bien ajouté un article, à voir <a href="'. $trick->getUrl() . '">ici</a>');
+            return $this->redirectToRoute('trick_list');
 
         }
 
@@ -42,15 +44,13 @@ class AdminController extends Controller
     }
 
     /**
-     * @Route("/edit/{id}", name="trick_edit")
+     * @Route("/admin/edit/trick/{id}", name="trick_edit")
      */
     public function editAction(Request $request, $id)
     {
 
         // Get the trick related to asked id
         $trick = $this->getDoctrine()->getRepository('AppBundle:Trick\Trick')->find($id);
-
-        // Form handling is same as addAction one
 
         // Creation of form
         $form = $this->get('form.factory')->create(TrickType::class, $trick);
@@ -60,10 +60,10 @@ class AdminController extends Controller
         if ($form->isSubmitted() && $form->isValid()) {
 
             $em = $this->getDoctrine()->getManager();
-            $em->persist($trick);
             $em->flush();
 
-            return $this->redirectToRoute('trick_show', ['id' => $trick->getId()]);
+            $this->addFlash('success', 'Vous bien modifié "' . $trick->getName() . '", à voir <a href="'. $trick->getUrl() . '">ici</a>');
+            return $this->redirectToRoute('trick_list');
 
         }
 
@@ -72,7 +72,7 @@ class AdminController extends Controller
     }
 
     /**
-     * @Route("/delete/{id}", name="trick_delete")
+     * @Route("/admin/delete/trick/{id}", name="trick_delete")
      */
     public function deleteAction($id){
 
@@ -82,12 +82,13 @@ class AdminController extends Controller
         $em->remove($trick);
         $em->flush();
 
+        $this->addFlash('success', 'Vous bien supprimé "' . $trick->getName() . '"');
         return $this->redirectToRoute('trick_list');
 
     }
 
     /**
-     * @Route("/category/add", name="category_add")
+     * @Route("/admin/add/category", name="category_add")
      */
     public function addCategory(Request $request){
         $category = new Category();
@@ -103,6 +104,9 @@ class AdminController extends Controller
             $em->persist($category);
             $em->flush();
 
+
+            $this->addFlash('success', 'Vous avez ajouté la catégorie "' . $category->getName() . '"');
+            return $this->redirectToRoute('trick_list');
         }
 
         return $this->render('trick/_category_form.html.twig', ['form' => $form->createView()]);

@@ -7,13 +7,14 @@ use Symfony\Component\Validator\Constraints as Assert;
 /**
  * @ORM\MappedSuperclass()
  */
-abstract class External extends Resource
+abstract class External extends Media
 {
 
     /**
      * @var string
      *
      * @ORM\Column(name="src", type="string", length=255)
+     * @Assert\NotBlank(message="Veuillez renseigner une URL")
      */
     protected $src;
 

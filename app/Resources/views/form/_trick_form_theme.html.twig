@@ -2,12 +2,18 @@
     {{ form_errors(form) }}
     <table>
         <tr>
+            {{ form_errors(form.name) }}
+        </tr>
+        <tr>
             <td>
                 {{ form_label(form.name) }}
             </td>
             <td>
                 {{ form_widget(form.name) }}
             </td>
+        </tr>
+        <tr>
+            {{ form_errors(form.description) }}
         </tr>
         <tr>
             <td>
@@ -18,19 +24,14 @@
             </td>
         </tr>
         <tr>
+            {{ form_errors(form.category) }}
+        </tr>
+        <tr>
             <td>
                 {{ form_label(form.category) }}
             </td>
             <td>
                 {{ form_widget(form.category) }}
-            </td>
-        </tr>
-        <tr>
-            <td>
-                {{ form_label(form.author) }}
-            </td>
-            <td>
-                {{ form_widget(form.author) }}
             </td>
         </tr>
     </table>

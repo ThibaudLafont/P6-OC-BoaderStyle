@@ -2,15 +2,10 @@
 
 namespace AppBundle\Controller;
 
-use AppBundle\Entity\User\UserImage;
-use AppBundle\Entity\User\User;
-use AppBundle\Form\User\RegisterType;
-use AppBundle\Service\Sluggifier;
-use AppBundle\Service\TrickImageUploader;
-use AppBundle\Service\Uploader;
+use AppBundle\Entity\Message\Message;
+use AppBundle\Form\Type\MessageType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\Request;
 
 class PublicController extends Controller
@@ -31,37 +26,30 @@ class PublicController extends Controller
      */
     public function showAction(Request $request, $id)
     {
+        // Getting trick related to given id
         $em = $this->getDoctrine()->getManager()->getRepository('AppBundle:Trick\Trick');
         $trick = $em->find($id);
 
-        return $this->render('trick/_show.html.twig', compact('trick'));
-    }
-
-    /**
-     * @Route("/register", name="user_register")
-     */
-    public function registerAction(Request $request)
-    {
-        $user = new User();
-        $img = new UserImage();
-        $user->setImg($img);
+        // Creation of new message entity
+        $message = new Message();
+        $message->setTrick($trick);
 
         // Creation of form
-        $form = $this->get('form.factory')->create(RegisterType::class, $user);
+        $form = $this->get('form.factory')->create(MessageType::class, $message);
         $form->handleRequest($request);
 
         // Action if submitted data are valid
-        if ($form->isSubmitted() && $form->isValid()) {
+        if ($form->isSubmitted() && $form->isValid() && $this->isGranted('ROLE_ADMIN')) {
 
             $em = $this->getDoctrine()->getManager();
-            $em->persist($user);
+            $em->persist($message);
             $em->flush();
 
-            return $this->redirectToRoute('trick_list');
+            return $this->redirectToRoute('trick_show', ['id' => $trick->getId()]);
 
         }
 
-        return $this->render('user/_register.html.twig', ['form' => $form->createView()]);
-
+        return $this->render('trick/_show.html.twig', ['trick' => $trick, 'form' => $form->createView()]);
     }
+
 }

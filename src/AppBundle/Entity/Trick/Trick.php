@@ -2,6 +2,7 @@
 
 namespace AppBundle\Entity\Trick;
 
+use AppBundle\Entity\Message\Message;
 use AppBundle\Entity\User\User;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
@@ -14,6 +15,7 @@ use AppBundle\Validator\Constraints as AppAssert;
  *
  * @ORM\Table(name="trick")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\TrickRepository")
+ * @ORM\EntityListeners({"AppBundle\EventListener\TrickListener"})
  */
 class Trick
 {
@@ -62,6 +64,7 @@ class Trick
 
     /**
      * @ORM\ManyToOne(targetEntity="Category", inversedBy="tricks")
+     * @Assert\NotBlank(message="Veuillez choisir une catégorie")
      */
     private $category;
 
@@ -71,6 +74,7 @@ class Trick
      *     mappedBy="trick",
      *     cascade={"persist", "remove"}
      *     )
+     * @Assert\Valid()
      */
     private $imgs;
 
@@ -80,11 +84,13 @@ class Trick
      *     mappedBy="trick",
      *     cascade={"persist", "remove"}
      * )
+     * @Assert\Valid()
      */
     private $videos;
 
     /**
      * @ORM\OneToMany(targetEntity="AppBundle\Entity\Message\Message", mappedBy="trick")
+     * @Assert\Valid()
      */
     private $messages;
 
@@ -262,4 +268,3 @@ class Trick
         return $this->messages;
     }
 }
-

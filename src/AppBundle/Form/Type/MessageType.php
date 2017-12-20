@@ -1,15 +1,14 @@
 <?php
-namespace AppBundle\Form\Trick;
+namespace AppBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-
 // Fields
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
-class CategoryType extends AbstractType
+class MessageType extends AbstractType
 {
     /**
      * {@inheritdoc}
@@ -18,16 +17,13 @@ class CategoryType extends AbstractType
     {
         $builder
             ->add(
-                'name',
+                'content',
                 TextType::class,
                 [
-                    'label' => 'Nom'
+                    'label' => 'Message'
                 ]
             )
-            ->add(
-                'Save',
-                SubmitType::class
-            );
+            ->add('Envoyer', SubmitType::class);
     }
 
     /**
@@ -36,7 +32,11 @@ class CategoryType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'AppBundle\Entity\Trick\Category'
+            'data_class' => 'AppBundle\Entity\Message\Message',
+            'csrf_protection' => true,
+            'csrf_field_name' => '_token',
+            // a unique key to help generate the secret token
+            'csrf_token_id'   => '3bbe003910bbcac6a22ea2d4a3b591bd3fdef519'
         ));
     }
 
@@ -45,6 +45,7 @@ class CategoryType extends AbstractType
      */
     public function getBlockPrefix()
     {
-        return 'CategoryType';
+        return 'MessageType';
     }
+
 }

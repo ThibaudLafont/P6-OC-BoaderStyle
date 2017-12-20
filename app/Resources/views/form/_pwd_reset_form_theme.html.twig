@@ -1,0 +1,38 @@
+{% block UserType_widget %}
+    {{ form_errors(form) }}
+    <table>
+        {% if form.userName is defined %}
+            <tr>
+                {{ form_errors(form.userName) }}
+            </tr>
+            <tr>
+                <td>
+                    {{ form_label(form.userName) }}
+                </td>
+                <td>
+                    {{ form_widget(form.userName) }}
+                </td>
+            </tr>
+        {% endif %}
+        {% if form.plainPassword is defined %}
+            <tr>
+                {{ form_errors(form.plainPassword) }}
+            </tr>
+            <tr>
+                <td>
+                    {{ form_label(form.plainPassword) }}
+                </td>
+                <td>
+                    {{ form_widget(form.plainPassword) }}
+                </td>
+            </tr>
+        {% endif %}
+        <tr>
+            <td>
+            </td>
+            <td>
+                {{ form_widget(form.reset) }}
+            </td>
+        </tr>
+    </table>
+{% endblock %}

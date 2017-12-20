@@ -1,0 +1,16 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+    <h1>Se connecter</h1>
+
+    <a href="/user/mot-de-passe-oublie">J'ai oublié mon mot de passe</a>
+
+    <div class="container">
+        {% form_theme form
+            'form/_login_form_theme.html.twig'
+        %}
+        {{ form(form) }}
+    </div>
+
+{% endblock %}

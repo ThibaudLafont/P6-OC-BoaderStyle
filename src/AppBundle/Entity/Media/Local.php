@@ -7,7 +7,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 /**
  * @ORM\MappedSuperclass()
  */
-abstract class Local extends Resource
+abstract class Local extends Media
 {
 
     /**
@@ -18,8 +18,8 @@ abstract class Local extends Resource
     protected $format;
 
     /**
-     * @Assert\NotBlank(message="Please, upload the product brochure as a PDF file.")
      * @Assert\Image(
+     *     mimeTypesMessage="Les seuls formats acceptés sont JPG et PNG",
      *     mimeTypes={ "image/jpeg", "image/png" }
      * )
      */

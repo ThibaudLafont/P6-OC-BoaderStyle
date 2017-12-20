@@ -1,0 +1,17 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+    <h1>Mot de passe oublié</h1>
+    <p>Entrez votre adresse mail ou votre nom d'utilisateur, vous recevrez un mail vous indiquant comment réinitialiser
+    votre mot de passe.</p>
+
+    <div class="container">
+        {% form_theme form
+            'form/_errors_form_theme.html.twig'
+            'form/_pwd_reset_form_theme.html.twig'
+        %}
+        {{ form(form) }}
+    </div>
+
+{% endblock %}

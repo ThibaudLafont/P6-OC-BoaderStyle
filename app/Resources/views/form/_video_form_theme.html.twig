@@ -13,6 +13,9 @@
 {% block VideoType_row %}
     <table>
         <tr>
+            {{ form_errors(form.src) }}
+        </tr>
+        <tr>
             <td>
                 {{ form_label(form.src) }}
             </td>
@@ -21,12 +24,18 @@
             </td>
         </tr>
         <tr>
+            {{ form_errors(form.name) }}
+        </tr>
+        <tr>
             <td>
                 {{ form_label(form.name) }}
             </td>
             <td>
                 {{ form_widget(form.name) }}
             </td>
+        </tr>
+        <tr>
+            {{ form_errors(form.alt) }}
         </tr>
         <tr>
             <td>

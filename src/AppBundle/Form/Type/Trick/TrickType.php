@@ -1,5 +1,5 @@
 <?php
-namespace AppBundle\Form\Trick;
+namespace AppBundle\Form\Type\Trick;
 
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
@@ -37,15 +37,6 @@ class TrickType extends AbstractType
                     'label' => 'Catégorie',
                     'class' => 'AppBundle:Trick\Category',
                     'choice_label' => 'name'
-                ]
-            )
-            ->add(
-                'author',
-                EntityType::class,
-                [
-                    'label' => 'Auteur',
-                    'class' => 'AppBundle:User\User',
-                    'choice_label' => 'fullName'
                 ]
             )
             ->add(
