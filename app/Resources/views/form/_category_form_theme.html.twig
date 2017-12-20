@@ -1,0 +1,15 @@
+{% block CategoryType_widget %}
+    <table>
+        <tr>
+            {{ form_errors(form.name) }}
+        </tr>
+        <tr>
+            <td>{{ form_label(form.name) }}</td>
+            <td>{{ form_widget(form.name) }}</td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>{{ form_widget(form.Save) }}</td>
+        </tr>
+    </table>
+{% endblock %}

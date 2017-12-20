@@ -3,6 +3,9 @@
     <table>
         {% if form.userName is defined %}
             <tr>
+                {{ form_errors(form.userName) }}
+            </tr>
+            <tr>
                 <td>
                     {{ form_label(form.userName) }}
                 </td>
@@ -12,6 +15,9 @@
             </tr>
         {% endif %}
         {% if form.plainPassword is defined %}
+            <tr>
+                {{ form_errors(form.plainPassword) }}
+            </tr>
             <tr>
                 <td>
                     {{ form_label(form.plainPassword) }}

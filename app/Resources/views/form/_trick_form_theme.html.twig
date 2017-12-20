@@ -2,6 +2,9 @@
     {{ form_errors(form) }}
     <table>
         <tr>
+            {{ form_errors(form.name) }}
+        </tr>
+        <tr>
             <td>
                 {{ form_label(form.name) }}
             </td>
@@ -10,12 +13,18 @@
             </td>
         </tr>
         <tr>
+            {{ form_errors(form.description) }}
+        </tr>
+        <tr>
             <td>
                 {{ form_label(form.description) }}
             </td>
             <td>
                 {{ form_widget(form.description) }}
             </td>
+        </tr>
+        <tr>
+            {{ form_errors(form.category) }}
         </tr>
         <tr>
             <td>

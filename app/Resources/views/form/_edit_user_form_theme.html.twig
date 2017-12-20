@@ -12,19 +12,25 @@
 {% endblock %}
 
 {% block ImageType_row %}
-        <tr>
-            <td>
-                {{ form_label(form.file) }}
-            </td>
-            <td>
-                {{ form_widget(form.file) }}
-            </td>
-        </tr>
+    <tr>
+        {{ form_errors(form.file) }}
+    </tr>
+    <tr>
+        <td>
+            {{ form_label(form.file) }}
+        </td>
+        <td>
+            {{ form_widget(form.file) }}
+        </td>
+    </tr>
 {% endblock %}
 
 {% block UserType_widget %}
     <table>
         {{ form_row(form.img) }}
+        <tr>
+            {{ form_errors(form.firstName) }}
+        </tr>
         <tr>
             <td>
                 {{ form_label(form.firstName) }}
@@ -32,6 +38,9 @@
             <td>
                 {{ form_widget(form.firstName) }}
             </td>
+        </tr>
+        <tr>
+            {{ form_errors(form.lastName) }}
         </tr>
         <tr>
             <td>
@@ -42,12 +51,18 @@
             </td>
         </tr>
         <tr>
+            {{ form_errors(form.mail) }}
+        </tr>
+        <tr>
             <td>
                 {{ form_label(form.mail) }}
             </td>
             <td>
                 {{ form_widget(form.mail) }}
             </td>
+        </tr>
+        <tr>
+            {{ form_errors(form.plainPassword) }}
         </tr>
         <tr>
             <td>

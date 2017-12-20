@@ -3,6 +3,8 @@
 namespace AppBundle\Entity\Trick;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+use AppBundle\Validator\Constraints as AppAssert;
 
 /**
  * Category
@@ -25,6 +27,13 @@ class Category
      * @var string
      *
      * @ORM\Column(name="name", type="string", length=255, unique=true)
+     * @Assert\NotBlank(message="Le nom est obligatoire")
+     * @Assert\Length(
+     *      min = 2,
+     *      max = 255,
+     *      minMessage = "Le nom doit faire au moins {{ limit }} caractères",
+     *      maxMessage = "Le nom doit faire moins de {{ limit }} caractères"
+     * )
      */
     private $name;
 

@@ -5,7 +5,8 @@
     <h1>Ajouter une catégorie</h1>
     <div class="container">
         {% form_theme form
-            'form_table_layout.html.twig'
+            'form/_errors_form_theme.html.twig'
+            'form/_category_form_theme.html.twig'
         %}
         {{ form(form) }}
     </div>

@@ -18,12 +18,13 @@ abstract class Local extends Media
     protected $format;
 
     /**
-     * @Assert\NotBlank(message="Please, upload the product brochure as a PDF file.")
-     * @Assert\Image(
-     *     mimeTypes={ "image/jpeg", "image/png" }
+     * @Assert\File(
+     *     maxSize = "1k",
+     *     maxSizeMessage="Pas bien",
+     *     mimeTypesMessage = "Please upload a valid PDF"
      * )
      */
-    public $file;
+    protected $file;
 
     // CONSTS
     const WEB_DIRECTORY = '/root/path/to/web/directory/';

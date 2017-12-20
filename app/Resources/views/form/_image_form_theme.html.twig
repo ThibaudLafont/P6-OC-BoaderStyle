@@ -12,7 +12,9 @@
 
 {% block ImageType_row %}
     <table>
-
+        <tr>
+            {{ form_errors(form.file) }}
+        </tr>
         <tr>
             <td>
                 {{ form_label(form.file) }}
@@ -24,6 +26,9 @@
 
         {% if form.name is defined %}
             <tr>
+                {{ form_errors(form.name) }}
+            </tr>
+            <tr>
                 <td>
                     {{ form_label(form.name) }}
                 </td>
@@ -34,6 +39,9 @@
         {% endif %}
 
         {% if form.alt is defined %}
+            <tr>
+                {{ form_errors(form.alt) }}
+            </tr>
             <tr>
                 <td>
                     {{ form_label(form.alt) }}
