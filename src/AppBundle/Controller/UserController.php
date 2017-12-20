@@ -75,50 +75,27 @@ class UserController extends Controller
 
         // Action if submitted data are valid
         if ($form->isSubmitted() && $form->isValid()) {
-
             $em = $this->getDoctrine()->getManager();
-            
+
             // Check if user exists
             $user = $em->getRepository('AppBundle:User\User')->findOneBy(['userName' => $user->getUserName()]);
-
             if(!is_null($user)){
 
                 // Check if a reset request is already pending
-                $pending_reset =
-                    $em->getRepository('AppBundle:User\ResetPassword')
-                        ->findOneBy(
-                            [
-                                'user' => $user,
-                                'disabled' => false
-                            ]
-                        );
-
+                $pending_reset = $em->getRepository('AppBundle:User\ResetPassword')->findOneBy(['user' => $user, 'disabled' => false]);
                 if(is_null($pending_reset)){
 
-                    $now =  new \DateTime(
-                        'now',
-                        new \DateTimeZone('Europe/Paris')
-                    );
-
+                    // Creation and persist of reset_password entity
                     $resetPassword = new ResetPassword();
                     $resetPassword->setUser($user);
-                    $resetPassword->setToken(sha1(rand()));
-                    $resetPassword->setSubmitDateTime($now);
-                    $resetPassword->setDisabled(false);
-
                     $em->persist($resetPassword);
                     $em->flush();
-                    echo 'Vous pouvez réinitialiser votre mot de passe <a href="' . $resetPassword->getUrl() . '">ici</a>';
-
                 }
                 else{
                     echo 'Demande en cours.... Vérifiez vos mails';
                 }
-
             }
-
         }
-
 
         return $this->render('user/_pwd_reset.html.twig', ['form' => $form->createView()]);
     }

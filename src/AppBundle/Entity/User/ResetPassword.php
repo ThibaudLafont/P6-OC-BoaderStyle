@@ -9,6 +9,7 @@ use Doctrine\ORM\Mapping as ORM;
  *
  * @ORM\Table(name="user_reset_password")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\User\ResetPasswordRepository")
+ * @ORM\EntityListeners({"AppBundle\EventListener\ResetPasswordListener"})
  */
 class ResetPassword
 {
