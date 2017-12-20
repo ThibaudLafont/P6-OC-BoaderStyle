@@ -40,7 +40,9 @@ class UserController extends Controller
             $em->persist($user);
             $em->flush();
 
-            return $this->redirectToRoute('trick_list');
+            $this->addFlash('success', 'Vous êtes bien inscris à SnowTricks, connectez-vous !');
+
+            return $this->redirectToRoute('user_login');
 
         }
 
@@ -90,10 +92,14 @@ class UserController extends Controller
                     $resetPassword->setUser($user);
                     $em->persist($resetPassword);
                     $em->flush();
+
+                    $this->addFlash('info', 'Votre demande de réinitialisation a bien été enregistrée, vérifiez vos emails.');
                 }
                 else{
-                    echo 'Demande en cours.... Vérifiez vos mails';
+                    $this->addFlash('error', 'Vous avez déjà fait une demande de réinitialisation de mot de passe, vérifiez vos emails.');
                 }
+            }else{
+                $this->addFlash('error', 'Aucun compte connu avec cet identifiant');
             }
         }
 
@@ -119,6 +125,7 @@ class UserController extends Controller
                 $passwordReset->setDisabled(true);
                 $em->flush();
 
+                $this->addFlash('success', 'Votre mot de passe a été ré-initalisé, connectez-vous !');
                 return $this->redirectToRoute('user_login');
 
             }
@@ -127,6 +134,7 @@ class UserController extends Controller
         }
         else
         {
+            $this->addFlash('error', 'Aucune demande de modification de mot passe à cette adresse, ou la réinitialisation a déjà été effectuée');
             return $this->redirectToRoute('user_login');
         }
 
@@ -149,6 +157,7 @@ class UserController extends Controller
             $em = $this->getDoctrine()->getManager();
             $em->flush();
 
+            $this->addFlash('success', 'Votre profil a bien été modifié !');
             return $this->redirectToRoute('trick_list');
 
         }

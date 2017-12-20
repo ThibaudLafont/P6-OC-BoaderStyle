@@ -28,10 +28,13 @@ class AdminController extends Controller
         // Action if submitted data are valid
         if ($form->isSubmitted() && $form->isValid()) {
 
+            // Persist
             $em = $this->getDoctrine()->getManager();
             $em->persist($trick);
             $em->flush();
 
+            // Flash message
+            $this->addFlash('success', 'Vous bien ajouté un article, à voir <a href="'. $trick->getUrl() . '">ici</a>');
             return $this->redirectToRoute('trick_list');
 
         }
@@ -59,7 +62,8 @@ class AdminController extends Controller
             $em = $this->getDoctrine()->getManager();
             $em->flush();
 
-            return $this->redirectToRoute('trick_show', ['id' => $trick->getId()]);
+            $this->addFlash('success', 'Vous bien modifié "' . $trick->getName() . '", à voir <a href="'. $trick->getUrl() . '">ici</a>');
+            return $this->redirectToRoute('trick_list');
 
         }
 
@@ -78,6 +82,7 @@ class AdminController extends Controller
         $em->remove($trick);
         $em->flush();
 
+        $this->addFlash('success', 'Vous bien supprimé "' . $trick->getName() . '"');
         return $this->redirectToRoute('trick_list');
 
     }
@@ -99,8 +104,9 @@ class AdminController extends Controller
             $em->persist($category);
             $em->flush();
 
-            $this->redirectToRoute('trick_list');
 
+            $this->addFlash('success', 'Vous avez ajouté la catégorie "' . $category->getName() . '"');
+            return $this->redirectToRoute('trick_list');
         }
 
         return $this->render('trick/_category_form.html.twig', ['form' => $form->createView()]);
