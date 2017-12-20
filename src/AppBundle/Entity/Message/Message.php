@@ -5,6 +5,7 @@ namespace AppBundle\Entity\Message;
 use AppBundle\Entity\Trick\Trick;
 use AppBundle\Entity\User\User;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Message
@@ -28,6 +29,7 @@ class Message
      * @var \DateTime
      *
      * @ORM\Column(name="creationDate", type="datetime")
+     * @Assert\DateTime()
      */
     private $creationDate;
 
@@ -35,6 +37,10 @@ class Message
      * @var string
      *
      * @ORM\Column(name="content", type="text")
+     * @Assert\Length(
+     *      max = 500,
+     *      maxMessage = "La description doit faire au maximum {{ limit }} caractères"
+     * )
      */
     private $content;
 

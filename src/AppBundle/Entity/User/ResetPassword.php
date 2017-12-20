@@ -3,6 +3,7 @@
 namespace AppBundle\Entity\User;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * ResetPassword
@@ -26,6 +27,7 @@ class ResetPassword
      * @var string
      *
      * @ORM\Column(name="token", type="string", length=255)
+     * @Assert\NotBlank()
      */
     private $token;
 
@@ -33,6 +35,7 @@ class ResetPassword
      * @var \DateTime
      *
      * @ORM\Column(name="submit_datetime", type="datetime")
+     * @Assert\DateTime()
      */
     private $submitDateTime;
 
@@ -48,6 +51,7 @@ class ResetPassword
      * @var bool
      *
      * @ORM\Column(name="disabled", type="boolean")
+     * @Assert\Type("boolean")
      */
     private $disabled;
 

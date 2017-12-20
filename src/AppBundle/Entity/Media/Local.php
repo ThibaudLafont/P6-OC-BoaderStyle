@@ -18,13 +18,12 @@ abstract class Local extends Media
     protected $format;
 
     /**
-     * @Assert\File(
-     *     maxSize = "1k",
-     *     maxSizeMessage="Pas bien",
-     *     mimeTypesMessage = "Please upload a valid PDF"
+     * @Assert\Image(
+     *     mimeTypesMessage="Les seuls formats acceptés sont JPG et PNG",
+     *     mimeTypes={ "image/jpeg", "image/png" }
      * )
      */
-    protected $file;
+    public $file;
 
     // CONSTS
     const WEB_DIRECTORY = '/root/path/to/web/directory/';

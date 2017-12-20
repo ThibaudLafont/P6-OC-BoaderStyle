@@ -28,6 +28,13 @@ class User implements UserInterface, \Serializable
      * @var string
      *
      * @ORM\Column(name="firstName", type="string", length=255)
+     * @Assert\NotBlank(message="Le prénom est obligatoire")
+     * @Assert\Length(
+     *      min = 2,
+     *      max = 255,
+     *      minMessage = "Le prénom doit faire au moins {{ limit }} caractères",
+     *      maxMessage = "Le prénom doit faire moins de {{ limit }} caractères"
+     * )
      */
     private $firstName;
 
@@ -35,6 +42,13 @@ class User implements UserInterface, \Serializable
      * @var string
      *
      * @ORM\Column(name="lastName", type="string", length=255)
+     * @Assert\NotBlank(message="Le nom de famille est obligatoire")
+     * @Assert\Length(
+     *      min = 2,
+     *      max = 255,
+     *      minMessage = "Le nom doit faire au moins {{ limit }} caractères",
+     *      maxMessage = "Le nom doit faire moins de {{ limit }} caractères"
+     * )
      */
     private $lastName;
 
@@ -42,6 +56,13 @@ class User implements UserInterface, \Serializable
      * @var string
      *
      * @ORM\Column(name="userName", type="string", length=255, unique=true)
+     * @Assert\NotBlank(message="Le nom d'utilisateur est obligatoire")
+     * @Assert\Length(
+     *      min = 2,
+     *      max = 255,
+     *      minMessage = "Le nom d'utilisateur doit faire au moins {{ limit }} caractères",
+     *      maxMessage = "Le nom d'utilisateur doit faire moins de {{ limit }} caractères"
+     * )
      */
     private $userName;
 
@@ -49,6 +70,11 @@ class User implements UserInterface, \Serializable
      * @var string
      *
      * @ORM\Column(name="mail", type="string", length=255)
+     * @Assert\NotBlank(message="Le mail est obligatoire")
+     * @Assert\Email(
+     *     message = "L'email '{{ value }}' n'est pas valide.",
+     *     checkMX = true
+     * )
      */
     private $mail;
 
@@ -59,7 +85,15 @@ class User implements UserInterface, \Serializable
      */
     private $password;
 
-
+    /**
+     * @Assert\NotBlank(message="Veuillez entrer un mot de passe")
+     * @Assert\Length(
+     *      min = 7,
+     *      max = 55,
+     *      minMessage = "Le mot de passe doit faire au moins {{ limit }} caractères",
+     *      maxMessage = "Le mot de passe doit faire moins de {{ limit }} caractères"
+     * )
+     */
     private $plainPassword;
 
     /**
@@ -67,6 +101,7 @@ class User implements UserInterface, \Serializable
      *     targetEntity="UserImage",
      *     cascade={"persist", "remove"}
      * )
+     * @Assert\Valid()
      */
     private $img;
 
@@ -75,6 +110,7 @@ class User implements UserInterface, \Serializable
      *     targetEntity="AppBundle\Entity\Message\Message",
      *     mappedBy="user"
      * )
+     * @Assert\Valid()
      */
     private $messages;
 

@@ -66,6 +66,9 @@ class EditType extends AbstractType
                 [
                     'type' => PasswordType::class,
                     'required' => false,
+                    'first_name' => 'pass',
+                    'second_name' => 'confirm',
+                    'invalid_message' => 'Les mots de passe ne correspondent pas',
                     'first_options' => [
                         'label' => false,
                         'attr' => [

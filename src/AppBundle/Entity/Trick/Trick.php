@@ -64,6 +64,7 @@ class Trick
 
     /**
      * @ORM\ManyToOne(targetEntity="Category", inversedBy="tricks")
+     * @Assert\NotBlank(message="Veuillez choisir une catégorie")
      */
     private $category;
 
@@ -73,6 +74,7 @@ class Trick
      *     mappedBy="trick",
      *     cascade={"persist", "remove"}
      *     )
+     * @Assert\Valid()
      */
     private $imgs;
 
@@ -82,11 +84,13 @@ class Trick
      *     mappedBy="trick",
      *     cascade={"persist", "remove"}
      * )
+     * @Assert\Valid()
      */
     private $videos;
 
     /**
      * @ORM\OneToMany(targetEntity="AppBundle\Entity\Message\Message", mappedBy="trick")
+     * @Assert\Valid()
      */
     private $messages;
 

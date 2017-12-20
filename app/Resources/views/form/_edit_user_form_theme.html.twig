@@ -62,14 +62,15 @@
             </td>
         </tr>
         <tr>
-            {{ form_errors(form.plainPassword) }}
+            {{ form_errors(form.plainPassword.pass) }}
         </tr>
         <tr>
             <td>
                 {{ form_label(form.plainPassword) }}
             </td>
             <td>
-                {{ form_widget(form.plainPassword) }}
+                {{ form_widget(form.plainPassword.pass) }}
+                {{ form_widget(form.plainPassword.confirm) }}
             </td>
         </tr>
     </table>

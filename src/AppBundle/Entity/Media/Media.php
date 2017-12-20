@@ -22,7 +22,7 @@ abstract class Media
     /**
      * @var string
      *
-     * @ORM\Column(name="name", type="string", length=255)
+     * @ORM\Column(name="name", type="string", length=255, unique=true)
      * @Assert\NotBlank(message="Le nom est obligatoire")
      * @Assert\Length(
      *      min = 2,
