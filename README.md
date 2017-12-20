@@ -22,7 +22,7 @@ The requested web-application's engineering will be segmented, according to abov
 | ✓ | 6  | Chat feature creation                       | ~~1 day~~   | 1day    |
 | ✓ | 7  | Sign-in/sign-up features creation           | ~~1 day~~   | 2.5days |
 | ✓ | 11 | Securisation of authenficated features      | ~~1 day~~   | 1.5days |
-| ✕ | 21 | Reset password                              | 1day        |         |
+| ✓ | 21 | Reset password                              | ~~1day~~    | 1day    |
 | ✕ | 13 | YALM with initals figures                   | 2days       |         |
 | ✕ | 8  | Home and show pages front-work              | 2days       |         |
 | ✕ | 9  | Chat feature front-work                     | 3.5days     |         |
