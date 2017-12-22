@@ -5,25 +5,43 @@
         <title>{% block title %}SnowTricks - BoSt{% endblock %}</title>
         {% block stylesheets %}{% endblock %}
         <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+        <link rel="stylesheet" href="/css/main.css">
     </head>
     <body>
 
-        <p>
-            <a href="/">Liste des figures</a>
-            {% if not is_granted('ROLE_ADMIN') %}
-                <a href="/register">S'inscrire</a>
-                <a href="/login">Se connecter</a>
-            {% else %}
-                <a href="/admin/user">Mon profil</a>
-                <a href="/logout">Se déconnecter</a>
-            {% endif %}
-        </p>
-        {% if is_granted('ROLE_ADMIN') %}
-            <p>
-                <a href="/admin/add/trick">Ajouter une figure</a>
-                <a href="/admin/add/category">Ajouter une catégorie</a>
-            </p>
-        {% endif %}
+        <header>
+            <a id="header_home_link" href="/">
+                <h1>SNOWTRICKS</h1>
+                <img src="/media/img/main/logo-snowtricks-300px.png" alt="Logo de SnowTricks">
+                <h3>IMPROVE YOUR SKILLS</h3>
+            </a>
+            <div id="social_links">
+                <img src="/media/picto/Twitter.png" alt="Pictogramme de Twitter">
+                <img src="/media/picto/Facebook.png" alt="Pictogramme de Facebook">
+            </div>
+            <section id="navbar">
+                <p>
+                    <a href="/">FIGURES</a>
+                    {% if not is_granted('ROLE_ADMIN') %}
+                        <a href="/login">CONNEXION</a>
+                        <a href="/register">INSCRIPTION</a>
+                    {% endif %}
+                </p>
+
+                {% if is_granted('ROLE_ADMIN') %}
+                <p>
+                    <p>
+                        <a href="/admin/user">Mon profil</a>
+                        <a href="/logout">Se déconnecter</a>
+                    </p>
+                    <p>
+                        <a href="/admin/add/trick">Ajouter une figure</a>
+                        <a href="/admin/add/category">Ajouter une catégorie</a>
+                    </p>
+                </p>
+                {% endif %}
+            </section>
+        </header>
 
         {# Flash Messages #}
         {% for label, messages in app.flashes %}
@@ -35,6 +53,29 @@
         {% endfor %}
 
         {% block body %}{% endblock %}
+
+        <footer>
+
+            <section>
+                <div id="aware_message">
+                    <img src="/media/picto/Beware.png" alt="Panneau attention triangulaire avec point d'exclamation">
+                    <h4>ATTENTION !</h4>
+                    <span>Message d'avertissement à définir</span>
+                </div>
+            </section>
+
+            <section id="footer_bottom">
+                <div>
+                    <img src="/media/picto/Dev.png" alt="Pictogramme codeur">
+                    <span>Réalisé par <a href="https://sysmod.fr">Sysmod-Web</a></span>
+                </div>
+                <div>
+                    <span>©2017 - SnowTricks</span>
+                </div>
+            </section>
+
+        </footer>
+
         {% block javascripts %}{% endblock %}
     </body>
 </html>

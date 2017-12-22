@@ -144,8 +144,8 @@ class UserController extends Controller
      * @Route("/admin/user", name="user_edit")
      */
     public function userEditAction(Request $request){
+        // Fetch user object from authentificated session
         $user = $this->getUser();
-        $user = $this->getDoctrine()->getRepository('AppBundle:User\User')->find($user->getId());
 
         // Creation of form
         $form = $this->get('form.factory')->create(EditType::class, $user);
@@ -154,9 +154,11 @@ class UserController extends Controller
         // Action if submitted data are valid
         if ($form->isSubmitted() && $form->isValid()) {
 
+            // Get Entity Manager and update user entry in DB
             $em = $this->getDoctrine()->getManager();
             $em->flush();
 
+            // Flash message and redirection to the tricks list
             $this->addFlash('success', 'Votre profil a bien été modifié !');
             return $this->redirectToRoute('trick_list');
 

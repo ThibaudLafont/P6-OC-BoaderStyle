@@ -2,24 +2,57 @@
 
 {% block body %}
 
-    <h1>Liste des figures</h1>
+    <section id="page_header">
+        <h1>Les figures</h1>
+        <p>
+            Vous retrouvez ici un annuaire de figures de snowboard communautaire. En effet chacun a la possibilité d'enrichir
+            ce répertoire et d'interagir avec les autres membres par le biais d'un espace de discussion. Rejoignez-nous!
+        </p>
+        <div id="page_header_menu">
+            <div id="phm_top">
+                <span>Filtrer</span>
+                <img src="/media/picto/ArrowDown.png" alt="Flèche pointant vers le bas">
+            </div>
+            <div id="category_list">
 
+                {% for cat in categories %}
+                    <div>
+                        <a href="#">
+                            <img src="/media/img/users/thibaud-lafont.jpeg" alt="{{ cat.name }}"><br/>
+                            <span>{{ cat.name }}</span>
+                        </a>
+                    </div>
+                {% endfor %}
+
+            </div>
+        </div>
+    </section>
+
+    <hr class="trick_item_hr">
     {% for trick in tricks %}
-        <article>
-            <h2>{{ trick.name }}</h2>
-            <img src="{{ trick.imgs[0].url }}" alt="{{ trick.imgs[0].alt }}">
+        <article class="trick_list_item">
+            <div class="item_header">
+                <h2>{{ trick.name }}</h2>
+                <div>
+                    <img src="/media/picto/Author.png" alt="Pictogramme représentant un utilisateur">
+                    <span>Posté par {{ trick.author.fullName }}</span>
+                </div>
+            </div>
 
-            <p>
-                <img src="{{ trick.author.img.url }}" alt="{{ trick.author.img.alt }}" style="width:50px">
-                <span>Posté par {{ trick.author.fullName }}</span>
-            </p>
+            <img class="item_main_img" src="{{ trick.imgs[0].url }}" alt="{{ trick.imgs[0].alt }}">
 
-            <p>
+            <p class="item_description">
                 {{ trick.descriptionFrag }}
-                <a href="{{ trick.url }}">Voir la figure</a>
             </p>
+
+            <span class="item_show_link">
+                <a href="{{ trick.url }}">
+                    Voir la figure
+                    <img src="/media/picto/Eye.png" alt="Pictogramme d'un oeil">
+                </a>
+            </span>
         </article>
-        <hr>
+        <hr class="trick_item_hr">
     {% endfor %}
     
 {% endblock %}

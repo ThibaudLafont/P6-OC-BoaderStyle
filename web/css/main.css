@@ -1,2 +1,105 @@
+/* IMG REDIM */
+#social_links img
+{
+    width: 35px;
+}
 
-/*# sourceMappingURL=main.css.map */
+#page_header_menu img{
+    width: 35px;
+}
+
+.trick_list_item .item_header img{
+    width: 18px;
+}
+.item_show_link img{
+    width: 25px;
+}
+/*RESET*/
+body{
+    margin:0;
+}
+*{
+    color : #4b4b49
+}
+
+/*GENERAL*/
+h1{
+    text-align: center;
+    color: #ee826c;
+    font-weight: normal;
+}
+
+
+/*HEADER*/
+header{
+    text-align: center;
+    border-top: 25px solid #4b4b49;
+    border-bottom: 4px solid #4b4b49;
+    background-color: #d3c5a6;
+}
+
+a#header_home_link{
+    text-decoration: none;
+}
+a#header_home_link h1{
+    color: #4b4b49;
+}
+a#header_home_link h3{
+    color: white;
+    font-weight: normal;
+    font-style: italic;
+    margin-top: 5px;
+}
+
+#navbar a{
+    display: block;
+    color: #ee826c;
+}
+
+
+/*PAGE_HEADER*/
+#page_header_menu{
+}
+#page_header_menu #phm_top{
+    background-color: #4b4b49;
+}
+#page_header_menu #phm_top span{
+    color: white;
+}
+#page_header_menu #category_list{
+    overflow: hidden;
+    border-bottom: 2px solid #4b4b49;
+}
+
+#page_header_menu #category_list div{
+    /*display:inline;*/
+    text-align: center;
+    width: 30%;
+    margin: 0 1.1667%;
+    float: left;
+}
+
+/*ITEM TRICK LIST*/
+hr.trick_item_hr{
+    border: 2px solid #d3c5a6;
+}
+.trick_list_item .item_header h2{
+    font-weight: normal;
+    margin-bottom: 0;
+}
+.trick_list_item .item_header span{
+    font-size: 14px;
+    font-style: italic;
+}
+.item_main_img{
+    display:block;
+    width: 100%;
+}
+.item_show_link{
+    display:block;
+    background-color: #4b4b49;
+}
+.item_show_link a{
+     color: white;
+    text-decoration: none;
+}

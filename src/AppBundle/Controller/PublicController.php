@@ -15,10 +15,11 @@ class PublicController extends Controller
      */
     public function listAction(Request $request)
     {
-        $em = $this->getDoctrine()->getManager()->getRepository('AppBundle:Trick\Trick');
-        $tricks = $em->findAll();
+        $em = $this->getDoctrine()->getManager();
+        $tricks = $em->getRepository('AppBundle:Trick\Trick')->findAll();
+        $categories = $em->getRepository('AppBundle:Trick\Category')->findAll();
 
-        return $this->render('trick/_list.html.twig', compact('tricks'));
+        return $this->render('trick/_list.html.twig', compact('tricks', 'categories'));
     }
 
     /**
