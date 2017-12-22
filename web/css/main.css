@@ -3,9 +3,12 @@
 {
     width: 35px;
 }
-
+#navbar_top img{
+    width : 25px;
+}
 #page_header_menu img{
-    width: 35px;
+    width: 25px;
+    height: auto;
 }
 
 .trick_list_item .item_header img{
@@ -14,12 +17,17 @@
 .item_show_link img{
     width: 25px;
 }
+
+#aware_message img{
+    width: 75px;
+}
+
 /*RESET*/
 body{
     margin:0;
 }
 *{
-    color : #4b4b49
+    color : #4b4b49;
 }
 
 /*GENERAL*/
@@ -27,79 +35,200 @@ h1{
     text-align: center;
     color: #ee826c;
     font-weight: normal;
+    font-size : 26px;
+    margin-top: 0.75rem;
+    margin-bottom: 0;
+}
+#main_content{
+    padding : 0 1rem;
 }
 
+/*LEFT AND RIGHT + VERTICAL ALIGN MIDDLE*/
+#page_header_menu #phm_top,
+.item_show_link a
+{
+    box-sizing: border-box;
+    display: table;
+    width: 100%;
+    background-color: #4b4b49;
+    overflow: hidden;
+    padding : 0.25rem;
+}
+ .cell,
+ .vm_cell
+ {
+     display: table-cell;
+ }
+.vm_cell{
+    vertical-align: middle;
+}
 
 /*HEADER*/
 header{
     text-align: center;
     border-top: 25px solid #4b4b49;
-    border-bottom: 4px solid #4b4b49;
     background-color: #d3c5a6;
 }
 
 a#header_home_link{
     text-decoration: none;
+    padding: 0 1rem;
 }
-a#header_home_link h1{
+a#header_home_link h2{
     color: #4b4b49;
+    font-size: 28px;
+    margin: 0.75rem 0rem;
 }
 a#header_home_link h3{
     color: white;
     font-weight: normal;
     font-style: italic;
-    margin-top: 5px;
+    margin: 0.75rem 0;
+}
+#navbar{
+    margin-top: 0.75rem;
+    background-color: #4b4b49;
+}
+#navbar_top{
+    display: table;
+    box-sizing: border-box;
+    padding: 0.5rem 1rem;
+    margin-top: 0.75rem;
+    width: 100%;
+}
+#navbar_top .line_picto{
+    overflow: hidden;
+}
+#navbar_top .line_picto img,
+#navbar_top .line_picto span
+{
+    display: table-cell;
+}
+#navbar_top .line_picto img{
+    float: left;
+}
+#navbar_top span{
+    color: white;
+}
+#navbar_top .arrow_down img{
+    float: right;
+}
+#navbar .openbox{
+    background-color: #d3c5a6;
+    /*border-top: 2px solid #ee826c;*/
+    border-bottom: 2px solid #4b4b49;
+    padding: 0.75rem 1rem 0 1rem;
+}
+#navbar .openbox a{
+    display: block;
+    margin-bottom: 0.75rem;
+    color: #4b4b49;
+    text-decoration: none;
+}
+#navbar .openbox hr{
+    border: 1px solid #ee826c;
+    margin-top:0;
+    margin-bottom: 0.75rem;
 }
 
-#navbar a{
-    display: block;
+/*FOOTER*/
+footer{
+    border-top: 2px solid #4b4b49;
+    background-color: #d3c5a6;
+    margin-top: 1.5rem;
+}
+#aware_message{
+    display: table;
+    margin: 0.75rem 1rem;
+    border: 4px solid #ee826c;
+    background-color: #fff;
+    box-sizing: border-box;
+    text-align: center;
+    padding: 0.75rem;
+}
+#aware_message img{
+    float: left;
+}
+#aware_message h4{
+    margin: 0 0 0.5rem 0;
     color: #ee826c;
+    font-weight: 900;
+}
+#aware_message_content{
+    display: table-cell;
+    padding-left: 0.5rem;
 }
 
 
 /*PAGE_HEADER*/
-#page_header_menu{
+#page_header{
+    margin-top: 1.5rem;
+    padding: 0 0.5rem 0.75rem 0.5rem;
+    border-top: 2px solid #4b4b49;
+    border-bottom: 2px solid #4b4b49;
 }
-#page_header_menu #phm_top{
-    background-color: #4b4b49;
+#page_header p{
+    margin : 0.75rem 0;
+    text-align: center;
+    font-style: italic;
+}
+#page_header_menu #phm_top img{
+    display: table-cell;
+    float: right;
 }
 #page_header_menu #phm_top span{
+    display: table-cell;
     color: white;
 }
+
+/*CATEGORY_LIST*/
 #page_header_menu #category_list{
     overflow: hidden;
-    border-bottom: 2px solid #4b4b49;
+    background-color: #f5f5f5;
+    padding-bottom: 0.75rem;
 }
 
 #page_header_menu #category_list div{
-    /*display:inline;*/
     text-align: center;
     width: 30%;
-    margin: 0 1.1667%;
+    margin: 0.75rem 1.6667% 0 1.6667%;
     float: left;
 }
 
 /*ITEM TRICK LIST*/
 hr.trick_item_hr{
+    margin: 1.5rem 0 0 0;
     border: 2px solid #d3c5a6;
+}
+.trick_list_item{
+    padding : 0 0.75rem;
 }
 .trick_list_item .item_header h2{
     font-weight: normal;
     margin-bottom: 0;
+    margin-top: 0.75rem;
 }
-.trick_list_item .item_header span{
+.trick_list_item .author_block{
+    margin-top : 2px;
+}
+.trick_list_item .author_block span{
     font-size: 14px;
     font-style: italic;
+    margin-left: 7px;
 }
 .item_main_img{
     display:block;
     width: 100%;
+    margin-top: 0.75rem;
 }
 .item_show_link{
     display:block;
     background-color: #4b4b49;
 }
-.item_show_link a{
-     color: white;
+.item_show_link a span{
+    color: white;
     text-decoration: none;
+}
+.item_show_link img{
+    float: right;
 }

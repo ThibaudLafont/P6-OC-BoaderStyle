@@ -10,10 +10,14 @@
         </p>
         <div id="page_header_menu">
             <div id="phm_top">
-                <span>Filtrer</span>
-                <img src="/media/picto/ArrowDown.png" alt="Flèche pointant vers le bas">
+                <div class="vm_cell">
+                    <span>Filtrer</span>
+                </div>
+                <div class="vm_cell">
+                    <img onClick="openbox()" src="/media/picto/ArrowDown.png" alt="Flèche pointant vers le bas">
+                </div>
             </div>
-            <div id="category_list">
+            <div id="category_list" class="openbox">
 
                 {% for cat in categories %}
                     <div>
@@ -33,9 +37,13 @@
         <article class="trick_list_item">
             <div class="item_header">
                 <h2>{{ trick.name }}</h2>
-                <div>
-                    <img src="/media/picto/Author.png" alt="Pictogramme représentant un utilisateur">
-                    <span>Posté par {{ trick.author.fullName }}</span>
+                <div class="author_block">
+                    <div class="vm_cell">
+                        <img src="/media/picto/Author.png" alt="Pictogramme représentant un utilisateur">
+                    </div>
+                    <div class="vm_cell">
+                        <span>Posté par {{ trick.author.fullName }}</span>
+                    </div>
                 </div>
             </div>
 
@@ -47,12 +55,29 @@
 
             <span class="item_show_link">
                 <a href="{{ trick.url }}">
-                    Voir la figure
-                    <img src="/media/picto/Eye.png" alt="Pictogramme d'un oeil">
+                    <span class="vm_cell">
+                        Voir la figure
+                    </span>
+                    <div class="vm_cell">
+                        <img src="/media/picto/Eye.png" alt="Pictogramme d'un oeil">
+                    </div>
                 </a>
             </span>
         </article>
         <hr class="trick_item_hr">
     {% endfor %}
-    
+
+{% endblock %}
+
+
+{% block javascripts %}
+    <script>
+        function openbox(){
+            if($('#category_list.openbox').is(':visible')){
+                $('#category_list.openbox').hide();
+            }else{
+                $('#category_list.openbox').show();
+            }
+        }
+    </script>
 {% endblock %}

@@ -11,7 +11,7 @@
 
         <header>
             <a id="header_home_link" href="/">
-                <h1>SNOWTRICKS</h1>
+                <h2>SNOWTRICKS</h2>
                 <img src="/media/img/main/logo-snowtricks-300px.png" alt="Logo de SnowTricks">
                 <h3>IMPROVE YOUR SKILLS</h3>
             </a>
@@ -20,26 +20,32 @@
                 <img src="/media/picto/Facebook.png" alt="Pictogramme de Facebook">
             </div>
             <section id="navbar">
-                <p>
-                    <a href="/">FIGURES</a>
+                <div id="navbar_top">
+                    <div class="vm_cell line_picto">
+                        <img src="/media/picto/Author_White.png" alt="Pictogramme représentant un utilisateur">
+                    </div>
+                    <div class="vm_cell">
+                        <span>Menu</span>
+                    </div>
+                    <div class="vm_cell arrow_down">
+                        <img onClick="opennavbar()" src="/media/picto/ArrowDown.png" alt="Flèche pointant vers le bas">
+                    </div>
+                </div>
+                <div class="openbox">
                     {% if not is_granted('ROLE_ADMIN') %}
                         <a href="/login">CONNEXION</a>
+                        <hr>
                         <a href="/register">INSCRIPTION</a>
-                    {% endif %}
-                </p>
-
-                {% if is_granted('ROLE_ADMIN') %}
-                <p>
-                    <p>
+                    {% elseif is_granted('ROLE_ADMIN') %}
                         <a href="/admin/user">Mon profil</a>
-                        <a href="/logout">Se déconnecter</a>
-                    </p>
-                    <p>
+                        <hr>
                         <a href="/admin/add/trick">Ajouter une figure</a>
+                        <hr>
                         <a href="/admin/add/category">Ajouter une catégorie</a>
-                    </p>
-                </p>
-                {% endif %}
+                        <hr>
+                        <a href="/logout">Se déconnecter</a>
+                    {% endif %}
+                </div>
             </section>
         </header>
 
@@ -52,15 +58,23 @@
             {% endfor %}
         {% endfor %}
 
-        {% block body %}{% endblock %}
+        <section id="main_content">
+            {% block body %}{% endblock %}
+        </section>
 
         <footer>
 
             <section>
                 <div id="aware_message">
-                    <img src="/media/picto/Beware.png" alt="Panneau attention triangulaire avec point d'exclamation">
-                    <h4>ATTENTION !</h4>
-                    <span>Message d'avertissement à définir</span>
+                    <div class="vm_cell">
+                        <img src="/media/picto/Beware.png" alt="Panneau attention triangulaire avec point d'exclamation">
+                    </div>
+                    <div class="cell">
+                        <span id="aware_message_content">
+                            <h4>ATTENTION !</h4>
+                            <span>Message d'avertissement à définir</span>
+                        </span>
+                    </div>
                 </div>
             </section>
 
@@ -76,6 +90,22 @@
 
         </footer>
 
+
+        <script
+                src="https://code.jquery.com/jquery-3.2.1.min.js"
+                integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+                crossorigin="anonymous">
+        </script>
+        <script>
+            $('.openbox').hide();
+            function opennavbar(){
+                if($('#navbar .openbox').is(':visible')){
+                    $('#navbar .openbox').hide();
+                }else{
+                    $('#navbar .openbox').show();
+                }
+            }
+        </script>
         {% block javascripts %}{% endblock %}
     </body>
 </html>
