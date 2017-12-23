@@ -10,16 +10,17 @@
     width: 25px;
     height: auto;
 }
-
 .trick_list_item .item_header img{
     width: 18px;
 }
 .item_show_link img{
     width: 25px;
 }
-
 #aware_message img{
     width: 75px;
+}
+#footer_bottom img{
+    width:20px;
 }
 
 /*RESET*/
@@ -139,7 +140,7 @@ footer{
 }
 #aware_message{
     display: table;
-    margin: 0.75rem 1rem;
+    margin: 1rem;
     border: 4px solid #ee826c;
     background-color: #fff;
     box-sizing: border-box;
@@ -158,7 +159,32 @@ footer{
     display: table-cell;
     padding-left: 0.5rem;
 }
-
+#aware_message_content a{
+    display: block;
+    text-align: right;
+    margin-top: 0.5rem;
+}
+#footer_bottom{
+    text-align: center;
+    background-color: #4b4b49;
+}
+#footer_bottom span,
+#footer_bottom a
+{
+    color: white;
+}
+#web_dev,
+#copyright
+{
+    padding: 0.5rem 1rem;
+}
+#web_dev{
+    display:table;
+    margin:auto;
+}
+#web_dev img{
+    margin-right: 0.75rem;
+}
 
 /*PAGE_HEADER*/
 #page_header{
