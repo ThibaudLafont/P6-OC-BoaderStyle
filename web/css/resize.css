@@ -1,0 +1,41 @@
+/* IMG REDIM */
+#social_links img
+{
+    width: 35px;
+}
+#navbar_top img{
+    width : 25px;
+}
+#page_header_menu img{
+    width: 25px;
+    height: auto;
+}
+.trick_list_item .item_header img{
+    width: 18px;
+}
+.item_show_link img{
+    width: 25px;
+}
+#aware_message img{
+    width: 75px;
+}
+#footer_bottom img{
+    width:20px;
+}
+/*User icon show page*/
+#page_header > div > div:nth-child(1) > img{
+    width:22px;
+}
+/*User picture show page*/
+#show_user_pic{
+    width: 55px;
+}
+#top_show_gallery img{
+    width: 25px;
+}
+#top_show_chat img{
+    width: 25px;
+}
+#posted_messages .message img{
+    width: 40px;
+}

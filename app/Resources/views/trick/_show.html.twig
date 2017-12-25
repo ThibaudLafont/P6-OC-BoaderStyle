@@ -1,57 +1,176 @@
 {% extends 'base.html.twig' %}
 
+{% block stylesheets %}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.css">
+{% endblock %}
+
 {% block body %}
 
-    <h1>
-        {{ trick.name }}
-    </h1>
-    <article>
-        {% if is_granted('ROLE_ADMIN') %}
-            <p>
-                <a href="/admin/edit/trick/{{ trick.id }}">Modifier</a>
-                <a href="/admin/delete/trick/{{ trick.id }}">Supprimer</a>
-            </p>
-        {% endif %}
-        <p>
-            <img src="{{ trick.author.img.url }}" alt="{{ trick.author.img.alt }}" style="width:50px">
-            Posté par {{ trick.author.fullName }}
-        </p>
-
-        <div>
-            {% for img in trick.imgs %}
-                    <img src="{{ img.url }}" alt="{{ img.alt }}">
-            {% endfor %}
+    <!-- Show page's subheader -->
+    <section id="page_header">
+        <!-- Main title -->
+        <h1>{{ trick.name }}</h1>
+        <!-- Author section -->
+        <img id="show_user_pic" src="{{ trick.author.img.url }}" alt="{{ trick.author.img.alt }}">
+        <div id="show_author_block" class="author_block">
+            <div class="vm_cell">
+                <img src="/media/picto/Author.png" alt="Pictogramme représentant un utilisateur">
+            </div>
+            <div class="vm_cell">
+                <span>{{ trick.author.fullName }}</span>
+            </div>
         </div>
-
-        <div>
-            {% for video in trick.videos %}
-                <embed width="250" height="120" src="{{ video.src }}">
-            {% endfor %}
+        <hr class="pink">
+        <!-- Display of chat's messages -->
+        <div id="message_block">
+            <div class="vm_cell ta-left">
+                <img src="/media/picto/Message.png" alt="Pictogramme représentant un message">
+            </div>
+            <div class="vm_cell ta-right">
+                <span>269 messages</span>
+            </div>
         </div>
+    </section>
 
+    <!-- Admin's actions -->
+    {% if is_granted('ROLE_ADMIN') %}
+        <div id="show_edit_actions">
+            <a href="/admin/edit/trick/{{ trick.id }}">Modifier</a>
+            <a href="/admin/delete/trick/{{ trick.id }}">Supprimer</a>
+        </div>
+    {% endif %}
+
+    <!-- Content of the trick -->
+    <article id="show_article">
+
+        <!-- Trick's medias -->
+        <section>
+            <!-- Main trick's picture -->
+            <a href="{{ trick.imgs[0].url }}" data-fancybox="imgs">
+                <img id="show_main_img" src="{{ trick.imgs[0].url }}" alt="{{ trick.imgs[0].alt }}">
+            </a>
+            <!-- Others trick's medias -->
+            <section id="show_gallery">
+                <div id="top_show_gallery">
+                    <div class="vm_cell line_picto">
+                        <img src="/media/picto/Camera.png" alt="Pictogramme représentant un utilisateur">
+                    </div>
+                    <div class="vm_cell">
+                        <span>MÉDIAS</span>
+                    </div>
+                    <div class="vm_cell arrow_down">
+                        <img onClick="openmediabox()" src="/media/picto/ArrowDown.png" alt="Flèche pointant vers le bas">
+                    </div>
+                </div>
+                <!-- Trick's pictures -->
+                <section class="openbox">
+                    {% for img in trick.imgs %}
+                        {% if loop.index0 != 0 %}
+                            <a href="{{ img.url }}" data-fancybox="imgs">
+                                <img src="{{ img.url }}" alt="{{ img.alt }}">
+                            </a>
+                        {% endif %}
+                    {% endfor %}
+                    <!-- Trick's videos -->
+                    {% for video in trick.videos %}
+                        <embed width="250" height="120" src="{{ video.src }}">
+                    {% endfor %}
+                </section>
+            </section>
+        </section>
+
+        <!-- Trick's content -->
         <h2>Explications</h2>
         <p>{{ trick.description }}</p>
 
-        <h2>Discussion</h2>
-        {% for message in trick.messages %}
-            <h4>{{ message.user.fullName }}</h4>
-            <p>{{ message.content }} <span style="font-size: 8px; font-style: italic">Le {{ message.frenchDate }}</span></p>
-        {% endfor %}
+        <!-- Trick's chat -->
+        <section id="show_chat">
+            <div id="top_show_chat">
+                <div class="vm_cell line_picto">
+                    <img src="/media/picto/Message.png" alt="Pictogramme représentant un utilisateur">
+                </div>
+                <div class="vm_cell">
+                    <span>DISCUSSION</span>
+                </div>
+                <div class="vm_cell arrow_down">
+                    <img onClick="openchatbox()" src="/media/picto/ArrowDown.png" alt="Flèche pointant vers le bas">
+                </div>
+            </div>
+            <section class="openbox">
+                <div id="posted_messages">
+                    <!-- Messages display -->
+                    {% for message in trick.messages %}
+                        <div class="message">
+                            <div class="vt_cell">
+                                <img src="{{ message.user.img.url }}" alt="{{ message.user.img.alt }}">
+                            </div>
+                            <div class="vt_cell message_right_block">
+                                <span class="message_author_name">{{ message.user.fullName }}</span>
+                                <span class="message_creation_date">{{ message.frenchDate }}</span>
+                                <span class="message_content">{{ message.content }} </span>
+                            </div>
+                        </div>
+                        {% if not loop.last %}
+                            <hr>
+                        {% endif %}
+                    {% endfor %}
+                </div>
 
+                <!-- If user is logged, display the form -->
+                {% if is_granted('ROLE_ADMIN') %}
+                    {% form_theme form
+                        'form/_chat_form_theme.html.twig'
+                    %}
+                    {{ form(form) }}
 
-        <h3>Participer à la discussion</h3>
-        {% if is_granted('ROLE_ADMIN') %}
-            {% form_theme form
-                'form_table_layout.html.twig'
-            %}
-            {{ form(form) }}
-        {% else %}
-            <p>Pour envoyer des messages, vous devez vous inscrire ou vous connecter</p>
-            <p>
-                <a href="/register">S'inscrire</a>
-                <a href="/login">Se connecter</a>
-            </p>
-        {% endif %}
+                <!-- If user isn't logged, display the sign-in/sign-up message -->
+                {% else %}
+                    <p id="chat_need_log">
+                        Pour envoyer des messages, vous devez vous inscrire ou vous connecter
+                        <span>
+                            <a href="/register">Inscription</a>
+                            <a href="/login">Connexion</a>
+                        </span>
+                    </p>
+                {% endif %}
+            </section>
+        </section>
     </article>
     
+{% endblock %}
+
+{% block javascripts %}
+    <!-- Import FancyBox for medias gallery -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.js"></script>
+    <!-- FancyBox settings -->
+    <script>
+        // Options for the first group
+        $('[data-fancybox="imgs"]').fancybox({
+            protect: true,
+            loop: true,
+            buttons : [
+                'zoom',
+                'thumbs',
+                'share',
+                'close',
+            ]
+        });
+    </script>
+    <!-- Open media box -->
+    <script>
+        function openmediabox(){
+            if($('#show_gallery .openbox').is(':visible')){
+                $('#show_gallery .openbox').hide();
+            }else{
+                $('#show_gallery .openbox').show();
+            }
+        }
+        function openchatbox(){
+            if($('#show_chat .openbox').is(':visible')){
+                $('#show_chat .openbox').hide();
+            }else{
+                $('#show_chat .openbox').show();
+            }
+        }
+    </script>
 {% endblock %}

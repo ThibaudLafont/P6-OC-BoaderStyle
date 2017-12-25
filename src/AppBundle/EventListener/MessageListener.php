@@ -8,7 +8,7 @@
 
 namespace AppBundle\EventListener;
 
-use AAppBundle\Entity\Message\Message;
+use AppBundle\Entity\Message\Message;
 use AppBundle\Entity\Trick\Trick;
 use AppBundle\Service\TrickImageUploader;
 use Doctrine\ORM\Event\LifecycleEventArgs;

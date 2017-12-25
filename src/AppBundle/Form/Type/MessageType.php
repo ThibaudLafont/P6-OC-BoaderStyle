@@ -20,10 +20,19 @@ class MessageType extends AbstractType
                 'content',
                 TextType::class,
                 [
-                    'label' => 'Message'
+                    'label' => 'Message',
+                    'attr' => [
+                        'placeholder' => 'Tapez votre message'
+                    ]
                 ]
             )
-            ->add('Envoyer', SubmitType::class);
+            ->add(
+                'Envoyer',
+                SubmitType::class,
+                [
+                    'label' => " "
+                ]
+            );
     }
 
     /**
