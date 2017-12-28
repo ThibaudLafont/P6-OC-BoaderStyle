@@ -2,17 +2,18 @@
 namespace AppBundle\DataFixtures\ORM;
 
 // Uses
-use AppBundle\Entity\Message;
-use AppBundle\Entity\User;
-use AppBundle\Entity\Trick;
-use AppBundle\Entity\Category;
 
-use AppBundle\Entity\Media\TrickVideo;
-use AppBundle\Entity\Media\TrickImage;
-use AppBundle\Entity\Media\UserImage;
-
+use AppBundle\Entity\Trick\Category;
+use AppBundle\Entity\Trick\Trick;
+use AppBundle\Entity\Trick\TrickImage;
+use AppBundle\Entity\Trick\TrickVideo;
+use AppBundle\Entity\User\User;
+use AppBundle\Entity\User\UserImage;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\Persistence\ObjectManager;
+use Symfony\Component\HttpFoundation\File\File;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Symfony\Component\Yaml\Yaml;
 
 class Fixtures extends Fixture
 {
@@ -25,48 +26,29 @@ class Fixtures extends Fixture
 
         $this->loadTricks($manager);
 
-        $this->loadMessages($manager);
-
     }
 
     private function loadUsers($manager){
-        $users =
-            [
-                [
-                    'FirstName' => 'Thibaud',
-                    'LastName' => 'Lafont',
-                    'UserName' => 'BoucheBee',
-                    'Password' => 'pomme'
-                ],
-                [
-                    'FirstName' => 'Marie',
-                    'LastName' => 'Johannot',
-                    'UserName' => 'Marie',
-                    'Password' => 'password'
-                ],
-                [
-                    'FirstName' => 'Adrien',
-                    'LastName' => 'Matcheret',
-                    'UserName' => 'Barbichel',
-                    'Password' => 'pomme'
-                ]
-            ];
+        $users = Yaml::parse(file_get_contents(__DIR__ . '/data/user.yml'));
 
         foreach($users as $value){
 
-            $imgName = $value['FirstName'] . $value['LastName'];
-            $imgAlt  = 'Photo de ' . $value['FirstName'] . ' ' . $value['LastName'];
-
             $img = new UserImage();
-            $img->setName($imgName);
-            $img->setAlt($imgAlt);
-            $img->setFormat('jpg');
+            $fileName =  $value['img']['name'] . '.jpeg';
+            $dest = __DIR__ . '/media/tmp/' . $fileName;
+            copy(
+                __DIR__ . '/media/user/' . $fileName,
+                $dest
+            );
+            $file = new File($dest, $fileName);
+            $img->setFile($file);
 
             $user = new User();
-            $user->setFirstName($value['FirstName']);
-            $user->setLastName($value['LastName']);
-            $user->setUserName($value['UserName']);
-            $user->setPassword($value['Password']);
+            $user->setFirstName($value['firstName']);
+            $user->setLastName($value['lastName']);
+            $user->setUserName($value['userName']);
+            $user->setPlainPassword($value['password']);
+            $user->setMail($value['mail']);
             $user->setImg($img);
 
             $manager->persist($user);
@@ -75,11 +57,7 @@ class Fixtures extends Fixture
     }
 
     private function loadCategories($manager){
-        $categories =
-            [
-                'One',
-                'Two'
-            ];
+        $categories = Yaml::parse(file_get_contents(__DIR__ . '/data/category.yml'));
 
         foreach($categories as $value){
             $category = new Category();
@@ -91,142 +69,15 @@ class Fixtures extends Fixture
 
     private function loadTricks($manager)
     {
-
-        $tricks =
-            [
-                // Trick One
-                [
-                    'name' => 'Trick One',
-                    'description' =>
-                        'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-                    tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-                    quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-                    consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-                    cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-                    proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
-                    'author' => 'BoucheBee',
-                    'category' => 'One',
-                    'images' =>
-                        [
-                            [
-                                'name' => 'Pic1_Trick1',
-                                'format' => 'jpg',
-                                'alt' => 'Description de la photo 1 de la figure 1'
-                            ],
-                            [
-                                'name' => 'Pic2_Trick1',
-                                'format' => 'jpg',
-                                'alt' => 'Description de la photo 2 de la figure 1'
-                            ],
-                            [
-                                'name' => 'Pic3_Trick1',
-                                'format' => 'jpg',
-                                'alt' => 'Description de la photo 3 de la figure 1'
-                            ]
-                        ],
-                    'videos' =>
-                        [
-                            [
-                                'name' => 'Vid1_Trick1',
-                                'alt' => 'Vidéo 1 de la figure 1',
-                                'src' => 'https://www.youtube.com/watch?v=eRsRIgepQtM'
-                            ],
-                            [
-                                'name' => 'Vid2_Trick1',
-                                'alt' => 'Vidéo 2 de la figure 1',
-                                'src' => 'https://www.youtube.com/watch?v=eRsRIgepQtM'
-                            ]
-                        ]
-                ],
-
-                // Trick Two
-                [
-                    'name' => 'Trick Two',
-                    'description' =>
-                        'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-                        tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-                        quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-                        consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-                        cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-                        proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
-                    'author' => 'Barbichel',
-                    'category' => 'One',
-                    'images' =>
-                        [
-                            [
-                                'name' => 'Pic1_Trick2',
-                                'format' => 'jpg',
-                                'alt' => 'Description de la photo 1 de la figure 2'
-                            ]
-                        ],
-                    'videos' =>
-                        [
-                            [
-                                'name' => 'Vid1_Trick2',
-                                'alt' => 'Vidéo 1 de la figure 2',
-                                'src' => 'https://www.youtube.com/watch?v=eRsRIgepQtM'
-                            ],
-                            [
-                                'name' => 'Vid2_Trick2',
-                                'alt' => 'Vidéo 2 de la figure 2',
-                                'src' => 'https://www.youtube.com/watch?v=eRsRIgepQtM'
-                            ],
-                        ]
-                ],
-
-                // Trick Three
-                [
-                    'name' => 'Trick Three',
-                    'description' =>
-                        'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-                        tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-                        quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-                        consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-                        cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-                        proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
-                    'author' => 'Marie',
-                    'category' => 'Two',
-                    'images' =>
-                        [
-                            [
-                                'name' => 'Pic1_Trick3',
-                                'format' => 'jpg',
-                                'alt' => 'Description de la photo 1 de la figure 3'
-                            ],
-                            [
-                                'name' => 'Pic2_Trick3',
-                                'format' => 'jpg',
-                                'alt' => 'Description de la photo 2 de la figure 3'
-                            ],
-                            [
-                                'name' => 'Pic3_Trick3',
-                                'format' => 'jpg',
-                                'alt' => 'Description de la photo 3 de la figure 3'
-                            ]
-                        ],
-                    'videos' =>
-                        [
-                            [
-                                'name' => 'Vid1_Trick3',
-                                'alt' => 'Vidéo 1 de la figure 3',
-                                'src' => 'https://www.youtube.com/watch?v=eRsRIgepQtM'
-                            ],
-                            [
-                                'name' => 'Vid2_Trick3',
-                                'alt' => 'Vidéo 2 de la figure 3',
-                                'src' => 'https://www.youtube.com/watch?v=eRsRIgepQtM'
-                            ]
-                        ]
-                ]
-            ];
+        $tricks = Yaml::parse(file_get_contents(__DIR__ . '/data/trick.yml'));
 
         foreach ($tricks as $value) {
             // Author find
-            $em = $manager->getRepository('AppBundle:User');
+            $em = $manager->getRepository('AppBundle:User\User');
             $author = $em->findOneBy(['userName' => $value['author']]);
 
             // Category find
-            $em = $manager->getRepository('AppBundle:Category');
+            $em = $manager->getRepository('AppBundle:Trick\Category');
             $category = $em->findOneBy(['name' => $value['category']]);
 
             // Figure creation
@@ -240,12 +91,20 @@ class Fixtures extends Fixture
 
             // Images creation
             $i=1;
-            foreach ($value['images'] as $img_value) {
+            foreach ($value['img'] as $img_value) {
+
                 $img = new TrickImage();
+                $fileName =  $img_value['name'] . '.' . $img_value['format'];
+                $dest = __DIR__ . '/media/tmp/' . $fileName;
+                copy(
+                    __DIR__ . '/media/trick/' . $fileName,
+                    $dest
+                );
+                $file = new File($dest, $fileName);
+                $img->setFile($file);
                 $img->setName($img_value['name']);
-                $img->setFormat($img_value['format']);
                 $img->setAlt($img_value['alt']);
-                $img->setTrick($trick);
+                $img->addTrick($trick);
                 $img->setPosition($i);
                 $i++;
 
@@ -255,13 +114,13 @@ class Fixtures extends Fixture
 
             // Videos creation
             $i=1;
-            foreach ($value['videos'] as $video_value) {
+            foreach ($value['video'] as $video_value) {
                 // Video creation
                 $video = new TrickVideo();
                 $video->setName($video_value['name']);
                 $video->setSrc($video_value['src']);
                 $video->setAlt($video_value['alt']);
-                $video->setTrick($trick);
+                $video->addTrick($trick);
                 $video->setPosition($i);
                 $i++;
 
@@ -270,34 +129,4 @@ class Fixtures extends Fixture
             }
         }
     }
-
-    private function loadMessages($manager){
-        // Users find
-        $em = $manager->getRepository('AppBundle:User');
-        $users = $em->findAll();
-        $userMax = count($users) - 1;
-
-
-        // Tricks find
-        $em = $manager->getRepository('AppBundle:Trick');
-        $tricks = $em->findAll();
-        $trickMax = count($tricks) - 1;
-
-        for($i=0; $i<25; $i++){
-            $user = $users[mt_rand(0, $userMax)];
-            $trick = $tricks[mt_rand(0, $trickMax)];
-            $date = new \DateTime('now', new \DateTimeZone('Europe/Paris'));
-
-            $message = new Message();
-            $message->setTrick($trick);
-            $message->setUser($user);
-            $message->setContent('lorem ipsum et blabla bla blablabla');
-            $message->setCreationDate($date);
-
-            $manager->persist($message);
-        }
-
-        $manager->flush();
-    }
-
 }

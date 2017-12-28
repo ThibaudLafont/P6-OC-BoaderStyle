@@ -26,9 +26,10 @@ class TrickListener
     /** @ORM\PrePersist */
     public function prePersist(Trick $trick)
     {
-        $author = $this->tokenStorage->getToken()->getUser();
 
-        $trick->setAuthor($author);
+        $session = $this->tokenStorage->getToken();
+        if(!is_null($session)) $trick->setAuthor($session->getUser());
+
     }
 
     /** @ORM\PreUpdate */

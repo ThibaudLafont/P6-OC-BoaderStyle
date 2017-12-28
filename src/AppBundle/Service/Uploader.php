@@ -13,7 +13,7 @@ class Uploader
         $this->webRootDir = $webRootDir;
     }
 
-    public function upload(UploadedFile $file, $filename, $webPath)
+    public function upload($file, $filename, $webPath)
     {
         $file->move(
             $this->getWebRootDir().$webPath,
