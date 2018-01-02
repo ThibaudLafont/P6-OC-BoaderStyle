@@ -14,38 +14,75 @@ use Doctrine\ORM\Event\LifecycleEventArgs;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 
+/**
+ * Class TrickListener
+ * Execute actions when Doctrine work with Trick entities
+ *
+ * @package AppBundle\EventListener
+ */
 class TrickListener
 {
+    /**
+     * When a Trick is persisted or updated, this attribute is used in order to
+     * fetch the user from session
+     *
+     * @var TokenStorageInterface
+     */
     private $tokenStorage;
 
+    /**
+     * TrickListener constructor.
+     * Assign tokenStorage Attribute though Depency Injection
+     *
+     * @param TokenStorageInterface $tokenStorage
+     */
     public function __construct(TokenStorageInterface $tokenStorage)
     {
         $this->tokenStorage = $tokenStorage;
     }
 
-    /** @ORM\PrePersist */
+    /**
+     * Before persisting a Trick, get user from session and assign it
+     *
+     * @ORM\PrePersist
+     */
     public function prePersist(Trick $trick)
     {
 
+        // Get the session
         $session = $this->tokenStorage->getToken();
+        // If session exists, assign the user to the trick
+        // ( we check if session exist cause of fixtures feature )
         if(!is_null($session)) $trick->setAuthor($session->getUser());
 
     }
 
-    /** @ORM\PreUpdate */
+    /**
+     * Before updating a Trick, fetch and assign the user
+     *
+     * @ORM\PreUpdate
+     */
     public function preUpdate(Trick $trick)
     {
+        // Get user object from the session
         $author = $this->tokenStorage->getToken()->getUser();
 
+        // Assign the user to the trick
         $trick->setAuthor($author);
     }
 
-    /** @ORM\PreRemove */
+    /**
+     * Before removing a Trick, check if messages exists and remove them if needed
+     *
+     * @ORM\PreRemove
+     */
     public function preRemove(Trick $trick, LifecycleEventArgs $args)
     {
+        // Get the EntityManager and ask it the trick's messages
         $em = $args->getEntityManager();
         $messages = $trick->getMessages();
 
+        // Remove found messages
         foreach($messages as $message){
             $em->remove($message);
         }

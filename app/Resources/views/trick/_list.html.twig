@@ -1,7 +1,7 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    
+
     <section id="page_header">
         <h1>Les figures</h1>
         <p>
@@ -33,6 +33,7 @@
 
     <hr class="trick_item_hr">
     {% for trick in tricks %}
+        {% dump trick %}
         <article class="trick_list_item">
             <div class="item_header">
                 <h2>{{ trick.name }}</h2>
@@ -45,6 +46,7 @@
                     </div>
                 </div>
             </div>
+
 
             <img class="item_main_img" src="{{ trick.imgs[0].url }}" alt="{{ trick.imgs[0].alt }}">
 

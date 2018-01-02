@@ -12,37 +12,46 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
+/**
+ * Class VideoType
+ * The class is used to define trick's videos form fields and security
+ *
+ * @package AppBundle\Form\Type\Trick
+ */
 class VideoType extends AbstractType
 {
     /**
-     * {@inheritdoc}
+     * Define the fields of this form type
+     *
+     * @param FormBuilderInterface $builder
+     * @param array $options
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add(
+            ->add(  // Add the video's name
                 'name',
                 TextType::class,
                 [
                     'label' => 'Nom'
                 ]
             )
-            ->add(
+            ->add(  // Add the video's alternative description
                 'alt',
                 TextType::class,
                 [
                     'label' => 'Description'
                 ]
             )
-            ->add(
+            ->add(  // Add the source
                 'src',
                 UrlType::class,
                 [
                     'label' => 'Url',
-                    'video_property' => 'src'
+                    'video_property' => 'src'  // Specify that a custom video_property can be defined
                 ]
             )
-            ->add(
+            ->add(  // Add the position for ordered display
                 'position',
                 HiddenType::class,
                 [
@@ -54,17 +63,21 @@ class VideoType extends AbstractType
     }
 
     /**
-     * {@inheritdoc}
+     * Configure options to this form type
+     *
+     * @param OptionsResolver $resolver
      */
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'AppBundle\Entity\Trick\TrickVideo'
+            'data_class' => 'AppBundle\Entity\Trick\TrickVideo'  // Targeted entity
         ));
     }
 
     /**
-     * {@inheritdoc}
+     * Define the type name
+     *
+     * @return string
      */
     public function getBlockPrefix()
     {

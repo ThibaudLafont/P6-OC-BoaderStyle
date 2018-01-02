@@ -1,90 +1,136 @@
 <!DOCTYPE html>
 <html>
     <head>
+        <!-- Meta tags -->
         <meta charset="UTF-8" />
 
+        <!-- Title of the page -->
+        <!-- TODO : define the title in each page template -->
         <title>{% block title %}SnowTricks - BoSt{% endblock %}</title>
 
         <!-- Imported stylesheets -->
         {% block stylesheets %}{% endblock %}
+
         <!-- Global stylesheets -->
         <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
         <link rel="stylesheet" href="/css/main.css">
         <link rel="stylesheet" href="/css/resize.css">
+
     </head>
     <body>
 
         <!-- Header and NavBar -->
         <header>
+
             <!-- Snowtricks's logo + home link -->
             <a id="header_home_link" href="/">
+
+                <!-- Header title with website name -->
                 <h2>SNOWTRICKS</h2>
+
+                <!-- Snowtricks logo -->
                 <img src="/media/img/main/logo-snowtricks-300px.png" alt="Logo de SnowTricks">
+
+                <!-- Snowtrick's logo -->
                 <h3>IMPROVE YOUR SKILLS</h3>
+
             </a>
+
             <!-- Socials Medias -->
             <div id="social_links">
                 <img src="/media/picto/Twitter.png" alt="Pictogramme de Twitter">
                 <img src="/media/picto/Facebook.png" alt="Pictogramme de Facebook">
             </div>
+
             <!-- Navbar -->
             <section id="navbar">
+
                 <!-- Block used to hide and show menu's links -->
                 <div id="navbar_top">
+
+                    <!-- Representative picto for this block -->
                     <div class="vm_cell line_picto">
                         <img src="/media/picto/Author_White.png" alt="Pictogramme représentant un utilisateur">
                     </div>
+
+                    <!-- Name of this block's hidden content -->
                     <div class="vm_cell">
                         <span>Menu</span>
                     </div>
+
+                    <!-- Down arrow witch witch is also the link to display the hidden content -->
                     <div class="vm_cell arrow_down">
                         <img onClick="opennavbar()" src="/media/picto/ArrowDown.png" alt="Flèche pointant vers le bas">
                     </div>
+
                 </div>
+
                 <!-- Navbar links -->
                 <div class="openbox">
+
                     <!-- Anon features -->
                     {% if not is_granted('ROLE_ADMIN') %}
                         <a href="/login">CONNEXION</a>
                         <hr>
                         <a href="/register">INSCRIPTION</a>
-                    <!-- Admin features -->
+
+                    <!-- Authenticated user's features -->
                     {% elseif is_granted('ROLE_ADMIN') %}
+
+                        <!-- Edit my profil -->
                         <a href="/admin/user">Mon profil</a>
-                        <hr>
+
+                        <hr> <!-- Add a new trick -->
                         <a href="/admin/add/trick">Ajouter une figure</a>
-                        <hr>
+
+                        <hr> <!-- Add a new category -->
                         <a href="/admin/add/category">Ajouter une catégorie</a>
-                        <hr>
+
+                        <hr> <!-- Logout -->
                         <a href="/logout">Se déconnecter</a>
+
                     {% endif %}
+
                 </div>
             </section>
         </header>
 
-        {# Flash Messages #}
+        <!-- Display of flash messages (if defined) -->
         {% for label, messages in app.flashes %}
+
+            <!-- Loop on every founded message -->
             {% for message in messages %}
+
+                <!-- Create a div class with flash-message type for front-work -->
                 <div class="flash-{{ label }}">
                     {{ message|raw }}
                 </div>
+
             {% endfor %}
+
         {% endfor %}
 
-        <!-- Here come the main content -->
+        <!-- Here come the main content, define in children templates -->
         <section id="main_content">
+
+            <!-- Display of children's body block -->
             {% block body %}{% endblock %}
+
         </section>
 
         <!-- Footer -->
         <footer>
 
+            <!-- Aware message section to explain tricks are dangerous -->
             <section>
-                <!-- Aware message to explain tricks are dangerous -->
                 <div id="aware_message">
+
+                    <!-- Picto of warning sign -->
                     <div class="vm_cell">
                         <img src="/media/picto/Beware.png" alt="Panneau attention triangulaire avec point d'exclamation">
                     </div>
+
+                    <!-- String content of the aware message -->
                     <div class="cell">
                         <span id="aware_message_content">
                             <h4>ATTENTION !</h4>
@@ -92,24 +138,33 @@
                             <a href="/warning">En savoir plus</a>
                         </span>
                     </div>
+
                 </div>
             </section>
 
             <!-- Footer's credits part -->
             <section id="footer_bottom">
-                <!-- Webdev -->
+
+                <!-- Webdev credits -->
                 <div id="web_dev">
+
+                    <!-- Sysmod-Web link -->
                     <div class="vm_cell">
                         <img src="/media/picto/Dev.png" alt="Pictogramme codeur">
                     </div>
+
+                    <!-- Sysmod string credits -->
                     <div class="vm_cell">
                         <span>Réalisé par <a href="https://sysmod.fr">Sysmod-Web</a></span>
                     </div>
+
                 </div>
+
                 <!-- Snowtricks's copyright -->
                 <div id="copyright">
                     <span>© 2017 - SnowTricks</span>
                 </div>
+
             </section>
 
         </footer>
@@ -121,9 +176,14 @@
                 integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
                 crossorigin="anonymous">
         </script>
-        <!-- Slide parts handling -->
+
+        <!-- Navbar openbox handling -->
         <script>
+
+            // Hide all blocks with openbox class attribute (all are subjects for slide up accordion display
             $('.openbox').hide();
+
+            // Openbox function for navbar
             function opennavbar(){
                 if($('#navbar .openbox').is(':visible')){
                     $('#navbar .openbox').hide();
@@ -132,7 +192,9 @@
                 }
             }
         </script>
-        <!-- Specifics JS scripts come here -->
+
+        <!-- Specifics children JS scripts come here -->
         {% block javascripts %}{% endblock %}
+
     </body>
 </html>

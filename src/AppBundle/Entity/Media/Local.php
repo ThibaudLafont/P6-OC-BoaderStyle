@@ -5,12 +5,16 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
+ * This class is the parent of every media wich is stored on a local server
+ *
  * @ORM\MappedSuperclass()
  */
 abstract class Local extends Media
 {
 
     /**
+     * Hold the extension of the file
+     *
      * @var string
      *
      * @ORM\Column(name="format", type="string", length=255)
@@ -26,7 +30,15 @@ abstract class Local extends Media
     public $file;
 
     // CONSTS
+
+    /**
+     * Root web path
+     */
     const WEB_DIRECTORY = '/root/path/to/web/directory/';
+
+    /**
+     * Allowed extensions
+     */
     const VALID_FORMATS = ['expected', 'formats'];
 
     public function getFormat(){

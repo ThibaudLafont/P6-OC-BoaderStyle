@@ -8,6 +8,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * User
+ *  Entity witch represent a registed user
  *
  * @ORM\Table(name="user")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\UserRepository")
@@ -25,6 +26,8 @@ class User implements UserInterface, \Serializable
     private $id;
 
     /**
+     * First name of user
+     *
      * @var string
      *
      * @ORM\Column(name="firstName", type="string", length=255)
@@ -39,6 +42,8 @@ class User implements UserInterface, \Serializable
     private $firstName;
 
     /**
+     * Last name of user
+     *
      * @var string
      *
      * @ORM\Column(name="lastName", type="string", length=255)
@@ -53,6 +58,8 @@ class User implements UserInterface, \Serializable
     private $lastName;
 
     /**
+     * Username, used to login
+     *
      * @var string
      *
      * @ORM\Column(name="userName", type="string", length=255, unique=true)
@@ -67,6 +74,8 @@ class User implements UserInterface, \Serializable
     private $userName;
 
     /**
+     * Email address of the user
+     *
      * @var string
      *
      * @ORM\Column(name="mail", type="string", length=255)
@@ -79,6 +88,8 @@ class User implements UserInterface, \Serializable
     private $mail;
 
     /**
+     * Bcrypt password, witch is persisted in DB
+     *
      * @var string
      *
      * @ORM\Column(name="password", type="string", length=255)
@@ -86,6 +97,8 @@ class User implements UserInterface, \Serializable
     private $password;
 
     /**
+     * Plainpassword is used to store the non-crypt password during login, register or resetting password
+     *
      * @Assert\NotBlank(message="Veuillez entrer un mot de passe")
      * @Assert\Length(
      *      min = 7,
@@ -97,6 +110,8 @@ class User implements UserInterface, \Serializable
     private $plainPassword;
 
     /**
+     * Profil image of the user
+     *
      * @ORM\OneToOne(
      *     targetEntity="UserImage",
      *     cascade={"persist", "remove"}
@@ -106,6 +121,8 @@ class User implements UserInterface, \Serializable
     private $img;
 
     /**
+     * User's posted messages
+     *
      * @ORM\OneToMany(
      *     targetEntity="AppBundle\Entity\Message\Message",
      *     mappedBy="user"
@@ -115,11 +132,15 @@ class User implements UserInterface, \Serializable
     private $messages;
 
     /**
+     * User's posted tricks
+     *
      * @ORM\OneToMany(targetEntity="AppBundle\Entity\Trick\Trick", mappedBy="author")
      */
     private $tricks;
 
     /**
+     * Reset password request
+     *
      * @ORM\OneToMany(
      *     targetEntity="ResetPassword",
      *     mappedBy="user"
@@ -128,10 +149,20 @@ class User implements UserInterface, \Serializable
     private $resetPwd;
 
 
+    /**
+     * Set a ResetPassword Object to the resetPwd attribute
+     *
+     * @param ResetPassword $rp
+     */
     public function setResetPwd(ResetPassword $rp){
         $this->resetPwd = $rp;
     }
 
+    /**
+     * Return user's reset password request
+     *
+     * @return mixed
+     */
     public function getResetPwd(){
         return $this->resetPwd;
     }

@@ -20,6 +20,8 @@ use Symfony\Component\HttpFoundation\Request;
 class UserController extends Controller
 {
     /**
+     * Register route
+     *
      * @Route("/register", name="user_register")
      */
     public function registerAction(Request $request)
@@ -36,28 +38,31 @@ class UserController extends Controller
         // Action if submitted data are valid
         if ($form->isSubmitted() && $form->isValid()) {
 
+            // Get Entity Manager and persist the new user
             $em = $this->getDoctrine()->getManager();
             $em->persist($user);
             $em->flush();
 
+            // Add flash message and redirect to user_login
             $this->addFlash('success', 'Vous êtes bien inscris à SnowTricks, connectez-vous !');
-
             return $this->redirectToRoute('user_login');
 
         }
 
+        // If no submission or invalid datas, render the form's view
         return $this->render('user/_register.html.twig', ['form' => $form->createView()]);
 
     }
 
     /**
+     * Login route
+     *
      * @Route("/login", name="user_login")
      */
     public function loginAction(Request $request){
-        // Creation of new User entity
-        $user = new User();
 
         // Creation of form
+        $user = new User();
         $form = $this->get('form.factory')->create(LoginType::class, $user);
 
         return $this->render('user/_login.html.twig', ['form' => $form->createView()]);
@@ -65,13 +70,15 @@ class UserController extends Controller
 
 
     /**
+     * This page is for the request for resetting a password
+     * If username is knowed, a mail will be send to the related email with the link leading
+     * to a valid user_resetpwd
+     *
      * @Route("/user/mot-de-passe-oublie", name="user_resetpwd_form")
      */
     public function resetPwdFormAction(Request $request){
-        // Creation of new User entity
-        $user = new User();
-
         // Creation of form
+        $user = new User();
         $form = $this->get('form.factory')->create(PwdResetRequestType::class, $user);
         $form->handleRequest($request);
 
@@ -84,7 +91,12 @@ class UserController extends Controller
             if(!is_null($user)){
 
                 // Check if a reset request is already pending
-                $pending_reset = $em->getRepository('AppBundle:User\ResetPassword')->findOneBy(['user' => $user, 'disabled' => false]);
+                $pending_reset =
+                    $em->getRepository('AppBundle:User\ResetPassword')
+                        ->findOneBy([
+                            'user' => $user,
+                            'disabled' => false
+                        ]);
                 if(is_null($pending_reset)){
 
                     // Creation and persist of reset_password entity
@@ -93,27 +105,45 @@ class UserController extends Controller
                     $em->persist($resetPassword);
                     $em->flush();
 
-                    $this->addFlash('info', 'Votre demande de réinitialisation a bien été enregistrée, vérifiez vos emails.');
+                    // If knowed username, display a informative flash message
+                    $this->addFlash(
+                        'info',
+                        'Votre demande de réinitialisation a bien été enregistrée, vérifiez vos emails.'
+                    );
                 }
                 else{
+                    // If a reset_password_request is already pending
                     $this->addFlash('error', 'Vous avez déjà fait une demande de réinitialisation de mot de passe, vérifiez vos emails.');
                 }
             }else{
+                // If no match with the given username
                 $this->addFlash('error', 'Aucun compte connu avec cet identifiant');
             }
         }
 
+        // If no submission, render the form
         return $this->render('user/_pwd_reset.html.twig', ['form' => $form->createView()]);
     }
 
     /**
+     * Will display a reset password form if a request is pending thought the given url
+     *
      * @Route("/user/reset-password/{token}", name="user_resetpwd")
      */
     public function resetPwdAction(Request $request, $token){
-        $em = $this->getDoctrine()->getManager();
-        $passwordReset = $em->getRepository('AppBundle:User\ResetPassword')->findOneBy(['token' => $token, 'disabled' => false]);
 
+        // Try to find an input in DB from URL parsing
+        $em = $this->getDoctrine()->getManager();
+        $passwordReset =
+            $em->getRepository('AppBundle:User\ResetPassword')
+                ->findOneBy([
+                    'token' => $token,
+                    'disabled' => false
+                ]);
+
+        // If a pending request is found in DB
         if(!is_null($passwordReset)){
+
             // Creation of form
             $user = $passwordReset->getUser();
             $form = $this->get('form.factory')->create(PwdResetActionType::class, $user);
@@ -122,28 +152,38 @@ class UserController extends Controller
             // Action if submitted data are valid
             if ($form->isSubmitted() && $form->isValid()) {
 
+                // Disable the request
                 $passwordReset->setDisabled(true);
                 $em->flush();
 
+                // Add a flash message, then redirect to user_login
                 $this->addFlash('success', 'Votre mot de passe a été ré-initalisé, connectez-vous !');
                 return $this->redirectToRoute('user_login');
 
             }
 
+            // If URL lead to valid pending request in GET method, render the reset password form's view
             return $this->render('user/_pwd_reset.html.twig', ['form' => $form->createView()]);
         }
         else
         {
-            $this->addFlash('error', 'Aucune demande de modification de mot passe à cette adresse, ou la réinitialisation a déjà été effectuée');
-            return $this->redirectToRoute('user_login');
+            // If no valid request is found though URL parsing
+            $this->addFlash(  // Add Flash Message
+                'error',
+                'Aucune demande de modification de mot passe à cette adresse, ou la réinitialisation a déjà été effectuée'
+            );
+            return $this->redirectToRoute('user_login');  // Redirect to user_login
         }
 
     }
 
     /**
+     * Allow the anthenticate user to edit his profil informations
+     *
      * @Route("/admin/user", name="user_edit")
      */
     public function userEditAction(Request $request){
+
         // Fetch user object from authentificated session
         $user = $this->getUser();
 
@@ -164,6 +204,7 @@ class UserController extends Controller
 
         }
 
+        // If no submission, render the form
         return $this->render('user/_edit.html.twig', ['form' => $form->createView(), 'user', $user]);
     }
 }

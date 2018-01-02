@@ -1,21 +1,32 @@
 # Authors import
+
 1: # Webmaster
+
+  ## Attributes
   firstName: Thibaud
   lastName: Lafont
   userName: Thibaud
   mail: thiblaf10@gmail.com
-  password: MotDePasse
+  password: MotDePasse       # Default password
+
+  ## Profile image
   img:
     name: thibaud-lafont
     alt: Photo de Thibaud Lafont
     format: jpeg
 
+
+
 2: # Snowtrick's creator
+
+  ## Attributes
   firstName: Jimmy
   lastName: Sweat
   userName: Jimmy
   mail: jimmysweat@gmail.com
-  password: MotDePasse
+  password: MotDePasse       # Default password
+
+  # Profile image
   img:
     name: jimmy-sweat
     alt: Photo de Jimmy Sweat

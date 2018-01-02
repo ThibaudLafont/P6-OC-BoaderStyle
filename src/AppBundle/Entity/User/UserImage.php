@@ -14,7 +14,13 @@ class UserImage extends Local
 {
 
     // CONSTS
+    /**
+     * Web root dir where UserImages are stored
+     */
     const WEB_DIRECTORY = '/media/img/users/';
+    /**
+     * Allowed formats for profil image
+     */
     const VALID_FORMATS = ['jpg', 'jpeg'];
 
 }

@@ -30,7 +30,15 @@ class TrickImage extends Local
     protected $trick;
 
     // CONSTS
+
+    /**
+     * Web root dir where images files are stored
+     */
     const WEB_DIRECTORY = '/media/img/tricks/';
+
+    /**
+     * Allowed extensions for TrickImages
+     */
     const VALID_FORMATS = ['jpeg', 'jpg', 'png'];
 
 }

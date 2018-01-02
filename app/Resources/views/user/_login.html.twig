@@ -2,15 +2,23 @@
 
 {% block body %}
 
+    <!-- Main title -->
     <h1>Se connecter</h1>
 
+    <!-- Link to password reset ask request form -->
     <a href="/user/mot-de-passe-oublie">J'ai oublié mon mot de passe</a>
 
+    <!-- Setting up and display the form -->
     <div class="container">
+
+        <!-- Define the form's theme -->
         {% form_theme form
             'form/_login_form_theme.html.twig'
         %}
+
+        <!-- Ask the display of form's view -->
         {{ form(form) }}
+
     </div>
 
 {% endblock %}

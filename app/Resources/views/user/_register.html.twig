@@ -2,15 +2,22 @@
 
 {% block body %}
 
-    <h1>Modifier</h1>
+    <!-- Main title -->
+    <h1>S'incrire</h1>
 
+    <!-- Form setting and display -->
     <div class="container">
+
+        <!-- Define the form theme -->
         {% form_theme form
             'form/_errors_form_theme.html.twig'
             'form/_image_form_theme.html.twig'
             'form/_register_form_theme.html.twig'
         %}
+
+        <!-- Ask the form's view display -->
         {{ form(form) }}
+
     </div>
 
 {% endblock %}

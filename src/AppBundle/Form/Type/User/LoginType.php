@@ -11,47 +11,60 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
+/**
+ * Class LoginType
+ * The class is used to define user login form fields and security
+ *
+ * @package AppBundle\Form\Type\User
+ */
 class LoginType extends AbstractType
 {
     /**
-     * {@inheritdoc}
+     * Define the fields of this form type
+     *
+     * @param FormBuilderInterface $builder
+     * @param array $options
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add(
+            ->add(  // Add username
                 'userName',
                 TextType::class,
                 [
                     'label' => 'Nom d\'utilisateur'
                 ]
             )
-            ->add(
+            ->add(  // Add password field
                 'plainPassword',
                 PasswordType::class
             )
-            ->add(
+            ->add(  // Add save button
                 'save',
                 SubmitType::class
             );
     }
 
     /**
-     * {@inheritdoc}
+     * Configure options to this form type
+     *
+     * @param OptionsResolver $resolver
      */
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'AppBundle\Entity\User\User',
+            'data_class' => 'AppBundle\Entity\User\User',                     // Targeted entity
+            // CSRF protection
             'csrf_protection' => true,
             'csrf_field_name' => '_token',
-            // a unique key to help generate the secret token
-            'csrf_token_id'   => '1a2d18f3b5afda74da234770bfc8b3744241bd4b'
+            'csrf_token_id'   => '1a2d18f3b5afda74da234770bfc8b3744241bd4b'  // Unique key used to generate unique token
         ));
     }
 
     /**
-     * {@inheritdoc}
+     * Define the type name
+     *
+     * @return string
      */
     public function getBlockPrefix()
     {

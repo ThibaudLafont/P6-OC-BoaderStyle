@@ -6,9 +6,18 @@ use AppBundle\Service\ImageUploader;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
+/**
+ * Class UserListener
+ * Execute actions when Doctrine work with TrickImage entities
+ *
+ * @package AppBundle\EventListener
+ */
 class UserListener
 {
 
+    /**
+     * @var ImageUploader
+     */
     private $uploader;
     private $encoder;
 
