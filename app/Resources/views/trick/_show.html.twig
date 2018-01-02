@@ -9,8 +9,10 @@
 
     <!-- Show page's subheader -->
     <section id="page_header">
+
         <!-- Main title -->
         <h1>{{ trick.name }}</h1>
+
         <!-- Author section -->
         <img id="show_user_pic" src="{{ trick.author.img.url }}" alt="{{ trick.author.img.alt }}">
         <div id="show_author_block" class="author_block">
@@ -21,7 +23,17 @@
                 <span>{{ trick.author.fullName }}</span>
             </div>
         </div>
+
+        <!-- Admin's actions -->
+        {% if is_granted('ROLE_ADMIN') %}
+            <div id="show_edit_actions">
+                <a href="/admin/edit/trick/{{ trick.id }}" class="pink_button">Modifier</a>
+                <a href="/admin/delete/trick/{{ trick.id }}" class="pink_button">Supprimer</a>
+            </div>
+        {% endif %}
+
         <hr class="pink">
+
         <!-- Display of chat's messages -->
         <div id="message_block">
             <div class="vm_cell ta-left">
@@ -32,14 +44,6 @@
             </div>
         </div>
     </section>
-
-    <!-- Admin's actions -->
-    {% if is_granted('ROLE_ADMIN') %}
-        <div id="show_edit_actions">
-            <a href="/admin/edit/trick/{{ trick.id }}">Modifier</a>
-            <a href="/admin/delete/trick/{{ trick.id }}">Supprimer</a>
-        </div>
-    {% endif %}
 
     <!-- Content of the trick -->
     <article id="show_article">
@@ -70,10 +74,14 @@
 
                 <!-- Medias display -->
                 <section class="openbox">
+
                     <!-- Trick's pictures -->
                     {% for img in trick.imgs %}
                         {% if loop.index0 != 0 %}
-                            <a href="{{ img.url }}" data-fancybox="imgs">
+                            <a href="{{ img.url }}" data-fancybox="medias">
+                                <span class="hovertxt">
+                                    VOIR
+                                </span>
                                 <img src="{{ img.url }}" alt="{{ img.alt }}">
                             </a>
                         {% endif %}
@@ -81,7 +89,9 @@
 
                     <!-- Trick's videos -->
                     {% for video in trick.videos %}
-                        <embed width="250" height="120" src="{{ video.src }}">
+                        <a href="{{ video.src }}" data-fancybox="medias">
+                            <embed src="{{ video.src }}">
+                        </a>
                     {% endfor %}
 
                 </section>
@@ -113,21 +123,27 @@
 
                 <!-- Messages display -->
                 <div id="posted_messages">
-                    {% for message in trick.messages %}
-                        <div class="message">
-                            <div class="vt_cell">
-                                <img src="{{ message.user.img.url }}" alt="{{ message.user.img.alt }}">
+                    {% if trick.messages is empty %}
+                        <span class="noentry">
+                            Aucun message posté.
+                        </span>
+                    {% else %}
+                        {% for message in trick.messages %}
+                            <div class="message">
+                                <div class="vt_cell">
+                                    <img src="{{ message.user.img.url }}" alt="{{ message.user.img.alt }}">
+                                </div>
+                                <div class="vt_cell message_right_block">
+                                    <span class="message_author_name">{{ message.user.fullName }}</span>
+                                    <span class="message_creation_date">{{ message.frenchDate }}</span>
+                                    <span class="message_content">{{ message.content }} </span>
+                                </div>
                             </div>
-                            <div class="vt_cell message_right_block">
-                                <span class="message_author_name">{{ message.user.fullName }}</span>
-                                <span class="message_creation_date">{{ message.frenchDate }}</span>
-                                <span class="message_content">{{ message.content }} </span>
-                            </div>
-                        </div>
-                        {% if not loop.last %}
-                            <hr>
-                        {% endif %}
-                    {% endfor %}
+                            {% if not loop.last %}
+                                <hr>
+                            {% endif %}
+                        {% endfor %}
+                    {% endif %}
                 </div>
 
                 <!-- If user is logged, display the form -->
@@ -142,8 +158,8 @@
                     <p id="chat_need_log">
                         Pour envoyer des messages, vous devez vous inscrire ou vous connecter
                         <span>
-                            <a href="/register">Inscription</a>
-                            <a href="/login">Connexion</a>
+                            <a href="/register" class="pink_button">Inscription</a>
+                            <a href="/login" class="pink_button">Connexion</a>
                         </span>
                     </p>
                 {% endif %}
