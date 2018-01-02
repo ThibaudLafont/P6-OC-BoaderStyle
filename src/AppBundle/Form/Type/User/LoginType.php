@@ -40,8 +40,11 @@ class LoginType extends AbstractType
                 PasswordType::class
             )
             ->add(  // Add save button
-                'save',
-                SubmitType::class
+                'submit',
+                SubmitType::class,
+                [
+                    'label' => 'Se connecter'
+                ]
             );
     }
 

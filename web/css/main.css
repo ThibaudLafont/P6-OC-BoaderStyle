@@ -17,6 +17,10 @@ h1{
     margin-top: 0.75rem;
     margin-bottom: 0;
 }
+input
+{
+    width: 100%;
+}
 #main_content{
     padding : 0 1rem;
 }
@@ -136,6 +140,7 @@ footer{
     border-top: 2px solid #4b4b49;
     background-color: #d3c5a6;
     margin-top: 1.5rem;
+    clear: right;
 }
 #aware_message{
     display: table;
@@ -429,4 +434,42 @@ p#chat_need_log {
 }
 
 /* LOGIN FORM */
-#res
+#UserType_submit{
+    display: block;
+    margin: 0.25rem 0 0.75rem 0;
+    float: right;
+
+    border : none;
+    background-color: #ee826c;
+    color: white;
+    padding : 0.5rem 1rem;
+
+}
+#reset_pwd_link{
+    display: block;
+    text-align: right;
+    margin: auto;
+    max-width: 300px;
+}
+
+h1#form_main_title{
+    text-align: left;
+    margin : 1.5rem auto 1rem auto;
+    max-width: 300px;
+}
+#form_container{
+    margin: auto;
+    max-width: 300px;
+}
+.form_table *
+{
+    box-sizing: border-box;
+}
+.form_table
+{
+    width: 100%;
+}
+.form_table .widget
+{
+    min-width: 100%;
+}

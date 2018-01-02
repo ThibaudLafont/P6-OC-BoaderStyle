@@ -1,11 +1,11 @@
 {% block UserType_widget %}
     {{ form_errors(form) }}
-    <table>
+    <table class="form_table">
         <tr>
             <td>
                 {{ form_label(form.userName) }}
             </td>
-            <td>
+            <td class="widget">
                 {{ form_widget(form.userName) }}
             </td>
         </tr>
@@ -13,13 +13,16 @@
             <td>
                 {{ form_label(form.plainPassword) }}
             </td>
-            <td>
+            <td class="widget">
                 {{ form_widget(form.plainPassword) }}
+            </td>
+        </tr>
+        <tr>
+            <td></td>
+            <td class="widget">
+                {{ form_widget(form.submit) }}
             </td>
         </tr>
     </table>
 
-    <!-- Link to password reset request form -->
-    <a href="/user/mot-de-passe-oublie" id="fogotten_pwd_link">J'ai oublié mon mot de passe</a>
-    
 {% endblock %}

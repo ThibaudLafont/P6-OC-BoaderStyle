@@ -3,10 +3,10 @@
 {% block body %}
 
     <!-- Main title -->
-    <h1>Se connecter</h1>
+    <h1 id="form_main_title">Se connecter</h1>
 
     <!-- Setting up and display the form -->
-    <div class="container">
+    <div id="form_container">
 
         <!-- Define the form's theme -->
         {% form_theme form
@@ -17,5 +17,8 @@
         {{ form(form) }}
 
     </div>
+
+    <!-- Link to password reset request form -->
+    <a href="/user/mot-de-passe-oublie" id="reset_pwd_link">J'ai oublié mon mot de passe</a>
 
 {% endblock %}

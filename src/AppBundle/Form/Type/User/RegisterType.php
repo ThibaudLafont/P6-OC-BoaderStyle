@@ -40,7 +40,7 @@ class RegisterType extends AbstractType
                 'lastName',
                 TextType::class,
                 [
-                    'label' => 'Nom de famille'
+                    'label' => 'Nom'
                 ]
             )
             ->add(  // Add mail address
