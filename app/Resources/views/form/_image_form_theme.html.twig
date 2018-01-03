@@ -1,20 +1,39 @@
 {% block file_widget %}
+    <!-- TODO : refactor -->
     {% spaceless %}
 
+        <!-- Custom file_widget layout -->
         <section class="form_row">
-            <div class="form_label">          <!-- Label -->
-                {{ block('form_label') }}
-            </div>
+
+            <!-- Label is not display cause of img display -->
+            {% if image_url is null %} <!-- image_url is set when the user edit a trick and the form display an existent image -->
+
+                <div class="form_label">          <!-- Label -->
+                    {{ block('form_label') }}
+                </div>
+
+            {% endif %}
+
+            <!-- Errors display -->
             <div class="form_errors">         <!-- Errors -->
+
+                <!-- Call brut errors view block -->
                 {{ block('form_errors') }}
+
             </div>
-            <div class="form_widget">         <!-- Widget -->
-                <!-- Handle the case where the special parameter image_url is defined -->
+
+            <!-- Widget display -->
+            <div class="form_widget">
+
+                <!-- If an image URL is set, build a img block with it -->
                 {% if image_url is not null %}
-                    <img src="{{ asset(image_url) }}" style="display:block"/>  <!-- If defined, display an image with it -->
+                    <img src="{{ asset(image_url) }}"/>
+
+                <!-- Else display the common FileType block -->
                 {% else %}
-                    {{ block('form_widget') }}                       <!-- Else display the FileType block as usual -->
+                    {{ block('form_widget') }}
                 {% endif %}
+
             </div>
         </section>
 
@@ -57,10 +76,12 @@
             </div>
         </section>
 
+        <!-- File widget when no existent data in form at build -->
         {% if form.vars.value is null %}
             {{ form_widget(form.file) }}
         {% endif %}
 
+        <!-- If the theme is used as collection, display the hidden input -->
         {% if form.position is defined %}
             {{ form_widget(form.position) }}
         {% endif %}

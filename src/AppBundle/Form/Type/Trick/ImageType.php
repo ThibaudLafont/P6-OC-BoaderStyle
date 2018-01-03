@@ -27,11 +27,6 @@ class ImageType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            // TODO : CLean here
-            ->add(  // Set a hidden position field, witch is used in trick display
-                'id',
-                HiddenType::class
-            )
             ->add(  // Add the TrickImage's name
                 'name',
                 TextType::class,

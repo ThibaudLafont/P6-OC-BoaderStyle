@@ -17,15 +17,20 @@
 
         <!-- Source -->
         <section class="form_row">
-            <div class="form_label">
-                {{ form_label(form.src) }}   <!-- Label -->
-            </div>
+
+            <!-- Check if form is hydrated by existent data -->
+            {% if form.vars.value is null %}
+                <div class="form_label">
+                    {{ form_label(form.src) }}   <!-- Label -->
+                </div>
+            {% endif %}
             <div class="form_errors">
-                {{ form_errors(form.src) }}  <!-- Errors -->
+                {{ form_errors(form.src) }}     <!-- Errors -->
             </div>
             <div class="form_widget">
-                {{ form_widget(form.src) }}  <!-- Widget -->
+                {{ form_widget(form.src) }}     <!-- Widget -->
             </div>
+
         </section>
 
         <!-- Name -->

@@ -71,7 +71,11 @@ class RegisterType extends AbstractType
                 'userName',
                 TextType::class,
                 [
-                    'label' => 'Pseudo'
+                    'label' => false,
+                    'attr' =>
+                    [
+                        'placeholder' => 'Pseudo'
+                    ]
                 ]
             )
             ->add(  // plainPassword field

@@ -30,12 +30,19 @@ class CategoryType extends AbstractType
                 'name',
                 TextType::class,
                 [
-                    'label' => 'Nom'
+                    'label' => false,
+                    'attr' =>
+                    [
+                        'placeholder' => 'Nom de la catégorie'
+                    ]
                 ]
             )
             ->add(  // Add the submit button
-                'Save',
-                SubmitType::class
+                'submit',
+                SubmitType::class,
+                [
+                    'label' => 'Ajouter'
+                ]
             );
     }
 

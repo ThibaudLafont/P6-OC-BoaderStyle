@@ -1,28 +1,34 @@
 {% block UserType_widget %}
-    {{ form_errors(form) }}
-    <table class="form_table">
-        <tr>
-            <td>
-                {{ form_label(form.userName) }}
-            </td>
-            <td class="widget">
-                {{ form_widget(form.userName) }}
-            </td>
-        </tr>
-        <tr>
-            <td>
-                {{ form_label(form.plainPassword) }}
-            </td>
-            <td class="widget">
-                {{ form_widget(form.plainPassword) }}
-            </td>
-        </tr>
-        <tr>
-            <td></td>
-            <td class="widget">
-                {{ form_widget(form.submit) }}
-            </td>
-        </tr>
-    </table>
+
+    <!-- UserName -->
+    <section class="form_row">
+        <div class="form_label">
+            {{ form_label(form.userName) }}   <!-- Label -->
+        </div>
+        <div class="form_errors">
+            {{ form_errors(form.userName) }}  <!-- Errors -->
+        </div>
+        <div class="form_widget">
+            {{ form_widget(form.userName) }}  <!-- Widget -->
+        </div>
+    </section>
+
+    <!-- Password -->
+    <section class="form_row">
+        <div class="form_label">
+            {{ form_label(form.plainPassword) }}   <!-- Label -->
+        </div>
+        <div class="form_errors">
+            {{ form_errors(form.plainPassword) }}  <!-- Errors -->
+        </div>
+        <div class="form_widget">
+            {{ form_widget(form.plainPassword) }}  <!-- Widget -->
+        </div>
+    </section>
+
+    <!-- Submit -->
+    <div id="submit_button">
+        {{ form_widget(form.submit) }}
+    </div>
 
 {% endblock %}

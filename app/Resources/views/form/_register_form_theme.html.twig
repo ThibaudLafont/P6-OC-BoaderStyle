@@ -1,66 +1,171 @@
+{#{% block UserType_widget %}#}
+    {#<table class="form_table">#}
+        {#{{ form_row(form.img) }}#}
+        {#<tr>#}
+            {#{{ form_errors(form.firstName) }}#}
+        {#</tr>#}
+        {#<tr>#}
+            {#<td>#}
+                {#{{ form_label(form.firstName) }}#}
+            {#</td>#}
+            {#<td>#}
+                {#{{ form_widget(form.firstName) }}#}
+            {#</td>#}
+        {#</tr>#}
+        {#<tr>#}
+            {#{{ form_errors(form.lastName) }}#}
+        {#</tr>#}
+        {#<tr>#}
+            {#<td>#}
+                {#{{ form_label(form.lastName) }}#}
+            {#</td>#}
+            {#<td>#}
+                {#{{ form_widget(form.lastName) }}#}
+            {#</td>#}
+        {#</tr>#}
+        {#<tr>#}
+            {#{{ form_errors(form.mail) }}#}
+        {#</tr>#}
+        {#<tr>#}
+            {#<td>#}
+                {#{{ form_label(form.mail) }}#}
+            {#</td>#}
+            {#<td>#}
+                {#{{ form_widget(form.mail.mail) }}#}
+                {#{{ form_widget(form.mail.confirm_mail) }}#}
+            {#</td>#}
+        {#</tr>#}
+        {#<tr>#}
+            {#{{ form_errors(form.userName) }}#}
+        {#</tr>#}
+        {#<tr>#}
+            {#<td>#}
+                {#{{ form_label(form.userName) }}#}
+            {#</td>#}
+            {#<td>#}
+                {#{{ form_widget(form.userName) }}#}
+            {#</td>#}
+        {#</tr>#}
+        {#<tr>#}
+            {#{{ form_errors(form.plainPassword) }}#}
+        {#</tr>#}
+        {#<tr>#}
+            {#<td>#}
+                {#{{ form_label(form.plainPassword) }}#}
+            {#</td>#}
+            {#<td>#}
+                {#{{ form_widget(form.plainPassword.password) }}#}
+                {#{{ form_widget(form.plainPassword.confirm_password) }}#}
+            {#</td>#}
+        {#</tr>#}
+        {#<tr>#}
+            {#<td></td>#}
+            {#<td>{{ form_widget(form.submit) }}</td>#}
+        {#</tr>#}
+    {#</table>#}
+{#{% endblock %}#}
+{% block file_widget %}
+
+    {% spaceless %}
+
+        {% if image_url is not null %}
+            <img src="{{ asset(image_url) }}" id="edit_profile_img"/>
+            {{ block('form_widget') }}
+        {% else %}
+            {{ block('form_widget') }}
+        {% endif %}
+
+    {% endspaceless %}
+
+{% endblock %}
+
+{% block ImageType_row %}
+    <section class="form_row">
+        <div class="form_label">
+            {{ form_label(form.file) }}   <!-- Label -->
+        </div>
+        <div class="form_errors">
+            {{ form_errors(form.file) }}  <!-- Errors -->
+        </div>
+        <div class="form_widget">
+            {{ form_widget(form.file) }}  <!-- Widget -->
+        </div>
+    </section>
+{% endblock %}
+
 {% block UserType_widget %}
-    <table class="form_table">
-        {{ form_row(form.img) }}
-        <tr>
-            {{ form_errors(form.firstName) }}
-        </tr>
-        <tr>
-            <td>
-                {{ form_label(form.firstName) }}
-            </td>
-            <td>
-                {{ form_widget(form.firstName) }}
-            </td>
-        </tr>
-        <tr>
-            {{ form_errors(form.lastName) }}
-        </tr>
-        <tr>
-            <td>
-                {{ form_label(form.lastName) }}
-            </td>
-            <td>
-                {{ form_widget(form.lastName) }}
-            </td>
-        </tr>
-        <tr>
-            {{ form_errors(form.mail) }}
-        </tr>
-        <tr>
-            <td>
-                {{ form_label(form.mail) }}
-            </td>
-            <td>
-                {{ form_widget(form.mail.mail) }}
-                {{ form_widget(form.mail.confirm_mail) }}
-            </td>
-        </tr>
-        <tr>
-            {{ form_errors(form.userName) }}
-        </tr>
-        <tr>
-            <td>
-                {{ form_label(form.userName) }}
-            </td>
-            <td>
-                {{ form_widget(form.userName) }}
-            </td>
-        </tr>
-        <tr>
-            {{ form_errors(form.plainPassword) }}
-        </tr>
-        <tr>
-            <td>
-                {{ form_label(form.plainPassword) }}
-            </td>
-            <td>
-                {{ form_widget(form.plainPassword.password) }}
-                {{ form_widget(form.plainPassword.confirm_password) }}
-            </td>
-        </tr>
-        <tr>
-            <td></td>
-            <td>{{ form_widget(form.submit) }}</td>
-        </tr>
-    </table>
+
+    <!-- Name -->
+    <section class="form_row">
+        <div class="form_label">
+            {{ form_label(form.firstName) }}   <!-- Label -->
+        </div>
+        <div class="form_errors">
+            {{ form_errors(form.firstName) }}  <!-- Errors -->
+        </div>
+        <div class="form_widget">
+            {{ form_widget(form.firstName) }}  <!-- Widget -->
+        </div>
+    </section>
+
+    <!-- Last Name -->
+    <section class="form_row">
+        <div class="form_label">
+            {{ form_label(form.lastName) }}   <!-- Label -->
+        </div>
+        <div class="form_errors">
+            {{ form_errors(form.lastName) }}  <!-- Errors -->
+        </div>
+        <div class="form_widget">
+            {{ form_widget(form.lastName) }}  <!-- Widget -->
+        </div>
+    </section>
+
+    <!-- Mail -->
+    <section class="form_row">
+        <div class="form_label">
+            {{ form_label(form.mail) }}   <!-- Label -->
+        </div>
+        <div class="form_errors">
+            {{ form_errors(form.mail) }}  <!-- Errors -->
+        </div>
+        <div class="form_widget">
+            {{ form_widget(form.mail) }}  <!-- Widget -->
+        </div>
+    </section>
+
+    <!-- Profile Image -->
+    {{ form_row(form.img) }}
+
+    <!-- UserName -->
+    <section class="form_row">
+        <div class="form_label">
+            {{ form_label(form.userName) }}   <!-- Label -->
+        </div>
+        <div class="form_errors">
+            {{ form_errors(form.userName) }}  <!-- Errors -->
+        </div>
+        <div class="form_widget">
+            {{ form_widget(form.userName) }}  <!-- Widget -->
+        </div>
+    </section>
+
+    <!-- Password -->
+    <section class="form_row">
+        <div class="form_label">
+            {{ form_label(form.plainPassword) }}   <!-- Label -->
+        </div>
+        <div class="form_errors">
+            {{ form_errors(form.plainPassword) }}  <!-- Errors -->
+        </div>
+        <div class="form_widget">
+            {{ form_widget(form.plainPassword) }}  <!-- Widget -->
+        </div>
+    </section>
+
+    <!-- Submit -->
+    <div id="submit_button">
+        {{ form_widget(form.submit) }}
+    </div>
+
 {% endblock %}
