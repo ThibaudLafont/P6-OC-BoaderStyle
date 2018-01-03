@@ -434,39 +434,143 @@ p#chat_need_log {
 }
 
 /*GLOBAL FORMS STYLE*/
-h1#form_main_title{
-    text-align: left;
-    margin : 1.5rem auto 1rem auto;
-    max-width: 300px;
+form *
+{
+    box-sizing: border-box;
+}
+#form_container
+{
+    margin-top: 1.5rem;
+}
+h1#form_main_title
+{
+    margin: 1.5rem auto 1rem auto;
+}
+#form_subtitle
+{
+    margin: 0;
+    text-align: justify;
+}
+form h3
+{
+    margin : 0.75rem 0 0rem 0;
+}
+input,
+textarea,
+select {
+    width: 100%;
+}
+select
+{
+    border: 2px solid transparent;
+    padding : 0.5rem 0.25rem;
+    background-color: #4b4b49;
+    color: white;
+    display: block;
+    font-size: 14px;
+}
+option
+{
+    background-color: #d3c5a6;
+    color: #4b4b49;
+    font-size: 14px;
+}
+div#submit_button
+{
+    text-align: right;
 }
 button[type="submit"]
 {
-    float: right;
     border : none;
     background-color: #ee826c;
     color: white;
     padding : 0.5rem 1rem;
+    width: 100%;
+    margin-top: 1rem;
 }
-.form_table *
+.form_row
 {
-    box-sizing: border-box;
+    margin-top: 0.5rem;
 }
-.form_table
+.form_widget
+{
+    margin-top: 0.25rem;
+}
+hr.hr_form_section
+{
+    margin : 1rem 0 0 0;
+}
+
+/* collection forms*/
+.collection-buttons
+{
+    overflow: hidden;
+    margin-top:0.75rem;
+}
+.btn-default
+{
+    display: inline-block;
+    background-color: #4b4b49;
+    color : white;
+    text-align: center;
+    text-decoration: none;
+    padding : 0.20rem 0;
+    width: 26px;
+    float: right;
+}
+.init_button
+{
+    margin-right: 0.75rem;
+}
+
+/*TRICK FORM*/
+#TrickType_name
+{
+    padding: 0.5rem 0.25rem;
+}
+
+
+/*FORM MEDIAS*/
+.image_row,
+.video_row
+{
+    margin-top: 0.75rem;
+    background-color: #F2F2F2;
+    padding: 1px 0.75rem 0.5rem 0.75rem;
+}
+
+/*IMG FORM*/
+.image_row_header{
+    margin-bottom : 0;
+}
+.image_row_header *{
+    float: right;
+}
+.img_subtitle a
+{
+    float: right;
+}
+.image_row img
 {
     width: 100%;
 }
-#form_container{
-    margin: auto;
-    max-width: 300px;
+.image_row .collection-buttons img{
+    position: relative;
+    top: 4px;
 }
-.form_sub_description{
-    max-width: 300px;
-    margin: 0 auto 0.5rem auto;
-    text-align: justify;
+
+
+/*VIDEO FORM*/
+#TrickType_videos{
+    overflow: hidden;
 }
-.form_table .widget
-{
-    min-width: 100%;
+.video_row embed{
+    width: 100%;
+    height: auto;
+}
+.video_row .collection-buttons img{
+    position: relative;
+    top: 3px;
 }
 
 /* LOGIN FORM */
@@ -479,4 +583,12 @@ button[type="submit"]
     text-align: right;
     max-width: 300px;
     margin: 0.5rem auto 0 auto;
+}
+
+/*EDIT PROFILE FORM*/
+#edit_profile_img{
+    display: block;
+    width: 100px;
+    margin: 0 auto 0.25rem auto;
+
 }

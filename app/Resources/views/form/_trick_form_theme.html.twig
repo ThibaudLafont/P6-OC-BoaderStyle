@@ -1,43 +1,65 @@
 {% block TrickType_widget %}
-    {{ form_errors(form) }}
-    <table>
-        <tr>
-            {{ form_errors(form.name) }}
-        </tr>
-        <tr>
-            <td>
-                {{ form_label(form.name) }}
-            </td>
-            <td>
-                {{ form_widget(form.name) }}
-            </td>
-        </tr>
-        <tr>
-            {{ form_errors(form.description) }}
-        </tr>
-        <tr>
-            <td>
-                {{ form_label(form.description) }}
-            </td>
-            <td>
-                {{ form_widget(form.description) }}
-            </td>
-        </tr>
-        <tr>
-            {{ form_errors(form.category) }}
-        </tr>
-        <tr>
-            <td>
-                {{ form_label(form.category) }}
-            </td>
-            <td>
-                {{ form_widget(form.category) }}
-            </td>
-        </tr>
-    </table>
-    <h3>Images</h3>
-    {{ form_row(form.imgs) }}
-    <h3>Vidéos</h3>
-    {{ form_row(form.videos) }}
-    {{ form_widget(form.save) }}
+
+    <!-- TrickType template -->
+    <section class="trick_form">
+
+        <h3>Informations</h3>
+
+        <!-- Name -->
+        <section class="form_row">
+            <div class="form_label">
+                {{ form_label(form.name) }}   <!-- Label -->
+            </div>
+            <div class="form_errors">
+                {{ form_errors(form.name) }}  <!-- Errors -->
+            </div>
+            <div class="form_widget">
+                {{ form_widget(form.name) }}  <!-- Widget -->
+            </div>
+        </section>
+
+        <!-- Category -->
+        <section class="form_row">
+            <div class="form_label">
+                {{ form_label(form.category) }}   <!-- Label -->
+            </div>
+            <div class="form_errors">
+                {{ form_errors(form.category) }}  <!-- Errors -->
+            </div>
+            <div class="form_widget">
+                {{ form_widget(form.category) }}  <!-- Widget -->
+            </div>
+        </section>
+
+        <!-- Description -->
+        <section class="form_row">
+            <div class="form_label">
+                {{ form_label(form.description) }}   <!-- Label -->
+            </div>
+            <div class="form_errors">
+                {{ form_errors(form.description) }}  <!-- Errors -->
+            </div>
+            <div class="form_widget">
+                {{ form_widget(form.description) }}  <!-- Widget -->
+            </div>
+        </section>
+        <hr class="hr_form_section">
+
+        <!-- Images -->
+        <h3>Images</h3>
+        {{ form_row(form.imgs) }}
+        <hr class="hr_form_section">
+
+        <!-- Videos -->
+        <h3>Vidéos</h3>
+        {{ form_row(form.videos) }}
+        <hr class="hr_form_section">
+
+        <!-- Submit -->
+        <div id="submit_button">
+            {{ form_widget(form.submit) }}
+        </div>
+
+    </section>
+
 {% endblock %}

@@ -4,6 +4,7 @@ namespace AppBundle\Form\Type\Trick;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
+use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 // Fields
@@ -37,7 +38,13 @@ class TrickType extends AbstractType
             )
             ->add(  // Add general descrition field
                 'description',
-                TextareaType::class
+                TextareaType::class,
+                [
+                    'attr' =>
+                        [
+                            'rows' => "10"
+                        ]
+                ]
             )
             ->add(  // Add a choice field with existent categories
                 'category',
@@ -52,13 +59,14 @@ class TrickType extends AbstractType
                 'imgs',
                 CollectionType::class,
                 [
+                    'label' => false,
                     'entry_type' => ImageType::class,  // Use the defined custom type for images
                     'allow_add' => true,               // Allow the form user to add new images
                     'allow_delete' => true,            // Allow the form user to delete existent images
                     'prototype' => true,
                     'by_reference' => false,
                     'attr' => [
-                        'class' => 'img',
+                        'class' => 'img'
                     ]
                 ]
             )
@@ -66,6 +74,7 @@ class TrickType extends AbstractType
                 'videos',
                 CollectionType::class,
                 [
+                    'label' => false,
                     'entry_type' => VideoType::class,  // Use the defined custom type for videos
                     'allow_add' => true,               // Allow the user to add new videos
                     'allow_delete' => true,            // Allow the user to delete existent videos
@@ -77,8 +86,11 @@ class TrickType extends AbstractType
                 ]
             )
             ->add(  // Add the submit button
-                'save',
-                SubmitType::class
+                'submit',
+                SubmitType::class,
+                [
+                    'label' => 'Publier'
+                ]
             );
     }
 

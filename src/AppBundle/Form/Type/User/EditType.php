@@ -47,7 +47,7 @@ class EditType extends AbstractType
                 'lastName',
                 TextType::class,
                 [
-                    'label' => 'Nom de famille'
+                    'label' => 'Nom'
                 ]
             )
             ->add(  // Add the mail address
@@ -79,8 +79,8 @@ class EditType extends AbstractType
                     // General options
                     'type' => PasswordType::class,
                     'required' => false,
-                    'first_name' => 'pass',      // Define a name for the first field occurence
-                    'second_name' => 'confirm',  // Define a name for the second field occurence
+                    'first_name' => 'pass',      // Define a name for the first field
+                    'second_name' => 'confirm',  // Define a name for the repeat field
                     'invalid_message' => 'Les mots de passe ne correspondent pas',
                     // First field options
                     'first_options' => [
@@ -100,8 +100,11 @@ class EditType extends AbstractType
                 ]
             )
             ->add(  // Add the submit button
-                'save',
-                SubmitType::class
+                'submit',
+                SubmitType::class,
+                [
+                    'label' => 'Enregistrer'
+                ]
             );
     }
 

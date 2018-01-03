@@ -49,6 +49,8 @@ class RegisterType extends AbstractType
                 [
                     // General options
                     'type' => EmailType::class,
+                    'first_name' => 'mail',
+                    'second_name' => 'confirm_mail',
                     // Fist field options
                     'first_options' => [
                         'label' => false,
@@ -79,6 +81,8 @@ class RegisterType extends AbstractType
                     // General options
                     'type' => PasswordType::class,
                     'label' => 'Mot de passe',
+                    'first_name' => 'password',
+                    'second_name' => 'confirm_password',
                     // First field options
                     'first_options' => [
                         'label' => false,

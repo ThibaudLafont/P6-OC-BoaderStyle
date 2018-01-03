@@ -1,59 +1,79 @@
 {% block file_widget %}
     {% spaceless %}
 
-        {% if image_url is not null %}
-            <img src="{{ asset(image_url) }}" style="display:block"/>
-        {% else %}
-            {{ block('form_widget') }}
-        {% endif %}
+        <section class="form_row">
+            <div class="form_label">          <!-- Label -->
+                {{ block('form_label') }}
+            </div>
+            <div class="form_errors">         <!-- Errors -->
+                {{ block('form_errors') }}
+            </div>
+            <div class="form_widget">         <!-- Widget -->
+                <!-- Handle the case where the special parameter image_url is defined -->
+                {% if image_url is not null %}
+                    <img src="{{ asset(image_url) }}" style="display:block"/>  <!-- If defined, display an image with it -->
+                {% else %}
+                    {{ block('form_widget') }}                       <!-- Else display the FileType block as usual -->
+                {% endif %}
+            </div>
+        </section>
 
     {% endspaceless %}
 {% endblock %}
 
 {% block ImageType_row %}
-    {#<table>#}
-        <tr>
-            {{ form_errors(form.file) }}
-        </tr>
-        <tr>
-            <td>
-                {{ form_label(form.file) }}
-            </td>
-            <td>
-                {{ form_widget(form.file) }}
-            </td>
-        </tr>
 
-        {% if form.name is defined %}
-            <tr>
-                {{ form_errors(form.name) }}
-            </tr>
-            <tr>
-                <td>
-                    {{ form_label(form.name) }}
-                </td>
-                <td>
-                    {{ form_widget(form.name) }}
-                </td>
-            </tr>
+    <!-- ImageType template -->
+    <section class="image_row">
+
+        <!-- Handle the case where the special parameter image_url is defined -->
+        {% if form.vars.value is not null %}
+            {{ form_widget(form.file) }}
         {% endif %}
 
-        {% if form.alt is defined %}
-            <tr>
-                {{ form_errors(form.alt) }}
-            </tr>
-            <tr>
-                <td>
-                    {{ form_label(form.alt) }}
-                </td>
-                <td>
-                    {{ form_widget(form.alt) }}
-                </td>
-            </tr>
+        <!-- Name -->
+        <section class="form_row">
+            <div class="form_label">
+                {{ form_label(form.name) }}   <!-- Label -->
+            </div>
+            <div class="form_errors">
+                {{ form_errors(form.name) }}  <!-- Errors -->
+            </div>
+            <div class="form_widget">
+                {{ form_widget(form.name) }}  <!-- Widget -->
+            </div>
+        </section>
+
+        <!-- Alt Description -->
+        <section class="form_row">
+            <div class="form_label">
+                {{ form_label(form.alt) }}   <!-- Label -->
+            </div>
+            <div class="form_errors">
+                {{ form_errors(form.alt) }}  <!-- Errors -->
+            </div>
+            <div class="form_widget">
+                {{ form_widget(form.alt) }}  <!-- Widget -->
+            </div>
+        </section>
+
+        {% if form.vars.value is null %}
+            {{ form_widget(form.file) }}
         {% endif %}
 
         {% if form.position is defined %}
             {{ form_widget(form.position) }}
         {% endif %}
-    {#</table>#}
+
+        <!-- Symfony-Collection actions buttons -->
+        <div class="collection-buttons">
+            <img src="/media/picto/PicTaker.png" alt="Pictogramme d'un appareil photo">
+            <a href="#" class="collection-add btn btn-default">✚</a>
+            <a href="#" class="collection-remove btn btn-default">━</a>
+            <a href="#" class="collection-down btn btn-default">▾</a>
+            <a href="#" class="collection-up btn btn-default">▴</a>
+        </div>
+
+    </section>
+
 {% endblock %}

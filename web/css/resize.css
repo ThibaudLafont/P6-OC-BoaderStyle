@@ -39,3 +39,13 @@
 #posted_messages .message img{
     width: 40px;
 }
+.symfony-collection-buttons img{
+    width: 17px;
+}
+.image_row .collection-buttons img{
+    width: auto;
+    height: 25px;
+}
+.video_row .collection-buttons img{
+    height: 25px;
+}

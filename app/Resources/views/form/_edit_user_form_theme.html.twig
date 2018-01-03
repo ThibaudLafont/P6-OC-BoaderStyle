@@ -1,14 +1,16 @@
 {% block file_widget %}
+
     {% spaceless %}
 
         {% if image_url is not null %}
-            <img src="{{ asset(image_url) }}" style="display:block"/>
+            <img src="{{ asset(image_url) }}" id="edit_profile_img"/>
             {{ block('form_widget') }}
         {% else %}
             {{ block('form_widget') }}
         {% endif %}
 
     {% endspaceless %}
+
 {% endblock %}
 
 {% block ImageType_row %}
@@ -26,7 +28,7 @@
 {% endblock %}
 
 {% block UserType_widget %}
-    <table>
+    <table class="form_table">
         {{ form_row(form.img) }}
         <tr>
             {{ form_errors(form.firstName) }}
@@ -72,6 +74,10 @@
                 {{ form_widget(form.plainPassword.pass) }}
                 {{ form_widget(form.plainPassword.confirm) }}
             </td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>{{ form_widget(form.submit) }}</td>
         </tr>
     </table>
 {% endblock %}

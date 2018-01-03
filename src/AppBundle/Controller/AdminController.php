@@ -81,7 +81,7 @@ class AdminController extends Controller
 
         }
 
-        return $this->render('trick/_form.html.twig', ['form' => $form->createView()]);
+        return $this->render('trick/_form.html.twig', ['form' => $form->createView(), 'title' => $trick->getName()]);
 
     }
 

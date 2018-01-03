@@ -31,7 +31,8 @@
                 {{ form_label(form.mail) }}
             </td>
             <td>
-                {{ form_widget(form.mail) }}
+                {{ form_widget(form.mail.mail) }}
+                {{ form_widget(form.mail.confirm_mail) }}
             </td>
         </tr>
         <tr>
@@ -53,7 +54,8 @@
                 {{ form_label(form.plainPassword) }}
             </td>
             <td>
-                {{ form_widget(form.plainPassword) }}
+                {{ form_widget(form.plainPassword.password) }}
+                {{ form_widget(form.plainPassword.confirm_password) }}
             </td>
         </tr>
         <tr>
