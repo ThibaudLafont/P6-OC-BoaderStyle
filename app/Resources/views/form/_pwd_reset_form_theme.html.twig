@@ -1,6 +1,6 @@
 {% block UserType_widget %}
     {{ form_errors(form) }}
-    <table>
+    <table class="form_table">
         {% if form.userName is defined %}
             <tr>
                 {{ form_errors(form.userName) }}

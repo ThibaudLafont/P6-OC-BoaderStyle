@@ -29,7 +29,7 @@ class ImageType extends AbstractType
                 'file',
                 FileType::class,
                 [
-                    'label' => 'Photo de profil',
+                    'label' => 'Photo',
                     'image_property' => 'url'
                 ]
             );

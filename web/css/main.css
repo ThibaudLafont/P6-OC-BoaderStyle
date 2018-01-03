@@ -433,33 +433,19 @@ p#chat_need_log {
     padding: 0.25rem 0;
 }
 
-/* LOGIN FORM */
-#UserType_submit{
-    display: block;
-    margin: 0.25rem 0 0.75rem 0;
-    float: right;
-
-    border : none;
-    background-color: #ee826c;
-    color: white;
-    padding : 0.5rem 1rem;
-
-}
-#reset_pwd_link{
-    display: block;
-    text-align: right;
-    margin: auto;
-    max-width: 300px;
-}
-
+/*GLOBAL FORMS STYLE*/
 h1#form_main_title{
     text-align: left;
     margin : 1.5rem auto 1rem auto;
     max-width: 300px;
 }
-#form_container{
-    margin: auto;
-    max-width: 300px;
+button[type="submit"]
+{
+    float: right;
+    border : none;
+    background-color: #ee826c;
+    color: white;
+    padding : 0.5rem 1rem;
 }
 .form_table *
 {
@@ -469,7 +455,28 @@ h1#form_main_title{
 {
     width: 100%;
 }
+#form_container{
+    margin: auto;
+    max-width: 300px;
+}
+.form_sub_description{
+    max-width: 300px;
+    margin: 0 auto 0.5rem auto;
+    text-align: justify;
+}
 .form_table .widget
 {
     min-width: 100%;
+}
+
+/* LOGIN FORM */
+#UserType_submit{
+    display: block;
+    margin: 0.25rem 0 0 0;
+}
+#reset_pwd_link{
+    display: block;
+    text-align: right;
+    max-width: 300px;
+    margin: 0.5rem auto 0 auto;
 }

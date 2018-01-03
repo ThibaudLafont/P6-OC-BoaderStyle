@@ -69,7 +69,7 @@ class RegisterType extends AbstractType
                 'userName',
                 TextType::class,
                 [
-                    'label' => 'Nom d\'utilisateur'
+                    'label' => 'Pseudo'
                 ]
             )
             ->add(  // plainPassword field
@@ -78,6 +78,7 @@ class RegisterType extends AbstractType
                 [
                     // General options
                     'type' => PasswordType::class,
+                    'label' => 'Mot de passe',
                     // First field options
                     'first_options' => [
                         'label' => false,
@@ -99,8 +100,11 @@ class RegisterType extends AbstractType
                 ImageType::class
             )
             ->add(  // Add submit button
-                'save',
-                SubmitType::class
+                'submit',
+                SubmitType::class,
+                [
+                    'label' => 'Inscription'
+                ]
             );
     }
 

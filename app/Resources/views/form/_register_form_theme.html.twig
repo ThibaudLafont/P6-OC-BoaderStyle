@@ -1,5 +1,5 @@
 {% block UserType_widget %}
-    <table>
+    <table class="form_table">
         {{ form_row(form.img) }}
         <tr>
             {{ form_errors(form.firstName) }}
@@ -55,6 +55,10 @@
             <td>
                 {{ form_widget(form.plainPassword) }}
             </td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>{{ form_widget(form.submit) }}</td>
         </tr>
     </table>
 {% endblock %}

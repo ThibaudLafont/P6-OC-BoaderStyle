@@ -3,12 +3,12 @@
 {% block body %}
 
     <!-- Main title and subdescription-->
-    <h1>Mot de passe oublié</h1>
-    <p>Entrez votre adresse mail ou votre nom d'utilisateur, vous recevrez un mail vous indiquant comment réinitialiser
-    votre mot de passe.</p>
+    <h1 id="form_main_title">Mot de passe oublié</h1>
+    <p class="form_sub_description">Entrez votre adresse mail ou votre nom d'utilisateur,
+        vous recevrez un mail contenant la procédure de ré-initialisation</p>
 
     <!-- Setting up and display the form's view -->
-    <div class="container">
+    <div id="form_container">
 
         <!-- Define the form's themes -->
         {% form_theme form
