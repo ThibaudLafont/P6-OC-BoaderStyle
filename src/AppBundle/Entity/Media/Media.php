@@ -5,6 +5,8 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
+ * Parent of every media
+ *
  * @ORM\MappedSuperclass()
  */
 abstract class Media

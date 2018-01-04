@@ -1,2 +1,612 @@
+/*RESET*/
+body{
+    margin:0;
+}
+*{
+    color : #4b4b49;
+}
+h1, h2, h3, h4, h5, h6{
+    color: #ee826c;
+}
+/*GENERAL*/
+h1{
+    text-align: center;
+    color: #ee826c;
+    font-weight: normal;
+    font-size : 26px;
+    margin-top: 0.75rem;
+    margin-bottom: 0;
+}
+input
+{
+    width: 100%;
+}
+#main_content{
+    padding : 0 1rem;
+    max-width: 700px;
+    margin: auto;
+}
+.ta-right{
+    text-align: right;
+}
+.ta-left{
+    text-align: left;
+}
+hr.pink{
+    margin: 0.75rem 0;
+    border: 1px solid #ee826c;
+}
+.pink_button
+{
+    background-color: #ee826c;
+    color: white;
+    text-decoration: none;
+    padding: 0.25rem 0.5rem;
+}
 
-/*# sourceMappingURL=main.css.map */
+/*LEFT AND RIGHT + VERTICAL ALIGN MIDDLE*/
+#page_header_menu #phm_top,
+.item_show_link a
+{
+    box-sizing: border-box;
+    display: table;
+    width: 100%;
+    background-color: #4b4b49;
+    overflow: hidden;
+    padding : 0.5rem 1rem;
+}
+ .cell,
+ .vm_cell,
+ .vt_cell
+ {
+     display: table-cell;
+ }
+.vm_cell{
+    vertical-align: middle;
+}
+.vt_cell{
+    vertical-align: top;
+}
+
+/*HEADER*/
+header{
+    text-align: center;
+    border-top: 25px solid #4b4b49;
+    background-color: #d3c5a6;
+}
+
+a#header_home_link{
+    text-decoration: none;
+    padding: 0 1rem;
+}
+a#header_home_link h2{
+    color: #4b4b49;
+    font-size: 28px;
+    margin: 0.75rem 0rem;
+}
+a#header_home_link h3{
+    color: white;
+    font-weight: normal;
+    font-style: italic;
+    margin: 0.75rem 0;
+}
+#navbar{
+    margin-top: 0.75rem;
+    background-color: #4b4b49;
+}
+#navbar_top
+{
+    display: table;
+    box-sizing: border-box;
+    padding: 0.5rem 1rem;
+    margin-top: 0.75rem;
+    width: 100%;
+}
+.line_picto{
+    overflow: hidden;
+}
+.line_picto img,
+.line_picto span
+{
+    display: table-cell;
+}
+.line_picto img{
+    float: left;
+}
+#navbar_top span{
+    color: white;
+}
+.arrow_down img{
+    float: right;
+}
+#navbar .openbox{
+    background-color: #d3c5a6;
+    /*border-top: 2px solid #ee826c;*/
+    border-bottom: 2px solid #4b4b49;
+    padding: 0.75rem 1rem 0 1rem;
+}
+#navbar .openbox a{
+    display: block;
+    margin-bottom: 0.75rem;
+    color: #4b4b49;
+    text-decoration: none;
+}
+#navbar .openbox hr{
+    border: 1px solid #ee826c;
+    margin-top:0;
+    margin-bottom: 0.75rem;
+}
+
+/*FLASH MESSAGES*/
+.flash-success
+{
+    text-align: center;
+    background-color: #64cf77;
+    color: white;
+    font-size: 18px;
+    padding : 1rem 0.75rem;
+    position: absolute;
+    top: 1rem;
+    left: 0.75rem;
+    right: 0.75rem;
+}
+
+/*FOOTER*/
+footer{
+    border-top: 2px solid #4b4b49;
+    background-color: #d3c5a6;
+    margin-top: 1.5rem;
+    clear: right;
+}
+#footer_top
+{
+    padding: 1rem;
+}
+#aware_message{
+    display: table;
+    margin: 0 auto;
+    border: 4px solid #ee826c;
+    background-color: #fff;
+    box-sizing: border-box;
+    text-align: center;
+    padding: 0.75rem;
+}
+#aware_message img{
+    float: left;
+}
+#aware_message h4{
+    margin: 0 0 0.5rem 0;
+    color: #ee826c;
+    font-weight: 900;
+}
+#aware_message_content{
+    display: table-cell;
+    padding-left: 0.5rem;
+}
+#aware_message_content a{
+    display: block;
+    text-align: right;
+    margin-top: 0.5rem;
+}
+#footer_bottom{
+    text-align: center;
+    background-color: #4b4b49;
+}
+#footer_bottom span,
+#footer_bottom a
+{
+    color: white;
+}
+#web_dev,
+#copyright
+{
+    padding: 0.5rem 1rem;
+}
+#web_dev{
+    display:table;
+    margin:auto;
+}
+#web_dev img{
+    margin-right: 0.75rem;
+}
+
+/*PAGE_HEADER*/
+#page_header{
+    margin-top: 1.5rem;
+    padding: 0 0.5rem 0.75rem 0.5rem;
+    border-top: 2px solid #4b4b49;
+    border-bottom: 2px solid #4b4b49;
+    text-align: center;
+}
+#page_header p{
+    margin : 0.75rem 0;
+    text-align: center;
+    font-style: italic;
+}
+#page_header_menu #phm_top img{
+    display: table-cell;
+    float: right;
+}
+#page_header_menu #phm_top span{
+    display: table-cell;
+    color: white;
+}
+
+/*CATEGORY_LIST*/
+#page_header_menu #category_list{
+    overflow: hidden;
+    background-color: #f5f5f5;
+    padding-bottom: 0.75rem;
+}
+
+#page_header_menu #category_list div{
+    text-align: center;
+    width: 30%;
+    margin: 0.75rem 1.6667% 0 1.6667%;
+    float: left;
+}
+
+/*ITEM TRICK LIST*/
+hr.trick_item_hr{
+    margin: 1.5rem 0 0 0;
+    border: 2px solid #d3c5a6;
+}
+.trick_list_item{
+    padding : 0 0.75rem;
+}
+.trick_list_item .item_header h2{
+    font-weight: normal;
+    margin-bottom: 0;
+    margin-top: 0.75rem;
+}
+.trick_list_item .author_block{
+    margin-top : 2px;
+}
+.trick_list_item .author_block span{
+    font-size: 14px;
+    font-style: italic;
+    margin-left: 7px;
+}
+.item_main_img{
+    display:block;
+    width: 100%;
+    margin-top: 0.75rem;
+}
+.item_show_link{
+    display:block;
+    background-color: #4b4b49;
+}
+.item_show_link a span{
+    color: white;
+    text-decoration: none;
+}
+.item_show_link img{
+    float: right;
+}
+
+/*SHOW_TRICK_PAGE*/
+#show_user_pic{
+    margin-top: 0.75rem;
+}
+#show_author_block{
+    display:table;
+    margin: 0 auto 0 auto;
+}
+#show_author_block{
+    display:table;
+    margin: 0 auto 0 auto;
+}
+#show_author_block span{
+    margin-left: 0.5rem;
+}
+#message_block{
+    display: table;
+    box-sizing: border-box;
+    width: 100%;
+}
+#show_edit_actions{
+    padding: 0.5rem;
+    text-align: center;
+    margin: 0.5rem 0 0 0;
+}
+#show_edit_actions a{
+    margin : 0 0.25rem;
+}
+#show_article{
+    box-sizing: border-box;
+    margin-top : 1.5rem;
+}
+#show_article h2,
+#show_article h3,
+#show_article h4,
+#show_article h5,
+#show_article h6
+{
+    font-weight : 500;
+    margin: 0.75rem 0;
+}
+#show_article p{
+    margin: 0.75rem 0;
+}
+#show_main_img{
+    box-sizing: border-box;
+    display:block;
+    width: 100%;
+    margin-top: 1rem;
+    border: 4px solid #4b4b49;
+}
+#top_show_gallery,
+#top_show_chat
+{
+    background-color: #4b4b49;
+    display: table;
+    box-sizing: border-box;
+    padding: 0.5rem 1rem;
+    width: 100%;
+    text-align: center;
+}
+#top_show_gallery span,
+#top_show_chat span
+{
+    color: white;
+}
+#show_gallery{
+    box-sizing: border-box;
+    background-color: #d3c5a6;
+    width: 100%;
+}
+#show_gallery a{
+    box-sizing: content-box;
+    display: block;
+    padding: 0.75rem 0.5rem;
+    border-bottom: 2px solid #4b4b49;
+}
+#show_gallery a .hovertxt{
+    display : none;
+}
+#show_gallery a:hover img{
+    filter: blur(1px);
+}
+#show_gallery embed
+{
+    width: 100%;
+}
+#show_gallery img{
+    box-sizing: border-box;
+    display: block;
+    width: 100%;
+}
+#show_gallery .openbox
+{
+    border-width: 0 4px 4px 4px;
+    border-style: solid;
+    border-color: #4b4b49;
+}
+#show_chat{
+    margin-top: 1.5rem;
+}
+#show_chat #posted_messages
+{
+    padding: 0 0.5rem 0.75rem 0.5rem;
+}
+#posted_messages .noentry{
+    display: block;
+    padding: 0.75rem 0.25rem 0 0.25rem;
+}
+#posted_messages .message{
+    display: table;
+    width: 100%;
+    margin-top: 0.75rem;
+}
+.message_right_block{
+    padding-top: 0.25rem;
+}
+.message_author_name{
+    color: #ee826c;
+    font-size: 18px;
+}
+.message_creation_date{
+    font-size: 10px;
+    font-style: italic;
+    float: right;
+}
+.message_content{
+    display: block;
+    margin-top: 0.25rem;
+}
+#posted_messages hr{
+    border : 1px solid #d3c5a6;
+    margin : 0.75rem 0 0 0;
+}
+#show_chat .openbox table{
+    width: 100%;
+    border-collapse: collapse;
+}
+#MessageType_content{
+    height : 45px;
+    box-sizing: border-box;
+    width: 100%;
+}
+#MessageType_Envoyer{
+    height: 45px;
+    width: 100%;
+    padding: 10px;
+    background-color: #ee826c;
+    background-image: url('/media/picto/ArrowSend.png');
+    background-size: 60%;
+    background-position: center;
+    background-repeat: no-repeat;
+    border: 2px solid #ee826c;
+}
+#chat_need_log{
+    text-align: center;
+    padding: 0.75rem 0.75rem;
+    border-top: 2px solid #4b4b49;
+}
+p#chat_need_log {
+    margin: 0;
+}
+#chat_need_log span{
+    display : block;
+    margin-top: 0.75rem;
+    box-sizing: border-box;
+    padding: 0.25rem 0;
+}
+
+/*GLOBAL FORMS STYLE*/
+form *
+{
+    box-sizing: border-box;
+}
+#form_container
+{
+    margin-top: 1.5rem;
+}
+h1#form_main_title
+{
+    margin: 1.5rem auto 1rem auto;
+}
+#form_subtitle
+{
+    margin: 0;
+    text-align: justify;
+}
+form h3
+{
+    margin : 0.75rem 0 0rem 0;
+}
+input,
+textarea,
+select {
+    width: 100%;
+}
+select
+{
+    border: 2px solid transparent;
+    padding : 0.5rem 0.25rem;
+    background-color: #4b4b49;
+    color: white;
+    display: block;
+    font-size: 14px;
+}
+option
+{
+    background-color: #d3c5a6;
+    color: #4b4b49;
+    font-size: 14px;
+}
+div#submit_button
+{
+    text-align: right;
+}
+button[type="submit"]
+{
+    border : none;
+    background-color: #ee826c;
+    color: white;
+    padding : 0.5rem 1rem;
+    width: 100%;
+    margin-top: 1rem;
+}
+.form_row
+{
+    margin-top: 0.5rem;
+}
+.form_widget
+{
+    margin-top: 0.25rem;
+}
+hr.hr_form_section
+{
+    margin : 1rem 0 0 0;
+}
+.form_errors *{
+    color: red;
+}
+
+/* collection forms*/
+.collection-buttons
+{
+    overflow: hidden;
+    margin-top:0.75rem;
+}
+.btn-default
+{
+    display: inline-block;
+    background-color: #4b4b49;
+    color : white;
+    text-align: center;
+    text-decoration: none;
+    padding : 0.20rem 0;
+    width: 26px;
+    float: right;
+}
+.init_button
+{
+    margin-right: 0.75rem;
+}
+
+/*TRICK FORM*/
+#TrickType_name
+{
+    padding: 0.5rem 0.25rem;
+}
+
+
+/*FORM MEDIAS*/
+.image_row,
+.video_row
+{
+    margin-top: 0.75rem;
+    background-color: #F2F2F2;
+    padding: 1px 0.75rem 0.5rem 0.75rem;
+}
+
+/*IMG FORM*/
+.image_row_header{
+    margin-bottom : 0;
+}
+.image_row_header *{
+    float: right;
+}
+.img_subtitle a
+{
+    float: right;
+}
+.image_row img
+{
+    width: 100%;
+}
+.image_row .collection-buttons img{
+    position: relative;
+    top: 4px;
+}
+
+
+/*VIDEO FORM*/
+#TrickType_videos{
+    overflow: hidden;
+}
+.video_row embed{
+    width: 100%;
+    height: auto;
+}
+.video_row .collection-buttons img{
+    position: relative;
+    top: 3px;
+}
+
+/* LOGIN FORM */
+#reset_pwd_link{
+    display: block;
+    text-align: right;
+    margin: 1.5rem auto 0 auto;
+}
+
+/*EDIT PROFILE FORM*/
+#edit_profile_img{
+    display: block;
+    width: 100px;
+    margin: 0 auto 0.25rem auto;
+
+}

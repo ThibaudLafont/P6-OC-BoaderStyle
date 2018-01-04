@@ -12,38 +12,52 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 
+/**
+ * Class AdminController
+ * @package AppBundle\Controller
+ */
 class AdminController extends Controller
 {
     /**
+     * This route lead to the form wich allow an authentificated user to add a new trick
+     * Handle the submission of the form to
+     *
      * @Route("/admin/add/trick", name="trick_add")
      */
     public function addAction(Request $request)
     {
-        $trick = new Trick();
 
         // Creation of form
+        $trick = new Trick();
         $form = $this->get('form.factory')->create(TrickType::class, $trick);
         $form->handleRequest($request);
 
         // Action if submitted data are valid
         if ($form->isSubmitted() && $form->isValid()) {
 
-            // Persist
+            // Persist the trick
             $em = $this->getDoctrine()->getManager();
             $em->persist($trick);
             $em->flush();
 
-            // Flash message
-            $this->addFlash('success', 'Vous bien ajouté un article, à voir <a href="'. $trick->getUrl() . '">ici</a>');
+            // In case of succed, redirection to trick_list with flash message
+            $this->addFlash(
+                'success',
+                'Vous bien ajouté un article, à voir <a href="'. $trick->getUrl() . '">ici</a>'
+            );
             return $this->redirectToRoute('trick_list');
 
         }
 
+        // If the form is not submitted, render the form view
         return $this->render('trick/_form.html.twig', ['form' => $form->createView()]);
 
     }
 
     /**
+     * This route lead to the form wich allow an authentificated user to edit a existent trick
+     * Handle the submission of the form to
+     *
      * @Route("/admin/edit/trick/{id}", name="trick_edit")
      */
     public function editAction(Request $request, $id)
@@ -67,11 +81,13 @@ class AdminController extends Controller
 
         }
 
-        return $this->render('trick/_form.html.twig', ['form' => $form->createView()]);
+        return $this->render('trick/_form.html.twig', ['form' => $form->createView(), 'title' => $trick->getName()]);
 
     }
 
     /**
+     * This route lead to the form wich allow an authentificated user to delete a trick
+     *
      * @Route("/admin/delete/trick/{id}", name="trick_delete")
      */
     public function deleteAction($id){
@@ -88,6 +104,9 @@ class AdminController extends Controller
     }
 
     /**
+     * This route lead to the form wich allow an authentificated user to add a new trick's category
+     * Handle the submission of the form to
+     *
      * @Route("/admin/add/category", name="category_add")
      */
     public function addCategory(Request $request){

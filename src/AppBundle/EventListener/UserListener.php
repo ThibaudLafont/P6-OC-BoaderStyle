@@ -6,9 +6,18 @@ use AppBundle\Service\ImageUploader;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
+/**
+ * Class UserListener
+ * Execute actions when Doctrine work with TrickImage entities
+ *
+ * @package AppBundle\EventListener
+ */
 class UserListener
 {
 
+    /**
+     * @var ImageUploader
+     */
     private $uploader;
     private $encoder;
 
@@ -37,28 +46,23 @@ class UserListener
     /** @ORM\PreFlush */
     public function preFlush(User $user)
     {
-        if(!is_null($user->getId())){
-
-            // En cas de changement de la photo
-            if(!is_null($user->getImg()->getFile())){
-                $this->uploader->replace($user->getImg());
-            }
-
-            // En cas de changement de mot de passe
-            if(!is_null($user->getPlainPassword())){
-                // Chiffrement et assignation du mdp renseigné
-                $pwd = $this->encoder->encodePassword($user, $user->getPlainPassword());
-                $user->setPassword($pwd);
-            }
-
-        }
-
-        // Hydratation de img selon user
-//        $img = $user->getImg();
-//        $img->setName($user->getFullName());
-//        $img->setAlt("Photo de {$user->getFullName()}");
+        // TODO : Fix fixture problem at preflush (or optimize user_edit)
+//        if(!is_null($user->getId())){
 //
-//        $this->uploader->upload($img);
+//            // En cas de changement de la photo
+//            if(!is_null($user->getImg()->getFile())){
+//                $this->uploader->replace($user->getImg());
+//            }
+//
+//            // En cas de changement de mot de passe
+//            if(!is_null($user->getPlainPassword())){
+//                // Chiffrement et assignation du mdp renseigné
+//                $pwd = $this->encoder->encodePassword($user, $user->getPlainPassword());
+//                $user->setPassword($pwd);
+//            }
+//
+//        }
+
     }
 
     public function getUploader(){

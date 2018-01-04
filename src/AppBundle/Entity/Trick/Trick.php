@@ -12,6 +12,7 @@ use AppBundle\Validator\Constraints as AppAssert;
 
 /**
  * Figure
+ * Represent a trick object with his assets (media, author, messages)
  *
  * @ORM\Table(name="trick")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\TrickRepository")
@@ -29,6 +30,8 @@ class Trick
     private $id;
 
     /**
+     * Name of the trick
+     *
      * @var string
      *
      * @ORM\Column(name="name", type="string", length=255, unique=true)
@@ -43,6 +46,8 @@ class Trick
     private $name;
 
     /**
+     * Trick's description
+     *
      * @var string
      *
      * @ORM\Column(name="description", type="text")
@@ -52,33 +57,43 @@ class Trick
      *      minMessage = "La description doit faire au moins {{ limit }} caractères"
      * )
      * @AppAssert\AllowedTags(
-     *     allowedTags = "<h3><h2>"
+     *     allowedTags = "<h3><h2><br>"
      * )
      */
     private $description;
 
     /**
+     * User who post or edit the trick
+     *
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\User\User", inversedBy="tricks")
      */
     private $author;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Category", inversedBy="tricks")
+     * The trick belong to a category, which is this property
+     *
+     * @ORM\ManyToOne(
+     *     targetEntity="Category",
+     *     inversedBy="tricks"
+     * )
      * @Assert\NotBlank(message="Veuillez choisir une catégorie")
      */
     private $category;
 
     /**
+     *
      * @ORM\ManyToMany(
      *     targetEntity="TrickImage",
      *     mappedBy="trick",
      *     cascade={"persist", "remove"}
-     *     )
+     * )
      * @Assert\Valid()
      */
     private $imgs;
 
     /**
+     * Videos related to the trick
+     *
      * @ORM\ManyToMany(
      *     targetEntity="TrickVideo",
      *     mappedBy="trick",
@@ -89,11 +104,17 @@ class Trick
     private $videos;
 
     /**
+     * Posted messages related to the trick
+     *
      * @ORM\OneToMany(targetEntity="AppBundle\Entity\Message\Message", mappedBy="trick")
      * @Assert\Valid()
      */
     private $messages;
 
+    /**
+     * Trick constructor.
+     * Create to ArrayCollections for medias attributes
+     */
     public function __construct()
     {
         $this->imgs = new ArrayCollection();
@@ -113,20 +134,37 @@ class Trick
         return '/trick/' . $this->getId();
     }
 
+    /**
+     * Add a new TrickImage to the ArrayCollection
+     * @param TrickImage $img
+     */
     public function addImg(TrickImage $img){
         if($img->getId() === null) $img->addTrick($this);
         $this->imgs->add($img);
     }
+
+    /**
+     * Remove a specified image of the ArrayCollection
+     * @param TrickImage $img
+     */
     public function removeImg(TrickImage $img){
         $img->removeTrick($this);
         $this->imgs->removeElement($img);
     }
 
-
+    /**
+     * Add a new video related to the trick
+     * @param TrickVideo $video
+     */
     public function addVideo(TrickVideo $video){
         if($video->getId() === null) $video->addTrick($this);
         $this->videos->add($video);
     }
+
+    /**
+     * Remove an existent video related to the trick
+     * @param TrickVideo $video
+     */
     public function removeVideo(TrickVideo $video){
         $video->removeTrick($this);
         $this->videos->removeElement($video);

@@ -1,0 +1,96 @@
+### Tricks import
+#################
+
+1: # [GRABS] Mute
+
+  ## Attributes
+  author: Thibaud
+  category: Grabs
+  name: Mute
+  description: Le Mute Grab c'est quand pendant un saut vous aggripez vote planche entre vos deux pieds,
+               côté frontside. Ce geste s'effectue avec la main avant. <br/>
+               Voir la vidéo youtube ci-dessus !
+
+  ## Medias
+  # Images
+  img:
+    1:
+      name: men-doing-mute-grab
+      alt: Un snowboarder réalisant un Mute Grab
+      format: jpeg
+      position: 1
+  # Videos
+  video:
+    1:
+      src: https://www.youtube.com/embed/M5NTCfdObfs
+      name: Comment faire un mute grab
+      alt: Vidéo expliquant comment réaliser un mute grab
+      position: 1
+
+
+2: # [GRABS] Style Week
+
+  ## Attributes
+  author: Thibaud
+  category: Grabs
+  name: Style Week
+  description: Le Style Week, aussi appelé Melancholie ou Sad ressemble au <a href="/trick/mute"/>mute</a>.
+               Avec votre main avant vous saisissez votre planche entre vos deux jambes, mais au niveau de la
+               carre backside.
+
+  ## Medias
+  # Images
+  img:
+    1:
+      name: men-doing-style-week
+      alt: Un snowboarder réalisant un Style Week Grab
+      format: jpeg
+      position: 1
+    2:
+      name: men-doing-melancholie
+      alt: Un snowboarder réalisant Melancholie Grab
+      format: jpeg
+      position: 2
+    3:
+      name: men-doing-sad
+      alt: Un snowboarder réalisant Sad Grab
+      format: jpeg
+      position: 3
+  #Videos
+  video:
+    1:
+      src: https://www.youtube.com/embed/jZw-dhULO-w
+      name: Comment faire un Style Week
+      alt: Vidéo expliquant comment réaliser un Style Week
+      position: 1
+
+
+#3: # [GRABS] Style Week
+#  author: Thibaud
+#  category: Grabs
+#  name: Indy
+#  description: Lors d'un saut vous aggripez votre planche entre vos deux pieds avec votre main arrière, au niveau de la carre
+#               frontside.
+#               Finalement c'est un <a href="/trick/style-week"/>mute</a>, avec l'autre main.
+#
+#4: # [GRABS] Indy
+#  author: Thibaud
+#  category: Grabs
+#  name: Indy
+#  description: Lors d'un saut vous aggripez votre planche entre vos deux pieds avec votre main arrière, au niveau de la
+#               carre backside.
+#               Finalement c'est un <a href="/trick/style-week"/>Style Week</a>, avec l'autre main.
+#
+#5: # [GRABS] Japan
+#  author: Thibaud
+#  category: Grabs
+#  name: Japan
+#  description: Cette figure est aussi connue sous le nom de Japan Air. Pour la réaliser il vous faudra saisir votre snowboard
+#               avec la main avant, du côté de la carre frontside.
+#
+#6: # [GRABS] Truck Driver
+#  author: Thibaud
+#  category: Grabs
+#  name: Truck Driver
+#  description: Ce qu'on appelle un Truck Driver c'est la figure consistant à saisir à la fois la carre front et backside de
+#               la planche. On est donc derrière le volant ;)

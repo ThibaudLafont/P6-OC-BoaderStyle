@@ -12,39 +12,53 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
+/**
+ * Class RegisterType
+ * The class is used to define user register form fields and security
+ *
+ * @package AppBundle\Form\Type\User
+ */
 class RegisterType extends AbstractType
 {
     /**
-     * {@inheritdoc}
+     * Define the fields of this form type
+     *
+     * @param FormBuilderInterface $builder
+     * @param array $options
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add(
+            ->add(  // Add firstName
                 'firstName',
                 TextType::class,
                 [
                     'label' => 'Prénom'
                 ]
             )
-            ->add(
+            ->add(  // Add lastName
                 'lastName',
                 TextType::class,
                 [
-                    'label' => 'Nom de famille'
+                    'label' => 'Nom'
                 ]
             )
-            ->add(
+            ->add(  // Add mail address
                 'mail',
                 RepeatedType::class,
                 [
+                    // General options
                     'type' => EmailType::class,
+                    'first_name' => 'mail',
+                    'second_name' => 'confirm_mail',
+                    // Fist field options
                     'first_options' => [
                         'label' => false,
                         'attr' => [
                             'placeholder' => 'Adresse mail'
                         ]
                     ],
+                    // Repeat field options
                     'second_options' => [
                         'label' => false,
                         'attr' => [
@@ -53,24 +67,34 @@ class RegisterType extends AbstractType
                     ]
                 ]
             )
-            ->add(
+            ->add(  // userName field
                 'userName',
                 TextType::class,
                 [
-                    'label' => 'Nom d\'utilisateur'
+                    'label' => false,
+                    'attr' =>
+                    [
+                        'placeholder' => 'Pseudo'
+                    ]
                 ]
             )
-            ->add(
+            ->add(  // plainPassword field
                 'plainPassword',
                 RepeatedType::class,
                 [
+                    // General options
                     'type' => PasswordType::class,
+                    'label' => 'Mot de passe',
+                    'first_name' => 'password',
+                    'second_name' => 'confirm_password',
+                    // First field options
                     'first_options' => [
                         'label' => false,
                         'attr' => [
                             'placeholder' => 'Mot de passe'
                         ]
                     ],
+                    // Repeat field options
                     'second_options' => [
                         'label' => false,
                         'attr' => [
@@ -79,29 +103,39 @@ class RegisterType extends AbstractType
                     ]
                 ]
             )
-            ->add(
+            ->add(  // Add image type form
                 'img',
                 ImageType::class
             )
-            ->add('save', SubmitType::class);
+            ->add(  // Add submit button
+                'submit',
+                SubmitType::class,
+                [
+                    'label' => 'Inscription'
+                ]
+            );
     }
 
     /**
-     * {@inheritdoc}
+     * Configure options to this form type
+     *
+     * @param OptionsResolver $resolver
      */
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'AppBundle\Entity\User\User',
+            'data_class' => 'AppBundle\Entity\User\User',                    // Targeted entity
+            // CRSF protection
             'csrf_protection' => true,
             'csrf_field_name' => '_token',
-            // a unique key to help generate the secret token
-            'csrf_token_id'   => '251ac8efaefec102ec789f4a3b9366d2d160c813'
+            'csrf_token_id'   => '251ac8efaefec102ec789f4a3b9366d2d160c813'  // Uniq key used to generate an unique token
         ));
     }
 
     /**
-     * {@inheritdoc}
+     * Define the type name
+     *
+     * @return string
      */
     public function getBlockPrefix()
     {

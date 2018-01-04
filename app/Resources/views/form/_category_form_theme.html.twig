@@ -1,15 +1,21 @@
 {% block CategoryType_widget %}
-    <table>
-        <tr>
-            {{ form_errors(form.name) }}
-        </tr>
-        <tr>
-            <td>{{ form_label(form.name) }}</td>
-            <td>{{ form_widget(form.name) }}</td>
-        </tr>
-        <tr>
-            <td></td>
-            <td>{{ form_widget(form.Save) }}</td>
-        </tr>
-    </table>
+
+    <!-- Name -->
+    <section class="form_row">
+        <div class="form_label">
+            {{ form_label(form.name) }}   <!-- Label -->
+        </div>
+        <div class="form_errors">
+            {{ form_errors(form.name) }}  <!-- Errors -->
+        </div>
+        <div class="form_widget">
+            {{ form_widget(form.name) }}  <!-- Widget -->
+        </div>
+    </section>
+
+    <!-- Submit -->
+    <div id="submit_button">
+        {{ form_widget(form.submit) }}
+    </div>
+
 {% endblock %}

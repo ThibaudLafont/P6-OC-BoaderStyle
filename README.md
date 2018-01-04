@@ -28,3 +28,5 @@ The requested web-application's engineering will be segmented, according to abov
 | ✕ | 9  | Chat feature front-work                     | 3.5days     |         |
 | ✕ | 10 | Forms front-work                            | 0.5day      |         |
 | ✕ | 12 | Graphical charter                           | 1 hour      |         |
+| ✕ | 22 | Comment source code                         | 1day        | 0.5day  |
+| ✕ | 23 | Back finitions                              | 2days       | 0.5day  |

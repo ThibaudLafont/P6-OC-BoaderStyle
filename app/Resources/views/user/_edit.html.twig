@@ -2,14 +2,21 @@
 
 {% block body %}
 
-    <h1>Modifier mon profil</h1>
+    <!-- Main title -->
+    <h1 id="form_main_title">Modifier mon profil</h1>
 
-    <div class="container">
+    <!-- Form view setting and display -->
+    <div id="form_container">
+
+        <!-- Define the form themes -->
         {% form_theme form
             'form/_errors_form_theme.html.twig'
             'form/_edit_user_form_theme.html.twig'
         %}
+
+        <!-- Call the display of the form view -->
         {{ form(form) }}
+
     </div>
 
 {% endblock %}

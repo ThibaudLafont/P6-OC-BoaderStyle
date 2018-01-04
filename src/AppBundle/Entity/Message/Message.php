@@ -9,6 +9,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Message
+ * Entity used to persist trick's messages posted by authentificated users
  *
  * @ORM\Table(name="message")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\MessageRepository")
@@ -26,6 +27,8 @@ class Message
     private $id;
 
     /**
+     * Creation date of the message
+     *
      * @var \DateTime
      *
      * @ORM\Column(name="creationDate", type="datetime")
@@ -34,6 +37,8 @@ class Message
     private $creationDate;
 
     /**
+     * Content of the message
+     *
      * @var string
      *
      * @ORM\Column(name="content", type="text")
@@ -45,15 +50,24 @@ class Message
     private $content;
 
     /**
+     * User who post the mesage
+     *
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\User\User", inversedBy="messages")
      */
     private $user;
 
     /**
+     * Trick related to the message
+     *
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Trick\Trick", inversedBy="messages")
      */
     private $trick;
 
+    /**
+     * Format the creation date to the french format
+     *
+     * @return string
+     */
     public function getFrenchDate(){
         return $this->getCreationDate()->format('d/m/y à H:i');
     }

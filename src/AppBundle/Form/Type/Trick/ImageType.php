@@ -10,59 +10,73 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 // Fields
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 
+/**
+ * Class ImageType
+ * The class is used to define trick's images form fields and security
+ *
+ * @package AppBundle\Form\Type\Trick
+ */
 class ImageType extends AbstractType
 {
     /**
-     * {@inheritdoc}
+     * Define the fields of this form type
+     *
+     * @param FormBuilderInterface $builder
+     * @param array $options
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add(
+            ->add(  // Add the TrickImage's name
                 'name',
                 TextType::class,
                 [
                     'label' => 'Nom'
                 ]
             )
-            ->add(
+            ->add(  // Add the alternative description
                 'alt',
                 TextType::class,
                 [
                     'label' => 'Description'
                 ]
             )
-            ->add(
+            ->add(  // Set a file field
                 'file',
                 FileType::class,
                 [
-                    'label' => '↪',
-                    'image_property' => 'url'
+                    'label' => 'Fichier',
+                    'image_property' => 'url'       // Add the custom image_property, defined in ImageTypeExtension
                 ]
             )
-            ->add(
+            ->add(  // Set a hidden position field, witch is used in trick display
                 'position',
                 HiddenType::class,
                 [
                     'attr' => [
-                        'class' => 'img_position',
+                        'class' => 'img_position',  // Specify a class_name for this field, for symfony-collection handling
                     ]
                 ]
             );
     }
 
     /**
-     * {@inheritdoc}
+     * Configure options to this form type
+     *
+     * @param OptionsResolver $resolver
      */
     public function configureOptions(OptionsResolver $resolver)
     {
+        // TODO: CSRF ??
         $resolver->setDefaults(array(
-            'data_class' => 'AppBundle\Entity\Trick\TrickImage'
+            'data_class' => 'AppBundle\Entity\Trick\TrickImage'  // Target entity
         ));
     }
 
     /**
-     * {@inheritdoc}
+     * Define the type name
+     *
+     * @return string
      */
     public function getBlockPrefix()
     {

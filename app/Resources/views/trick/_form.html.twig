@@ -2,8 +2,25 @@
 
 {% block body %}
 
-    <h1>Modifier</h1>
-    <div class="container">
+    <!-- Main title -->
+    <h1 id="form_main_title">
+        <!-- This template is used bu edit_trick and add_trick,
+             explaining the title treatment here               -->
+        {% if not title is defined %}
+            Ajouter une figure
+        {% else %}
+            Modifier "{{ title }}"
+        {% endif %}
+    </h1>
+
+    <!-- Form subtitle -->
+    <p id="form_subtitle">
+        Pour ajouter une nouvelle figure, remplissez le formulaire ci-dessous. Vous pouvez ajouter autant d'images et de
+        vidéos que vous le souhaitez.
+    </p>
+
+    <!-- Form view setting and display -->
+    <div id="form_container">
         {% form_theme form
             'form/jquery.collection.html.twig'
             'form/_errors_form_theme.html.twig'
@@ -18,19 +35,19 @@
 
 {% block javascripts %}
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="/js/jquery.collection.js"></script>
 
     <script type="text/javascript">
         $('.img').collection({
             min: 1,
             position_field_selector: '.img_position',
-            elements_selector: '> table'
+            elements_selector: '> section.image_row'
         });
         $('.video').collection({
             min: 0,
             position_field_selector: '.vid_position',
-            elements_selector: '> table'
+            elements_selector: '> section.video_row',
+            add: "<a class=\"btn-default init_button\" href=\"#\">✚</a>"
         });
     </script>
 

@@ -8,36 +8,50 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 // Fields
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 
+/**
+ * Class ImageType
+ * The class is used to define user profile image form fields and security
+ *
+ * @package AppBundle\Form\Type\User
+ */
 class ImageType extends AbstractType
 {
     /**
-     * {@inheritdoc}
+     * Define the fields of this form type
+     *
+     * @param FormBuilderInterface $builder
+     * @param array $options
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add(
+            ->add(  // Add a file field
                 'file',
                 FileType::class,
                 [
-                    'label' => 'Photo de profil',
+                    'label' => 'Photo',
                     'image_property' => 'url'
                 ]
             );
     }
 
     /**
-     * {@inheritdoc}
+     * Configure options to this form type
+     *
+     * @param OptionsResolver $resolver
      */
     public function configureOptions(OptionsResolver $resolver)
     {
+        // TODO: CRSF protection ??
         $resolver->setDefaults(array(
-            'data_class' => 'AppBundle\Entity\User\UserImage'
+            'data_class' => 'AppBundle\Entity\User\UserImage'  // Targeted entity
         ));
     }
 
     /**
-     * {@inheritdoc}
+     * Define the type name
+     *
+     * @return string
      */
     public function getBlockPrefix()
     {

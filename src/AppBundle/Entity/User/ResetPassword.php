@@ -7,6 +7,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * ResetPassword
+ * Table where reset password requests are stored
  *
  * @ORM\Table(name="user_reset_password")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\User\ResetPasswordRepository")
@@ -24,6 +25,8 @@ class ResetPassword
     private $id;
 
     /**
+     * Unique token foreach request
+     *
      * @var string
      *
      * @ORM\Column(name="token", type="string", length=255)
@@ -32,6 +35,8 @@ class ResetPassword
     private $token;
 
     /**
+     * Request creation date
+     *
      * @var \DateTime
      *
      * @ORM\Column(name="submit_datetime", type="datetime")
@@ -40,6 +45,8 @@ class ResetPassword
     private $submitDateTime;
 
     /**
+     * User who ask a password reset
+     *
      * @ORM\ManyToOne(
      *     targetEntity="User",
      *     inversedBy="resetPwd"
@@ -48,6 +55,8 @@ class ResetPassword
     private $user;
 
     /**
+     * Once request is complete, set true for disable it
+     *
      * @var bool
      *
      * @ORM\Column(name="disabled", type="boolean")
@@ -56,6 +65,11 @@ class ResetPassword
     private $disabled;
 
 
+    /**
+     * Return the url to the reset password form related to this request
+     *
+     * @return string
+     */
     public function getUrl(){
         $url = '/user/reset-password/' . $this->getToken();
         return $url;

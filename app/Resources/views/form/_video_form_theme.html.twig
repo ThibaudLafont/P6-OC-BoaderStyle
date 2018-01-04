@@ -11,40 +11,66 @@
 {% endblock %}
 
 {% block VideoType_row %}
-    <table>
-        <tr>
-            {{ form_errors(form.src) }}
-        </tr>
-        <tr>
-            <td>
-                {{ form_label(form.src) }}
-            </td>
-            <td>
-                {{ form_widget(form.src) }}
-            </td>
-        </tr>
-        <tr>
-            {{ form_errors(form.name) }}
-        </tr>
-        <tr>
-            <td>
-                {{ form_label(form.name) }}
-            </td>
-            <td>
-                {{ form_widget(form.name) }}
-            </td>
-        </tr>
-        <tr>
-            {{ form_errors(form.alt) }}
-        </tr>
-        <tr>
-            <td>
-                {{ form_label(form.alt) }}
-            </td>
-            <td>
-                {{ form_widget(form.alt) }}
-            </td>
-        </tr>
-        {{ form_widget(form.position) }}
-    </table>
+
+    <!-- ImageType template -->
+    <section class="video_row">
+
+        <!-- Source -->
+        <section class="form_row">
+
+            <!-- Check if form is hydrated by existent data -->
+            {% if form.vars.value is null %}
+                <div class="form_label">
+                    {{ form_label(form.src) }}   <!-- Label -->
+                </div>
+            {% endif %}
+            <div class="form_errors">
+                {{ form_errors(form.src) }}     <!-- Errors -->
+            </div>
+            <div class="form_widget">
+                {{ form_widget(form.src) }}     <!-- Widget -->
+            </div>
+
+        </section>
+
+        <!-- Name -->
+        <section class="form_row">
+            <div class="form_label">
+                {{ form_label(form.name) }}   <!-- Label -->
+            </div>
+            <div class="form_errors">
+                {{ form_errors(form.name) }}  <!-- Errors -->
+            </div>
+            <div class="form_widget">
+                {{ form_widget(form.name) }}  <!-- Widget -->
+            </div>
+        </section>
+
+        <!-- Alt Description -->
+        <section class="form_row">
+            <div class="form_label">
+                {{ form_label(form.alt) }}   <!-- Label -->
+            </div>
+            <div class="form_errors">
+                {{ form_errors(form.alt) }}  <!-- Errors -->
+            </div>
+            <div class="form_widget">
+                {{ form_widget(form.alt) }}  <!-- Widget -->
+            </div>
+        </section>
+
+        <div class="collection-buttons">
+            <img src="/media/picto/Camera.png" alt="Pictogramme d'une caméra vidéo">
+            <a href="#" class="collection-add btn btn-default">✚</a>
+            <a href="#" class="collection-remove btn btn-default">━</a>
+            <a href="#" class="collection-down btn btn-default">▾</a>
+            <a href="#" class="collection-up btn btn-default">▴</a>
+        </div>
+
+        {% if form.position is defined %}
+            {{ form_widget(form.position) }}
+        {% endif %}
+
+    </section>
+
 {% endblock %}

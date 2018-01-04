@@ -56,4 +56,4 @@ gulp.task('img', function(){
 });
 
 // Appel
-gulp.task('default', ['img', 'css', 'js', 'reload']);
+gulp.task('default', ['img', 'js', 'reload']);

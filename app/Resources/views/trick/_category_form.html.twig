@@ -2,13 +2,21 @@
 
 {% block body %}
 
-    <h1>Ajouter une catégorie</h1>
-    <div class="container">
+    <!-- Main title -->
+    <h1 id="form_main_title">Ajouter une catégorie</h1>
+
+    <!-- Form view settings and display -->
+    <div id="form_container">
+
+        <!-- Define the form themes -->
         {% form_theme form
             'form/_errors_form_theme.html.twig'
             'form/_category_form_theme.html.twig'
         %}
+
+        <!-- Form view call, display according to above themes -->
         {{ form(form) }}
+
     </div>
 
 {% endblock %}

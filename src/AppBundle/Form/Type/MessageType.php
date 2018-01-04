@@ -8,40 +8,62 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
+/**
+ * Class MessageType
+ * The class is used to define message post form fields and security
+ *
+ * @package AppBundle\Form\Type
+ */
 class MessageType extends AbstractType
 {
     /**
-     * {@inheritdoc}
+     * Define the fields of this form type
+     *
+     * @param FormBuilderInterface $builder
+     * @param array $options
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add(
+            ->add(  // Add content
                 'content',
                 TextType::class,
                 [
-                    'label' => 'Message'
+                    'label' => 'Message',
+                    'attr' => [
+                        'placeholder' => 'Tapez votre message'
+                    ]
                 ]
             )
-            ->add('Envoyer', SubmitType::class);
+            ->add(  // Add submit type
+                'Envoyer',
+                SubmitType::class,
+                [
+                    'label' => " "  // Define an empty label in order to customize submit button in front work
+                ]
+            );
     }
 
     /**
-     * {@inheritdoc}
+     * Configure options to this form type
+     *
+     * @param OptionsResolver $resolver
      */
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'AppBundle\Entity\Message\Message',
+            'data_class' => 'AppBundle\Entity\Message\Message',              // Targeted entity
+            // CSRF protection
             'csrf_protection' => true,
             'csrf_field_name' => '_token',
-            // a unique key to help generate the secret token
-            'csrf_token_id'   => '3bbe003910bbcac6a22ea2d4a3b591bd3fdef519'
+            'csrf_token_id'   => '3bbe003910bbcac6a22ea2d4a3b591bd3fdef519'  // Unique key used to generate unique token
         ));
     }
 
     /**
-     * {@inheritdoc}
+     * Define the type name
+     *
+     * @return string
      */
     public function getBlockPrefix()
     {
