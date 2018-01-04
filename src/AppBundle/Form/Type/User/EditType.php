@@ -85,6 +85,7 @@ class EditType extends AbstractType
                     // First field options
                     'first_options' => [
                         'label' => false,
+                        'required' => false,
                         'attr' => [
                             'placeholder' => 'Mot de passe'
                         ]
@@ -117,6 +118,7 @@ class EditType extends AbstractType
     {
         $resolver->setDefaults(array(
             'data_class' => 'AppBundle\Entity\User\User',                   // Targeted entity
+            'validation_groups' => false,
             // CSRF protection
             'csrf_protection' => true,
             'csrf_field_name' => '_token',

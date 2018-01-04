@@ -92,14 +92,17 @@ class AdminController extends Controller
      */
     public function deleteAction($id){
 
+        // Get EntityManager and Trick Manager
         $em = $this->getDoctrine()->getManager();
         $trick = $em->getRepository('AppBundle:Trick\Trick')->find($id); // Get the trick related to asked id
 
+        // Remove the trick related to ID found in URL
         $em->remove($trick);
         $em->flush();
 
+        // Redirect the user after success, add a flash message for inform user
         $this->addFlash('success', 'Vous bien supprimé "' . $trick->getName() . '"');
-        return $this->redirectToRoute('trick_list');
+        return $this->redirectToRoute('trick_list');  // Return to the home page
 
     }
 

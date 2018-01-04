@@ -47,21 +47,21 @@ class UserListener
     public function preFlush(User $user)
     {
         // TODO : Fix fixture problem at preflush (or optimize user_edit)
-//        if(!is_null($user->getId())){
-//
-//            // En cas de changement de la photo
-//            if(!is_null($user->getImg()->getFile())){
-//                $this->uploader->replace($user->getImg());
-//            }
-//
-//            // En cas de changement de mot de passe
-//            if(!is_null($user->getPlainPassword())){
-//                // Chiffrement et assignation du mdp renseigné
-//                $pwd = $this->encoder->encodePassword($user, $user->getPlainPassword());
-//                $user->setPassword($pwd);
-//            }
-//
-//        }
+        if(!is_null($user->getId())){
+
+            // En cas de changement de la photo
+            if(!is_null($user->getImg()->getFile())){
+                $this->uploader->replace($user->getImg());
+            }
+
+            // En cas de changement de mot de passe
+            if(!is_null($user->getPlainPassword())){
+                // Chiffrement et assignation du mdp renseigné
+                $pwd = $this->encoder->encodePassword($user, $user->getPlainPassword());
+                $user->setPassword($pwd);
+            }
+
+        }
 
     }
 

@@ -87,6 +87,16 @@ class ImageUploader
     }
 
     /**
+     * When the file of a local media is change,
+     * but the img entity is not delete
+     *
+     * @param Local $img
+     */
+    public function replace(Local $img){
+        $this->remove($img);
+        $this->upload($img);
+    }
+    /**
      * Property used to remove file related to the given entity
      * Database update is done though the doctrine listener
      *

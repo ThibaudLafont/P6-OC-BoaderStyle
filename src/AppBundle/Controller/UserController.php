@@ -107,7 +107,7 @@ class UserController extends Controller
 
                     // If knowed username, display a informative flash message
                     $this->addFlash(
-                        'info',
+                        'success',
                         'Votre demande de réinitialisation a bien été enregistrée, vérifiez vos emails.'
                     );
                 }

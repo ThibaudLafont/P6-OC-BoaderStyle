@@ -11,6 +11,7 @@ namespace AppBundle\EventListener;
 use AppBundle\Entity\Trick\Trick;
 use AppBundle\Service\TrickImageUploader;
 use Doctrine\ORM\Event\LifecycleEventArgs;
+
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 
@@ -51,6 +52,7 @@ class TrickListener
 
         // Get the session
         $session = $this->tokenStorage->getToken();
+
         // If session exists, assign the user to the trick
         // ( we check if session exist cause of fixtures feature )
         if(!is_null($session)) $trick->setAuthor($session->getUser());
@@ -74,18 +76,19 @@ class TrickListener
     /**
      * Before removing a Trick, check if messages exists and remove them if needed
      *
-     * @ORM\PreRemove
+     * @ORM\PostRemove
      */
-    public function preRemove(Trick $trick, LifecycleEventArgs $args)
+    public function postRemove(Trick $trick, LifecycleEventArgs $args)
     {
         // Get the EntityManager and ask it the trick's messages
         $em = $args->getEntityManager();
-        $messages = $trick->getMessages();
+        $messages = $trick->getMessages();  // Store the messages
 
         // Remove found messages
         foreach($messages as $message){
-            $em->remove($message);
+            $em->remove($message);          // For each index, ask the message remove
         }
+
     }
 
 }
