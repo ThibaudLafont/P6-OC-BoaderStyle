@@ -2,6 +2,7 @@
 
 namespace AppBundle\Entity\Trick;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use AppBundle\Validator\Constraints as AppAssert;
@@ -43,17 +44,19 @@ class Category
     /**
      * Tricks belong to the category
      *
-     * @ORM\OneToMany(targetEntity="Trick", mappedBy="category")
+     * @ORM\OneToMany(
+     *     targetEntity="Trick",
+     *     mappedBy="category"
+     * )
      */
     private $tricks;
 
-
-      ///////////////////
+    ///////////////////
      ///// SPECIFIC ////
     ///////////////////
 
     public function getEditUrl(){
-        return '/' . $this->getName();
+        return '/tricks/' . $this->getName();
     }
 
 

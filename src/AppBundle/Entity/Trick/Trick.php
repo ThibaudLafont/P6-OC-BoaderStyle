@@ -72,7 +72,10 @@ class Trick
     /**
      * The trick belong to a category, which is this property
      *
-     * @ORM\ManyToOne(targetEntity="Category", inversedBy="tricks")
+     * @ORM\ManyToOne(
+     *     targetEntity="Category",
+     *     inversedBy="tricks"
+     * )
      * @Assert\NotBlank(message="Veuillez choisir une catégorie")
      */
     private $category;

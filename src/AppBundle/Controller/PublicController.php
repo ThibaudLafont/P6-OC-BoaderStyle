@@ -30,26 +30,39 @@ class PublicController extends Controller
     }
 
     /**
-     * Home page of the website, display a list of all tricks
+     * Find all tricks witch belong to a category and render list template
      *
-     * @Route("/{category}", name="category_trick_list")
+     * @Route("/tricks/{cat_name}", name="category_trick_list")
      */
-    public function listByCategoryAction($category)
+    public function listByCategoryAction($cat_name)
     {
+        // Get Doctrine Categories Entity Manager
+        $cm = $this->getDoctrine()->getManager()->getRepository('AppBundle:Trick\Category');  // Get the Category Entity Manager
 
-        $em = $this->getDoctrine()->getManager();  // Get EntityManager
-        $cm = $em->getRepository('AppBundle:Trick\Category');  // Get the Category Entity Manager
-
-        // Get all the stored tricks in asked category
-        $category = $cm->findOneBy(['name' => $category]);  // Get the asked category
-        $tricks = $em->getRepository('AppBundle:Trick\Trick')->findBy(['category' => $category]);  // Then get all tricks
-
-        // Then get all categories for filter option
+        // Get all categories for filter option
         $categories = $cm->findAll();
 
+        // Then loop on every found entry to check if one matche with URL given name
+        $category = null;                        // Init $category for below success test
+        foreach($categories as $cat)
+        {
+            if($cat->getName() === $cat_name){
+                $category = $cat;               // If a category match, store it
+                break;
+            }
+        }
 
-        // Render the home page
-        return $this->render('trick/_list.html.twig', compact('tricks', 'categories', 'category'));
+        // If no category is related to the URL given name
+        if(is_null($category)){
+            $this->addFlash('error', 'Catégorie introuvable');  // First add an error flash message
+            return $this->redirectToRoute('trick_list');        // Then redirect to home_page and stop execution
+        }
+
+        // Get all the stored tricks in asked category
+        $tricks = $category->getTricks();
+
+        // Render the list_template with found tricks and category collection
+        return $this->render('trick/_list.html.twig', compact('tricks', 'categories'));
     }
 
 

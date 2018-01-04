@@ -2,8 +2,7 @@
     {% spaceless %}
         {% if errors|length > 0 %}
             {% for error in errors %}
-                <td>✕</td>
-                <td>{{ error.message }}</td>
+                ✕ {{ error.message }}
             {% endfor %}
         {% endif %}
     {% endspaceless %}

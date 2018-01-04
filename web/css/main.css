@@ -520,6 +520,9 @@ hr.hr_form_section
 {
     margin : 1rem 0 0 0;
 }
+.form_errors *{
+    color: red;
+}
 
 /* collection forms*/
 .collection-buttons

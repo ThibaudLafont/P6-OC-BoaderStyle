@@ -31,9 +31,12 @@
         </div>
     </section>
 
-    <hr class="trick_item_hr">
+
+    {% if tricks is not empty %}
+        <hr class="trick_item_hr">
+    {% endif %}
+
     {% for trick in tricks %}
-        {% dump trick %}
         <article class="trick_list_item">
             <div class="item_header">
                 <h2>{{ trick.name }}</h2>
