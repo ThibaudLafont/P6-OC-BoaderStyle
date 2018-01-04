@@ -23,6 +23,8 @@ input
 }
 #main_content{
     padding : 0 1rem;
+    max-width: 700px;
+    margin: auto;
 }
 .ta-right{
     text-align: right;
@@ -156,9 +158,13 @@ footer{
     margin-top: 1.5rem;
     clear: right;
 }
+#footer_top
+{
+    padding: 1rem;
+}
 #aware_message{
     display: table;
-    margin: 1rem;
+    margin: 0 auto;
     border: 4px solid #ee826c;
     background-color: #fff;
     box-sizing: border-box;
