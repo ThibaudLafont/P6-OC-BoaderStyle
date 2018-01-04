@@ -3,6 +3,7 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Entity\Message\Message;
+use AppBundle\Entity\Trick\Category;
 use AppBundle\Form\Type\MessageType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -18,13 +19,39 @@ class PublicController extends Controller
      */
     public function listAction(Request $request)
     {
-        $em = $this->getDoctrine()->getManager();
-        $tricks = $em->getRepository('AppBundle:Trick\Trick')->findAll(); // Get all tricks
+
+        $em = $this->getDoctrine()->getManager();                                // Get Entity Manager
+        $tricks = $em->getRepository('AppBundle:Trick\Trick')->findAll();        // Get all tricks
         $categories = $em->getRepository('AppBundle:Trick\Category')->findAll(); // Get all categories for filter feature
 
         // Render the home page
         return $this->render('trick/_list.html.twig', compact('tricks', 'categories'));
+
     }
+
+    /**
+     * Home page of the website, display a list of all tricks
+     *
+     * @Route("/{category}", name="category_trick_list")
+     */
+    public function listByCategoryAction($category)
+    {
+
+        $em = $this->getDoctrine()->getManager();  // Get EntityManager
+        $cm = $em->getRepository('AppBundle:Trick\Category');  // Get the Category Entity Manager
+
+        // Get all the stored tricks in asked category
+        $category = $cm->findOneBy(['name' => $category]);  // Get the asked category
+        $tricks = $em->getRepository('AppBundle:Trick\Trick')->findBy(['category' => $category]);  // Then get all tricks
+
+        // Then get all categories for filter option
+        $categories = $cm->findAll();
+
+
+        // Render the home page
+        return $this->render('trick/_list.html.twig', compact('tricks', 'categories', 'category'));
+    }
+
 
     /**
      * Show page of a trick, display chat messages related to the trick

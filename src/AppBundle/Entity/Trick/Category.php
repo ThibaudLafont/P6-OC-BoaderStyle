@@ -48,6 +48,15 @@ class Category
     private $tricks;
 
 
+      ///////////////////
+     ///// SPECIFIC ////
+    ///////////////////
+
+    public function getEditUrl(){
+        return '/' . $this->getName();
+    }
+
+
     ///////////////////
     ///// SETTERS /////
     ///////////////////

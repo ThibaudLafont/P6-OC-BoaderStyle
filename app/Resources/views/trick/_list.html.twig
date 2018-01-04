@@ -21,7 +21,7 @@
 
                 {% for cat in categories %}
                     <div>
-                        <a href="#">
+                        <a href="{{ cat.editUrl }}">
                             <img src="/media/img/users/thibaud-lafont.jpeg" alt="{{ cat.name }}"><br/>
                             <span>{{ cat.name }}</span>
                         </a>
@@ -46,7 +46,6 @@
                     </div>
                 </div>
             </div>
-
 
             <img class="item_main_img" src="{{ trick.imgs[0].url }}" alt="{{ trick.imgs[0].alt }}">
 
