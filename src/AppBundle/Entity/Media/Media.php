@@ -3,6 +3,7 @@ namespace AppBundle\Entity\Media;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * Parent of every media
@@ -25,7 +26,10 @@ abstract class Media
      * @var string
      *
      * @ORM\Column(name="name", type="string", length=255, unique=true)
-     * @Assert\NotBlank(message="Le nom est obligatoire")
+     * @Assert\NotBlank(
+     *     groups={"trick"},
+     *     message="Le nom est obligatoire"
+     * )
      * @Assert\Length(
      *      min = 2,
      *      max = 55,
@@ -39,7 +43,10 @@ abstract class Media
      * @var string
      *
      * @ORM\Column(name="alt", type="string", length=255)
-     * @Assert\NotBlank(message="La description alternative est obligatoire")
+     * @Assert\NotBlank(
+     *     message="La description alternative est obligatoire",
+     *     groups={"trick"}
+     * )
      * @Assert\Length(
      *      min = 2,
      *      max = 55,

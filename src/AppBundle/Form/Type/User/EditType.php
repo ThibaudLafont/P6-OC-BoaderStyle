@@ -56,6 +56,7 @@ class EditType extends AbstractType
                 [
                     // General options
                     'type' => EmailType::class,
+                    'label' => 'Adresse mail',
                     // First field options
                     'first_options' => [
                         'label' => false,
@@ -79,6 +80,7 @@ class EditType extends AbstractType
                     // General options
                     'type' => PasswordType::class,
                     'required' => false,
+                    'label' => 'Mot de passe',
                     'first_name' => 'pass',      // Define a name for the first field
                     'second_name' => 'confirm',  // Define a name for the repeat field
                     'invalid_message' => 'Les mots de passe ne correspondent pas',
@@ -118,7 +120,6 @@ class EditType extends AbstractType
     {
         $resolver->setDefaults(array(
             'data_class' => 'AppBundle\Entity\User\User',                   // Targeted entity
-            'validation_groups' => false,
             // CSRF protection
             'csrf_protection' => true,
             'csrf_field_name' => '_token',

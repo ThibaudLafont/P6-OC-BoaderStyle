@@ -5,6 +5,7 @@ namespace AppBundle\Entity\User;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * User
@@ -13,6 +14,11 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ORM\Table(name="user")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\UserRepository")
  * @ORM\EntityListeners({"AppBundle\EventListener\UserListener"})
+ *
+ * @UniqueEntity(
+ *     "userName",
+ *     message="Ce pseudo n'est pas disponible"
+ * )
  */
 class User implements UserInterface, \Serializable
 {
@@ -31,7 +37,9 @@ class User implements UserInterface, \Serializable
      * @var string
      *
      * @ORM\Column(name="firstName", type="string", length=255)
-     * @Assert\NotBlank(message="Le prénom est obligatoire")
+     * @Assert\NotBlank(
+     *     message="Le prénom est obligatoire"
+     * )
      * @Assert\Length(
      *      min = 2,
      *      max = 255,
@@ -47,7 +55,9 @@ class User implements UserInterface, \Serializable
      * @var string
      *
      * @ORM\Column(name="lastName", type="string", length=255)
-     * @Assert\NotBlank(message="Le nom de famille est obligatoire")
+     * @Assert\NotBlank(
+     *     message="Le nom de famille est obligatoire
+     * ")
      * @Assert\Length(
      *      min = 2,
      *      max = 255,
@@ -63,7 +73,9 @@ class User implements UserInterface, \Serializable
      * @var string
      *
      * @ORM\Column(name="userName", type="string", length=255, unique=true)
-     * @Assert\NotBlank(message="Le nom d'utilisateur est obligatoire")
+     * @Assert\NotBlank(
+     *     message="Le nom d'utilisateur est obligatoire"
+     * )
      * @Assert\Length(
      *      min = 2,
      *      max = 255,
@@ -79,7 +91,9 @@ class User implements UserInterface, \Serializable
      * @var string
      *
      * @ORM\Column(name="mail", type="string", length=255)
-     * @Assert\NotBlank(message="Le mail est obligatoire")
+     * @Assert\NotBlank(
+     *     message="Le mail est obligatoire"
+     * )
      * @Assert\Email(
      *     message = "L'email '{{ value }}' n'est pas valide.",
      *     checkMX = true
@@ -99,7 +113,10 @@ class User implements UserInterface, \Serializable
     /**
      * Plainpassword is used to store the non-crypt password during login, register or resetting password
      *
-     * @Assert\NotBlank(message="Veuillez entrer un mot de passe")
+     * @Assert\NotBlank(
+     *     message="Veuillez entrer un mot de passe",
+     *     groups={"register", "login", "reset_pwd"}
+     * )
      * @Assert\Length(
      *      min = 7,
      *      max = 55,

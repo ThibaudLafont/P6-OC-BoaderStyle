@@ -24,7 +24,9 @@ abstract class Local extends Media
     /**
      * @Assert\Image(
      *     mimeTypesMessage="Les seuls formats acceptés sont JPG et PNG",
-     *     mimeTypes={ "image/jpeg", "image/png" }
+     *     mimeTypes={ "image/jpeg", "image/png" },
+     *     maxSize="150k",
+     *     maxSizeMessage="Taille maximale : 150ko"
      * )
      */
     public $file;
@@ -40,6 +42,18 @@ abstract class Local extends Media
      * Allowed extensions
      */
     const VALID_FORMATS = ['expected', 'formats'];
+
+    /**
+     * @Assert\IsTrue(message="Les fichiers des images sont nécessaires.")
+     */
+    public function isFileUploaded()
+    {
+        if(
+            is_null($this->getId()) &&
+            is_null($this->getFile())
+        ) return false;
+        return true;
+    }
 
     public function getFormat(){
         return $this->format;

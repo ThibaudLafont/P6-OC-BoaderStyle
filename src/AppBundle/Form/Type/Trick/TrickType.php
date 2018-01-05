@@ -1,11 +1,13 @@
 <?php
 namespace AppBundle\Form\Type\Trick;
 
+use AppBundle\Entity\Trick\Trick;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Form\FormInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 // Fields
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -66,7 +68,8 @@ class TrickType extends AbstractType
                     'prototype' => true,
                     'by_reference' => false,
                     'attr' => [
-                        'class' => 'img'
+                        'class' => 'img',
+                        "required" => false
                     ]
                 ]
             )
@@ -104,6 +107,7 @@ class TrickType extends AbstractType
         $resolver->setDefaults(array(
             // Define the target entity
             'data_class' => 'AppBundle\Entity\Trick\Trick',
+            'validation_groups' => ['Default', 'trick'],
             // CRSF protection
             'csrf_protection' => true,
             'csrf_field_name' => '_token',

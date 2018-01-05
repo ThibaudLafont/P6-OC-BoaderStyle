@@ -5,6 +5,7 @@ namespace AppBundle\Entity\Trick;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use AppBundle\Validator\Constraints as AppAssert;
 
 /**
@@ -13,6 +14,11 @@ use AppBundle\Validator\Constraints as AppAssert;
  *
  * @ORM\Table(name="category")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\CategoryRepository")
+ *
+ * @UniqueEntity(
+ *     "name",
+ *     message="Cette catégorie existe déjà"
+ * )
  */
 class Category
 {
@@ -30,7 +36,12 @@ class Category
      *
      * @var string
      *
-     * @ORM\Column(name="name", type="string", length=255, unique=true)
+     * @ORM\Column(
+     *     name="name",
+     *     type="string",
+     *     length=255,
+     *     unique=true
+     * )
      * @Assert\NotBlank(message="Le nom est obligatoire")
      * @Assert\Length(
      *      min = 2,

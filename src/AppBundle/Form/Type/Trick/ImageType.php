@@ -1,14 +1,17 @@
 <?php
 namespace AppBundle\Form\Type\Trick;
 
+use AppBundle\Entity\Trick\TrickImage;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Form\FormInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 // Fields
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Validator\Constraints\Image;
 
 /**
  * Class ImageType
@@ -46,6 +49,15 @@ class ImageType extends AbstractType
                 FileType::class,
                 [
                     'label' => 'Fichier',
+                    'constraints' => [
+                        new Image([
+                            'allowSquare' => false,
+                            'allowPortrait' => false,
+                            'allowLandscape' => true,
+                            'allowSquareMessage' => 'Une image au format paysage est demandée',
+                            'allowPortraitMessage' => 'Une image au format paysage est demandée'
+                        ])
+                    ],
                     'image_property' => 'url'       // Add the custom image_property, defined in ImageTypeExtension
                 ]
             )
@@ -69,7 +81,7 @@ class ImageType extends AbstractType
     {
         // TODO: CSRF ??
         $resolver->setDefaults(array(
-            'data_class' => 'AppBundle\Entity\Trick\TrickImage'  // Target entity
+            'data_class' => 'AppBundle\Entity\Trick\TrickImage',  // Target entity,
         ));
     }
 

@@ -43,6 +43,7 @@ class UserImageListener
 
         // En cas de changement de mot de passe
         if(
+            !is_null($img->getId())   &&
             !is_null($img->getFile()) &&    // Check if a file has been given
             'cli' != php_sapi_name()
         ){

@@ -16,6 +16,7 @@ use AppBundle\Form\Type\User\RegisterType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
 class UserController extends Controller
 {
@@ -66,7 +67,7 @@ class UserController extends Controller
      *
      * @Route("/login", name="user_login")
      */
-    public function loginAction(Request $request){
+    public function loginAction(Request $request, AuthenticationUtils $authUtils){
 
         // Check if user is already logged in, if it's the case redirect and inform him
         if($this->isGranted('ROLE_ADMIN')){
@@ -78,8 +79,13 @@ class UserController extends Controller
         $user = new User();
         $form = $this->get('form.factory')->create(LoginType::class, $user);
 
+        // If there is an authentification problem, add flash for inform user
+        $error = $authUtils->getLastAuthenticationError();
+        if($error) $this->addFlash('error', 'Identifiants inconnus');
+
+
         // Render the view
-        return $this->render('user/_login.html.twig', ['form' => $form->createView()]);
+        return $this->render('user/_login.html.twig', ['form' => $form->createView(), 'error' => $error]);
 
     }
 

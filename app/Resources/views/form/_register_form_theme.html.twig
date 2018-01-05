@@ -94,6 +94,10 @@
 {% endblock %}
 
 {% block UserType_widget %}
+    <!-- Globals errors -->
+    <div id="global_errors">
+        {{ form_errors(form) }}
+    </div>
 
     <!-- Name -->
     <section class="form_row">
