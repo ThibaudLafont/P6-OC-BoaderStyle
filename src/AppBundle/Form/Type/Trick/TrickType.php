@@ -68,8 +68,7 @@ class TrickType extends AbstractType
                     'prototype' => true,
                     'by_reference' => false,
                     'attr' => [
-                        'class' => 'img',
-                        "required" => false
+                        'class' => 'img'
                     ]
                 ]
             )

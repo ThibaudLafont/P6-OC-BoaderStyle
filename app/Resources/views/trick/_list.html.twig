@@ -19,6 +19,11 @@
             </div>
             <div id="category_list" class="openbox">
 
+
+                {% if categories is empty %}
+                    <p class="no_item">Aucune catégorie...</p>
+                {% endif %}
+
                 {% for cat in categories %}
                     <div>
                         <a href="{{ cat.editUrl }}">
@@ -34,6 +39,8 @@
 
     {% if tricks is not empty %}
         <hr class="trick_item_hr">
+    {% else %}
+        <p class="no_item">Aucune figure ici...</p>
     {% endif %}
 
     {% for trick in tricks %}

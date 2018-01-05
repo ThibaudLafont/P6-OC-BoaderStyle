@@ -21,6 +21,11 @@ abstract class External extends Media
      * @Assert\NotBlank(
      *     message="Veuillez renseigner une URL"
      * )
+     * @Assert\Url(
+     *     message="L'url fournie est invalide",
+     *     protocols={"https", "http"},
+     *     checkDNS=true
+     * )
      */
     protected $src;
 

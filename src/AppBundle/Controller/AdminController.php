@@ -43,8 +43,9 @@ class AdminController extends Controller
             // In case of succed, redirection to trick_list with flash message
             $this->addFlash(
                 'success',
-                'Vous bien ajouté un article, à voir <a href="'. $trick->getUrl() . '">ici</a>'
+                "Vous bien ajouté un article, à voir <a href='{$trick->getUrl()}'>ici</a>"
             );
+
             return $this->redirectToRoute('trick_list');
 
         }

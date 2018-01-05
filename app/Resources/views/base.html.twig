@@ -114,8 +114,8 @@
             {% for message in messages %}
 
                 <!-- Create a div class with flash-message type for front-work -->
-                <div class="flash-{{ label }}">
-                    {{ message|raw }}
+                <div class="flash flash-{{ label }}">
+                    {{ message|striptags("<a>")|raw }}
                 </div>
 
             {% endfor %}
@@ -146,8 +146,12 @@
                     <div class="cell">
                         <span id="aware_message_content">
                             <h4>ATTENTION !</h4>
-                            <span>Message d'avertissement à définir</span>
-                            <a href="/warning">En savoir plus</a>
+                            <span>
+                                Informez vous sur la sécurité
+                            </span>
+                            <a href="https://www.surf-prevention.com/fiche-regles-de-securite-en-snowpark-68-17.php">
+                                En savoir plus
+                            </a>
                         </span>
                     </div>
 

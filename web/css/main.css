@@ -178,18 +178,27 @@ a#header_home_link h3{
 }
 
 /*FLASH MESSAGES*/
-.flash-success
-{
+.flash{
     text-align: center;
-    background-color: #64cf77;
     color: white;
     font-size: 18px;
+    font-weight: bold;
     padding : 1rem 0.75rem;
     position: absolute;
     top: 1rem;
     left: 0.75rem;
     right: 0.75rem;
+    border : 2px solid white;
 }
+.flash-success
+{
+    background-color: #64cf77;
+}
+.flash-error
+{
+    background-color: red;
+}
+
 
 /*FOOTER*/
 footer{
@@ -287,6 +296,10 @@ footer{
 }
 
 /*ITEM TRICK LIST*/
+p.no_item
+{
+    margin-top: 1.25rem !important;
+}
 hr.trick_item_hr{
     margin: 1.5rem 0 0 0;
     border: 2px solid #d3c5a6;
@@ -560,8 +573,9 @@ hr.hr_form_section
 {
     margin : 1rem 0 0 0;
 }
+.form_errors,
 .form_errors *{
-    color: red;
+    color: red !important;
 }
 
 /* collection forms*/

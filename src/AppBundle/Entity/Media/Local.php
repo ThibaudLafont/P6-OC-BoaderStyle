@@ -74,8 +74,10 @@ abstract class Local extends Media
     }
 
     public function getUrl(){
-        if($this->getId() !== null){
+        if($this->getFormat() !== null){
             return $this->getWebDir() . $this->getFullName();
+        }else{
+            return null;
         }
     }
 
