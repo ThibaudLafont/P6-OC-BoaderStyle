@@ -54,8 +54,10 @@ class ImageType extends AbstractType
                             'allowSquare' => false,
                             'allowPortrait' => false,
                             'allowLandscape' => true,
+                            'minRatio' => '1.4',
                             'allowSquareMessage' => 'Une image au format paysage est demandée',
-                            'allowPortraitMessage' => 'Une image au format paysage est demandée'
+                            'allowPortraitMessage' => 'Une image au format paysage est demandée',
+                            'minRatioMessage' => 'Votre image s\'approche trop d\'un carré (ratio min L/H : 1.4)'
                         ])
                     ],
                     'image_property' => 'url'       // Add the custom image_property, defined in ImageTypeExtension
