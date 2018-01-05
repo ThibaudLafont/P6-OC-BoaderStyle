@@ -100,7 +100,7 @@
 
         <!-- Trick's content -->
         <h2>Explications</h2>
-        <p>{{ trick.description }}</p>
+        <p>{{ trick.description|striptags('<h3>,<h2>,<br>')|raw }}</p>
 
         <!-- Trick's chat -->
         <section id="show_chat">

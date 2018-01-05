@@ -20,6 +20,16 @@
 
     </head>
     <body>
+        <!-- Cookie usage prevent -->
+        <section id="cookies_warning">
+            <span id="cookie_message">
+                Ce site utilise des cookies pour améliorer votre expérience utilisateur, sans aucun usage commercial.
+            </span>
+            <div id="cookies_buttons">
+                <a href="/utilisation-cookies">En savoir plus</a>
+                <a href="#" onclick="hideCookieBox()">Compris !</a>
+            </div>
+        </section>
 
         <!-- Header and NavBar -->
         <header>
@@ -195,6 +205,11 @@
                 }else{
                     $('#navbar .openbox').show();
                 }
+            }
+
+            // Hide cookie warning on click
+            function hideCookieBox(){
+                $('#cookies_warning').hide();
             }
         </script>
 

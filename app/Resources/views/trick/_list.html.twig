@@ -53,7 +53,7 @@
             <img class="item_main_img" src="{{ trick.imgs[0].url }}" alt="{{ trick.imgs[0].alt }}">
 
             <p class="item_description">
-                {{ trick.descriptionFrag }}
+                {{ trick.descriptionFrag|striptags()|raw }}
             </p>
 
             <span class="item_show_link">

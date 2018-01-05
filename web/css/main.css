@@ -18,12 +18,13 @@ body{
 h1, h2, h3, h4, h5, h6{
     color: #ee826c;
     font-family: "lato";
+    font-weight: normal;
 }
 /*GENERAL*/
 h1{
     text-align: center;
     color: #ee826c;
-    font-weight: normal;
+    font-weight: bold;
     font-size : 26px;
     margin-top: 0.75rem;
     margin-bottom: 0;
@@ -77,6 +78,34 @@ hr.pink{
 }
 .vt_cell{
     vertical-align: top;
+}
+
+/*COOKIES WARNING*/
+#cookies_warning{
+    background-color: #ee826c;
+    padding: 1rem 1.5rem;
+    text-align: center;
+}
+span#cookie_message{
+    color: white;
+    font-weight: bold;
+}
+#cookies_warning *{
+    box-sizing: border-box;
+}
+#cookies_warning div{
+    margin: 1.25rem 0 0.25rem 0;
+}
+#cookies_buttons a{
+    text-decoration: none;
+    background-color: #4b4b49;
+    color: white;
+    padding : 0.25rem 0.5rem;
+}
+
+/*COOKIE_CHART*/
+section#cookie_chart p{
+    text-align: justify;
 }
 
 /*HEADER*/

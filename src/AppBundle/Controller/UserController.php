@@ -26,6 +26,13 @@ class UserController extends Controller
      */
     public function registerAction(Request $request)
     {
+
+        // Check if user is already logged in, if it's the case redirect and inform him
+        if($this->isGranted('ROLE_ADMIN')){
+            $this->addFlash('info', 'Vous êtes déjà inscris');
+            return $this->redirectToRoute('trick_list');
+        }
+
         // Creation of new User entity
         $user = new User();
         $img = new UserImage();
@@ -61,13 +68,20 @@ class UserController extends Controller
      */
     public function loginAction(Request $request){
 
+        // Check if user is already logged in, if it's the case redirect and inform him
+        if($this->isGranted('ROLE_ADMIN')){
+            $this->addFlash('info', 'Vous êtes déjà authentifié');
+            return $this->redirectToRoute('trick_list');
+        }
+
         // Creation of form
         $user = new User();
         $form = $this->get('form.factory')->create(LoginType::class, $user);
 
+        // Render the view
         return $this->render('user/_login.html.twig', ['form' => $form->createView()]);
-    }
 
+    }
 
     /**
      * This page is for the request for resetting a password
@@ -77,6 +91,13 @@ class UserController extends Controller
      * @Route("/user/mot-de-passe-oublie", name="user_resetpwd_form")
      */
     public function resetPwdFormAction(Request $request){
+
+        // Check if user is already logged in, if it's the case redirect and inform him he can edit his profil
+        if($this->isGranted('ROLE_ADMIN')){
+            $this->addFlash('info', 'Vous êtes connecté, vous pouvez changer votre mot de pass ici');
+            return $this->redirectToRoute('user_edit');
+        }
+
         // Creation of form
         $user = new User();
         $form = $this->get('form.factory')->create(PwdResetRequestType::class, $user);
@@ -123,6 +144,7 @@ class UserController extends Controller
 
         // If no submission, render the form
         return $this->render('user/_pwd_reset.html.twig', ['form' => $form->createView()]);
+
     }
 
     /**

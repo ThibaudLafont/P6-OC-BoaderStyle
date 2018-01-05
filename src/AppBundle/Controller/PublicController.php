@@ -69,7 +69,7 @@ class PublicController extends Controller
     /**
      * Show page of a trick, display chat messages related to the trick
      * Authentificate user can post new messages and anon user only can read then
-     * Handle the submission of the form to
+     * Handle the submission of the form too
      *
      * @Route("/trick/{id}", name="trick_show")
      */
@@ -104,6 +104,15 @@ class PublicController extends Controller
 
         // In other cases, render the page in get
         return $this->render('trick/_show.html.twig', ['trick' => $trick, 'form' => $form->createView()]);
+    }
+
+    /**
+     * Learn more about cookies policy
+     *
+     * @Route("/utilisation-cookies", name="cookies_chart")
+     */
+    public function cookiesChartAction(){
+        return $this->render('app/_cookie_chart.html.twig');
     }
 
 }
