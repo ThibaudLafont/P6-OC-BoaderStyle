@@ -75,7 +75,7 @@ class ImageUploader
         $imgName = $this->getSluggifier()->sluggify($img->getName());  // Get the current name of the entity and sluggify it
         $img->setName($imgName);                                       // Set the sluggified name to the entity
 
-        // TODO : should we specify and assign the new image extension ?
+        $img->setFormat($img->getFile()->guessExtension());
 
         // Define the actual and the wanted image full path
         $path = $this->getUploader()->getWebRootDir() . $img->getWebDir();  // Define the root path to image folder

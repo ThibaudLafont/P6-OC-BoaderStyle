@@ -125,6 +125,7 @@ class RegisterType extends AbstractType
     {
         $resolver->setDefaults(array(
             'data_class' => 'AppBundle\Entity\User\User',                    // Targeted entity
+            'validation_groups' => false,
             // CRSF protection
             'csrf_protection' => true,
             'csrf_field_name' => '_token',

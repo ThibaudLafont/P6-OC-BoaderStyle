@@ -77,6 +77,7 @@ class Fixtures extends Fixture
             $user->setMail($value['mail']);
             $user->setImg($img);
 
+//            $manager->persist($img);
             $manager->persist($user); // Persist the created user
         }
 
@@ -133,9 +134,8 @@ class Fixtures extends Fixture
             $trick->setAuthor($author);
             $trick->setCategory($category);
 
-            // Persist and flush the trick in order to assign it to related imgs and videos
+            // Persist trick in order to assign it to related imgs and videos
             $manager->persist($trick);
-            $manager->flush();
 
             // Images creation
             $i=1;  // Creation of index for images position
@@ -161,9 +161,8 @@ class Fixtures extends Fixture
                 $img->setPosition($i);
                 $i++;  // Incrementation of index for position
 
-                // Persist and flush the created TrickImage
+                // Persist the created TrickImage
                 $manager->persist($img);
-                $manager->flush();
             }
 
             // Videos creation
@@ -179,10 +178,12 @@ class Fixtures extends Fixture
                 $video->setPosition($i);
                 $i++;  // Incrementation of index for position
 
-                // Persist and flush the TrickVideo
+                // Persist the TrickVideo
                 $manager->persist($video);
-                $manager->flush();
             }
+
+            // Flush at end
+            $manager->flush();
         }
     }
 }
