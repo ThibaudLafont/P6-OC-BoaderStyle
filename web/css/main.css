@@ -1,12 +1,23 @@
+/*FONTS*/
+@font-face {
+    font-family: "latol";          /* Lato light */
+    src: url("/fonts/latol.ttf");
+}
+@font-face {
+    font-family: "lato";          /* Lato Regular */
+    src: url("/fonts/lato.ttf");
+}
 /*RESET*/
 body{
     margin:0;
 }
 *{
     color : #4b4b49;
+    font-family: "latol";
 }
 h1, h2, h3, h4, h5, h6{
     color: #ee826c;
+    font-family: "lato";
 }
 /*GENERAL*/
 h1{
