@@ -387,6 +387,7 @@ hr.trick_item_hr{
     width: 100%;
     margin-top: 1rem;
     border: 4px solid #4b4b49;
+    border-bottom: none;
 }
 #top_show_gallery,
 #top_show_chat
@@ -451,9 +452,6 @@ hr.trick_item_hr{
     width: 100%;
     margin-top: 0.75rem;
 }
-.message_right_block{
-    padding-top: 0.25rem;
-}
 .message_author_name{
     color: #ee826c;
     font-size: 18px;
@@ -475,6 +473,9 @@ hr.trick_item_hr{
     width: 100%;
     border-collapse: collapse;
 }
+#chat_pagination{
+    text-align: center;
+}
 #MessageType_content{
     height : 45px;
     box-sizing: border-box;
@@ -484,6 +485,7 @@ hr.trick_item_hr{
     height: 45px;
     width: 100%;
     padding: 10px;
+    margin: 0;
     background-color: #ee826c;
     background-image: url('/media/picto/ArrowSend.png');
     background-size: 60%;

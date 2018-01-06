@@ -71,39 +71,72 @@ class PublicController extends Controller
      * Authentificate user can post new messages and anon user only can read then
      * Handle the submission of the form too
      *
-     * @Route("/trick/{id}", name="trick_show")
+     * @Route("/trick/{id}/{chatPage}", name="trick_show")
      */
-    public function showAction(Request $request, $id)
+    public function showAction(Request $request, $id, $chatPage = 1)
     {
+
         // Getting trick related to given id
-        $em = $this->getDoctrine()->getManager()->getRepository('AppBundle:Trick\Trick');
-        $trick = $em->find($id);
+        $trick = $this->getDoctrine()->getRepository('AppBundle:Trick\Trick')->find($id);
 
-        // Creation of new message entity
-        $message = new Message();
-        $message->setTrick($trick);
+        // Getting the messages set from given chat page
+        $all = $trick->getMessages();  // Get all messages
+        $allCount = $all->count();     // Define number of messages
 
-        // Creation of form
-        $form = $this->get('form.factory')->create(MessageType::class, $message);
-        $form->handleRequest($request);
+        if($allCount <= 10){
+            $messages = $all;     // If there is under 10 messages store it
+            $pgNbr = null;        // Set the page number to 0
+        }
+        else // Else messages needs to be paginate
+        {
+            $start = ($chatPage-1) * 10;          // Define witch is the first message
+            $pgNbr = intval($allCount / 10) + 1;  // Then define number of pages
+            if($start <= $allCount){
+                $messages = $trick->getMessages($start);    // If message exists get the slice
+            }else{                                          // If it doesn't redirect to first page
+                return $this->redirectToRoute('trick_show', ['id' => $id, 'chatPage' => 1]);
+            }
+        }
 
-        // Action if submitted data are valid and user is logged
-        if ($form->isSubmitted() && $form->isValid() && $this->isGranted('ROLE_ADMIN')) {
 
-            // Get the manager, then persist
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($message);
-            $em->flush();
+        // Check if user is granted
+        if($this->isGranted('ROLE_ADMIN')){
+            // If granted, prepare form
+            //
+            // Creation of new message entity
+            $message = new Message();
+            $message->setTrick($trick);
 
-            // TODO: add flash message
+            // Creation of form
+            $form = $this->get('form.factory')->create(MessageType::class, $message);
+            $form->handleRequest($request);
 
-            // TODO: Pertinent ?
-            return $this->redirectToRoute('trick_show', ['id' => $trick->getId()]);
+            // Action if submitted data are valid and user is logged
+            if ($form->isSubmitted() && $form->isValid()) {
+                
+                // Get the manager, then persist
+                $em = $this->getDoctrine()->getManager();
+                $em->persist($message);
+                $em->flush();
 
+                // TODO: add flash message
+
+                // TODO: Pertinent ?
+                return $this->redirectToRoute('trick_show', ['id' => $trick->getId()]);
+
+            }
         }
 
         // In other cases, render the page in get
-        return $this->render('trick/_show.html.twig', ['trick' => $trick, 'form' => $form->createView()]);
+        return $this->render(
+            'trick/_show.html.twig',
+            [
+                'trick' => $trick,
+                'pgNbr' => $pgNbr,
+                'messages'=>$messages,
+                'form' => $form->createView()
+            ]
+        );
     }
 
     /**

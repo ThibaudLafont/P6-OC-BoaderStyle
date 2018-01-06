@@ -155,6 +155,7 @@ class Trick
     {
         $this->imgs = new ArrayCollection();
         $this->videos = new ArrayCollection();
+        $this->messages = new ArrayCollection();
     }
 
       ///////////////////
@@ -346,7 +347,10 @@ class Trick
     /**
      * @return Message
      */
-    public function getMessages(){
-        return $this->messages;
+    public function getMessages($start = null){
+
+        if(is_null($start)) return $this->messages;
+        else return $this->messages->slice($start, 10);
+
     }
 }

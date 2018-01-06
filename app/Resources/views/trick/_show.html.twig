@@ -123,14 +123,14 @@
 
                 <!-- Messages display -->
                 <div id="posted_messages">
-                    {% if trick.messages is empty %}
+                    {% if messages is empty %}
                         <span class="noentry">
                             Aucun message posté.
                         </span>
                     {% else %}
-                        {% for message in trick.messages %}
+                        {% for message in messages %}
                             <div class="message">
-                                <div class="vt_cell">
+                                <div class="vm_cell">
                                     <img src="{{ message.user.img.url }}" alt="{{ message.user.img.alt }}">
                                 </div>
                                 <div class="vt_cell message_right_block">
@@ -143,6 +143,13 @@
                                 <hr>
                             {% endif %}
                         {% endfor %}
+                        {% if pgNbr is not null %}
+                            <p id="chat_pagination">
+                            {% for i in 1..pgNbr %}
+                                <a href="{{ i }}">{{ i }}</a>
+                            {% endfor %}
+                            </p>
+                        {% endif %}
                     {% endif %}
                 </div>
 
