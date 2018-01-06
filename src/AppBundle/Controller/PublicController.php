@@ -101,17 +101,17 @@ class PublicController extends Controller
             }
         }
 
+        //
+        // Creation of new message entity
+        $message = new Message();
+        $message->setTrick($trick);
+
+        // Creation of form
+        $form = $this->get('form.factory')->create(MessageType::class, $message);
 
         // Check if user is granted
         if($this->isGranted('ROLE_ADMIN')){
-            // If granted, prepare form
-            //
-            // Creation of new message entity
-            $message = new Message();
-            $message->setTrick($trick);
-
-            // Creation of form
-            $form = $this->get('form.factory')->create(MessageType::class, $message);
+            // If granted, handle request
             $form->handleRequest($request);
 
             // Action if submitted data are valid and user is logged

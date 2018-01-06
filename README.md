@@ -10,12 +10,14 @@ Framework.
   - Switch in production 
     
 #### Install and configure the project
+The PHP version need to bee > 7 cause of usage of new array syntax []   
+
 First of all, you will need Composer and the most recent source code from this repository.  
 Once it's done, open a terminal and go to the project folder. Then run a composer install  
 
     composer install
 
-This command will load the required dependencies and re-create the symfony's parameters files.
+This command will load the required dependencies and re-create the symfony's parameters file.
 Open this file and adapt it to your configuration
 
     # /app/config/parameters.yml
