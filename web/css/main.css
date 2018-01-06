@@ -55,6 +55,10 @@ hr.pink{
     text-decoration: none;
     padding: 0.25rem 0.5rem;
 }
+#error_message{
+    margin-bottom: 5rem;
+    text-align: center;
+}
 
 /*LEFT AND RIGHT + VERTICAL ALIGN MIDDLE*/
 #page_header_menu #phm_top,
