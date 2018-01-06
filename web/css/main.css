@@ -35,7 +35,7 @@ input
 }
 #main_content{
     padding : 0 1rem;
-    max-width: 700px;
+    max-width: 600px;
     margin: auto;
 }
 .ta-right{
@@ -306,6 +306,8 @@ hr.trick_item_hr{
 }
 .trick_list_item{
     padding : 0 0.75rem;
+    max-width: 450px;
+    margin: auto;
 }
 .trick_list_item .item_header h2{
     font-weight: normal;

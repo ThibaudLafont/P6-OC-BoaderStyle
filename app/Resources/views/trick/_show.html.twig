@@ -52,7 +52,7 @@
         <section>
 
             <!-- Main trick's picture -->
-            <a href="{{ trick.imgs[0].url }}" data-fancybox="imgs">
+            <a href="{{ trick.imgs[0].url }}" data-fancybox="medias">
                 <img id="show_main_img" src="{{ trick.imgs[0].url }}" alt="{{ trick.imgs[0].alt }}">
             </a>
 
@@ -183,7 +183,7 @@
     <!-- FancyBox settings -->
     <script>
         // Options for the first group
-        $('[data-fancybox="imgs"]').fancybox({
+        $('[data-fancybox="medias"]').fancybox({
             protect: true,
             loop: true,
             buttons : [

@@ -21,8 +21,10 @@ class PublicController extends Controller
     {
 
         $em = $this->getDoctrine()->getManager();                                // Get Entity Manager
-        $tricks = $em->getRepository('AppBundle:Trick\Trick')->findAll();        // Get all tricks
-        $categories = $em->getRepository('AppBundle:Trick\Category')->findAll(); // Get all categories for filter feature
+        $tricks = $em->getRepository('AppBundle:Trick\Trick')
+                    ->findBy([], ['name' => 'ASC']);                              // Get all tricks
+        $categories = $em->getRepository('AppBundle:Trick\Category')
+                    ->findBy([], ['name' => 'ASC']);                              // Get all categories for filter feature
 
         // Render the home page
         return $this->render('trick/_list.html.twig', compact('tricks', 'categories'));
@@ -37,10 +39,11 @@ class PublicController extends Controller
     public function listByCategoryAction($cat_name)
     {
         // Get Doctrine Categories Entity Manager
-        $cm = $this->getDoctrine()->getManager()->getRepository('AppBundle:Trick\Category');  // Get the Category Entity Manager
+        $cm = $this->getDoctrine()->getManager()
+            ->getRepository('AppBundle:Trick\Category');  // Get the Category Entity Manager
 
         // Get all categories for filter option
-        $categories = $cm->findAll();
+        $categories = $cm->findBy([],['name' => 'ASC']);
 
         // Then loop on every found entry to check if one matche with URL given name
         $category = null;                        // Init $category for below success test
@@ -113,7 +116,7 @@ class PublicController extends Controller
 
             // Action if submitted data are valid and user is logged
             if ($form->isSubmitted() && $form->isValid()) {
-                
+
                 // Get the manager, then persist
                 $em = $this->getDoctrine()->getManager();
                 $em->persist($message);

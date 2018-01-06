@@ -111,12 +111,12 @@ class Trick
     private $category;
 
     /**
-     *
      * @ORM\ManyToMany(
      *     targetEntity="TrickImage",
      *     mappedBy="trick",
      *     cascade={"persist", "remove"}
      * )
+     * @ORM\OrderBy({"position"="ASC"})
      * @Assert\NotNull(
      *     message="Une image principale est demandée"
      * )
@@ -132,6 +132,7 @@ class Trick
      *     mappedBy="trick",
      *     cascade={"persist", "remove"}
      * )
+     * @ORM\OrderBy({"position"="ASC"})
      * @Assert\Valid()
      */
     private $videos;

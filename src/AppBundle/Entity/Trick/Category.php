@@ -59,6 +59,7 @@ class Category
      *     targetEntity="Trick",
      *     mappedBy="category"
      * )
+     * @ORM\OrderBy({"name"="ASC"})
      */
     private $tricks;
 
