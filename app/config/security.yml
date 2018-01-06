@@ -5,21 +5,13 @@ security:
     encoders:
         AppBundle\Entity\User\User: bcrypt
 
-    # https://symfony.com/doc/current/security.html#b-configuring-how-users-are-loaded
     providers:
-#        in_memory:
-#            memory: ~
         user_provider:
             entity:
                 class: AppBundle:User\User
                 property: userName
 
     firewalls:
-        # disables authentication for assets and the profiler, adapt it according to your needs
-#        dev:
-#            pattern: ^/(_(profiler|wdt)|css|images|js)/
-#            security: false
-
         main:
             anonymous: ~
             provider: user_provider

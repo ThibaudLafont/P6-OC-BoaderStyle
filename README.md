@@ -4,7 +4,7 @@ This project will be a snowboard figure directory. It will use Symfony
 Framework.
 
 ## Installation
-###Summary
+### Summary
   - Install and configure the project  
   - Load a dataset with DoctrineFixtures
   - Switch in production 
@@ -61,14 +61,14 @@ Once it's done, launch `bin/console cache:clear --env=prod` from the project fol
     
 
 ## Librairies and bundles
-Librairies : 
-    - Gulp : LiveReload and assets automatization
-    - Composer : Denpendencies intall
-Bundles : 
+Librairies :     
+    - Gulp : LiveReload and assets automatization   
+    - Composer : Denpendencies intall    
+Bundles :     
     - Twig : templating
-    - Doctrine : DB gestion and Object Relation Model
-    - SwiftMailer : Mailer 
-    - Symfony : Tiers-bundles from symfony framework
+    - Doctrine : DB gestion and Object Relation Model    
+    - SwiftMailer : Mailer     
+    - Symfony : Tiers-bundles from symfony framework    
 
 ## Project's roadmap
 

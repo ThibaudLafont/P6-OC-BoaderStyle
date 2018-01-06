@@ -56,8 +56,4 @@ class UserListener
 
     }
 
-    public function getUploader(){
-        return $this->uploader;
-    }
-
 }
