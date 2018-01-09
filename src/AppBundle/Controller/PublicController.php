@@ -101,17 +101,17 @@ class PublicController extends Controller
             }
         }
 
-        //
         // Creation of new message entity
         $message = new Message();
         $message->setTrick($trick);
 
         // Creation of form
-        $form = $this->get('form.factory')->create(MessageType::class, $message);
+        $form = null;
 
         // Check if user is granted
         if($this->isGranted('ROLE_ADMIN')){
-            // If granted, handle request
+            // If granted, create form and handle request
+            $form = $this->get('form.factory')->create(MessageType::class, $message);
             $form->handleRequest($request);
 
             // Action if submitted data are valid and user is logged
@@ -128,6 +128,10 @@ class PublicController extends Controller
                 return $this->redirectToRoute('trick_show', ['id' => $trick->getId()]);
 
             }
+            // If no submission or invalid datas, build the form view
+            else{
+                $form = $form->createView();
+            }
         }
 
         // In other cases, render the page in get
@@ -137,7 +141,7 @@ class PublicController extends Controller
                 'trick' => $trick,
                 'pgNbr' => $pgNbr,
                 'messages'=>$messages,
-                'form' => $form->createView()
+                'form' => $form
             ]
         );
     }

@@ -154,7 +154,7 @@
                 </div>
 
                 <!-- If user is logged, display the form -->
-                {% if is_granted('ROLE_ADMIN') %}
+                {% if form %}
                     {% form_theme form
                         'form/_chat_form_theme.html.twig'
                     %}
