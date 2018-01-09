@@ -167,19 +167,21 @@ class Fixtures extends Fixture
 
             // Videos creation
             $i=1;  // Creation of index for videos position
-            foreach ($value['video'] as $video_value) {
+            if(!empty($value['video'])){
+                foreach ($value['video'] as $video_value) {
 
-                // Video creation and hydration from yalm's fetched data
-                $video = new TrickVideo();
-                $video->setName($video_value['name']);
-                $video->setSrc($video_value['src']);
-                $video->setAlt($video_value['alt']);
-                $video->addTrick($trick);
-                $video->setPosition($i);
-                $i++;  // Incrementation of index for position
+                    // Video creation and hydration from yalm's fetched data
+                    $video = new TrickVideo();
+                    $video->setName($video_value['name']);
+                    $video->setSrc($video_value['src']);
+                    $video->setAlt($video_value['alt']);
+                    $video->addTrick($trick);
+                    $video->setPosition($i);
+                    $i++;  // Incrementation of index for position
 
-                // Persist the TrickVideo
-                $manager->persist($video);
+                    // Persist the TrickVideo
+                    $manager->persist($video);
+                }
             }
 
             // Flush at end
