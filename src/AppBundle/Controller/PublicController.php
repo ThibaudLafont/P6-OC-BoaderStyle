@@ -19,12 +19,16 @@ class PublicController extends Controller
      */
     public function listAction(Request $request)
     {
+        // Store manager
+        $em = $this->getDoctrine()->getManager();
 
-        $em = $this->getDoctrine()->getManager();                                // Get Entity Manager
+        // Store all tricks
         $tricks = $em->getRepository('AppBundle:Trick\Trick')
-                    ->findBy([], ['name' => 'ASC']);                              // Get all tricks
+                    ->findBy([], ['name' => 'ASC']);
+
+        // Store all categories for filter
         $categories = $em->getRepository('AppBundle:Trick\Category')
-                    ->findBy([], ['name' => 'ASC']);                              // Get all categories for filter feature
+                    ->findBy([], ['name' => 'ASC']);
 
         // Render the home page
         return $this->render('trick/_list.html.twig', compact('tricks', 'categories'));
@@ -101,17 +105,17 @@ class PublicController extends Controller
             }
         }
 
+        //
         // Creation of new message entity
         $message = new Message();
         $message->setTrick($trick);
 
         // Creation of form
-        $form = null;
+        $form = $this->get('form.factory')->create(MessageType::class, $message);
 
         // Check if user is granted
         if($this->isGranted('ROLE_ADMIN')){
-            // If granted, create form and handle request
-            $form = $this->get('form.factory')->create(MessageType::class, $message);
+            // If granted, handle request
             $form->handleRequest($request);
 
             // Action if submitted data are valid and user is logged
@@ -124,13 +128,7 @@ class PublicController extends Controller
 
                 // TODO: add flash message
 
-                // TODO: Pertinent ?
                 return $this->redirectToRoute('trick_show', ['id' => $trick->getId()]);
-
-            }
-            // If no submission or invalid datas, build the form view
-            else{
-                $form = $form->createView();
             }
         }
 
@@ -141,7 +139,7 @@ class PublicController extends Controller
                 'trick' => $trick,
                 'pgNbr' => $pgNbr,
                 'messages'=>$messages,
-                'form' => $form
+                'form' => $form->createView()
             ]
         );
     }
