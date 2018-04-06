@@ -9,6 +9,7 @@
 namespace AppBundle\EventListener;
 
 use AppBundle\Entity\Trick\Trick;
+use AppBundle\Service\Sluggifier;
 use AppBundle\Service\TrickImageUploader;
 use Doctrine\ORM\Event\LifecycleEventArgs;
 
@@ -32,14 +33,20 @@ class TrickListener
     private $tokenStorage;
 
     /**
+     * @var Sluggifier
+     */
+    private $sluggifier;
+
+    /**
      * TrickListener constructor.
      * Assign tokenStorage Attribute though Depency Injection
      *
      * @param TokenStorageInterface $tokenStorage
      */
-    public function __construct(TokenStorageInterface $tokenStorage)
+    public function __construct(TokenStorageInterface $tokenStorage, Sluggifier $sluggifier)
     {
         $this->tokenStorage = $tokenStorage;
+        $this->setSluggifier($sluggifier);
     }
 
     /**
@@ -57,6 +64,8 @@ class TrickListener
         // ( we check if session exist cause of fixtures feature )
         if(!is_null($session)) $trick->setAuthor($session->getUser());
 
+        // Sluggify name
+        $this->sluggifyTrickName($trick);
     }
 
     /**
@@ -71,6 +80,9 @@ class TrickListener
 
         // Assign the user to the trick
         $trick->setAuthor($author);
+
+        // Sluggify name
+        $this->sluggifyTrickName($trick);
     }
 
     /**
@@ -90,5 +102,31 @@ class TrickListener
         }
 
     }
+
+    private function sluggifyTrickName(Trick $trick)
+    {
+        $trick->setSlugName(
+            $this->getSluggifier()->sluggify(
+                $trick->getName()
+            )
+        );
+    }
+
+    /**
+     * @return Sluggifier
+     */
+    public function getSluggifier(): Sluggifier
+    {
+        return $this->sluggifier;
+    }
+
+    /**
+     * @param Sluggifier $sluggifier
+     */
+    public function setSluggifier(Sluggifier $sluggifier)
+    {
+        $this->sluggifier = $sluggifier;
+    }
+
 
 }

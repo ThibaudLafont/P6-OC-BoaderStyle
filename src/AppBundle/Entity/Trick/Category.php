@@ -56,7 +56,6 @@ class Category
     /**
      * @var string
      *
-     *
      * @ORM\Column(
      *     name="slug_name",
      *     type="string",

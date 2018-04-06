@@ -39,7 +39,7 @@ class PublicController extends Controller
      * Find all tricks witch belong to a category and render list template
      *
      * @Route(
-     *     "/tricks/{slugName}",
+     *     "/{slugName}/tricks",
      *     name="category_trick_list",
      *     requirements={
      *          "cat"="([a-z]+|-)+"
@@ -78,16 +78,19 @@ class PublicController extends Controller
      * Handle the submission of the form too
      *
      * @Route(
-     *     "/trick/{id}/{chatPage}",
+     *     "/tricks/{slugName}/{chatPage}",
      *     name="trick_show"
      * )
      */
-    public function showAction(Request $request, $id, $chatPage = 1)
+    public function showAction(Request $request, $slugName, $chatPage = 1)
     {
 
         // Getting trick related to given id
-        $trick = $this->getDoctrine()->getRepository('AppBundle:Trick\Trick')
-            ->findWithMessages($id, $chatPage);
+        $objects = $this->getDoctrine()->getRepository('AppBundle:Trick\Trick')
+            ->findWithMessages($slugName, $chatPage);
+
+        // Store Trick
+        $trick = $objects['trick'];
 
         // Creation of new message entity
         $message = new Message();
@@ -112,7 +115,7 @@ class PublicController extends Controller
                 // Add flash message
                 $this->addFlash('success', 'Votre message a bien été posté');
 
-                return $this->redirectToRoute('trick_show', ['id' => $trick->getId()]);
+                return $this->redirectToRoute('trick_show', ['slugName' => $trick->getSlugName()]);
             }
         }
 
@@ -122,7 +125,7 @@ class PublicController extends Controller
             [
                 'trick' => $trick,
                 'pgNbr' => $trick->getMessagesPagesNumber(),
-                'messages'=> $trick->getMessages(),
+                'messages'=> $objects['messages'],
                 'form' => $form->createView()
             ]
         );

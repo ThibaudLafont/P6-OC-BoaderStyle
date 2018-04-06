@@ -64,6 +64,19 @@ class Trick
     private $name;
 
     /**
+     * @var string
+     *
+     *
+     * @ORM\Column(
+     *     name="slug_name",
+     *     type="string",
+     *     length=255,
+     *     unique=true
+     * )
+     */
+    private $slugName;
+
+    /**
      * Trick's description
      *
      * @var string
@@ -177,7 +190,7 @@ class Trick
      * @return string
      */
     public function getUrl(){
-        return '/trick/' . $this->getId();
+        return '/tricks/' . $this->getSlugName();
     }
 
     /**
@@ -287,6 +300,10 @@ class Trick
         return $this;
     }
 
+    public function clearMessages()
+    {
+        $this->messages = new ArrayCollection();
+    }
 
     ///////////////////
     ///// GETTERS /////
@@ -358,5 +375,21 @@ class Trick
     public function getMessagesPagesNumber()
     {
         return intval($this->getMessages()->count() / 10) + 1;
+    }
+
+    /**
+     * @return string
+     */
+    public function getSlugName(): string
+    {
+        return $this->slugName;
+    }
+
+    /**
+     * @param string $slugName
+     */
+    public function setSlugName(string $slugName)
+    {
+        $this->slugName = $slugName;
     }
 }

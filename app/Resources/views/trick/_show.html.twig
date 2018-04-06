@@ -146,7 +146,9 @@
                         {% if pgNbr is not null %}
                             <p id="chat_pagination">
                             {% for i in 1..pgNbr %}
-                                <a href="{{ i }}">{{ i }}</a>
+                                <a href="
+                                    {{ path('trick_show', {'slugName' : trick.slugName, 'chatPage' : i }) }}
+                                ">{{ i }}</a>
                             {% endfor %}
                             </p>
                         {% endif %}

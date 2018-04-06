@@ -2,6 +2,7 @@
 
 namespace AppBundle\Repository;
 use AppBundle\Entity\Trick\Trick;
+use Doctrine\ORM\Tools\Pagination\Paginator;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 /**
@@ -13,10 +14,10 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 class TrickRepository extends \Doctrine\ORM\EntityRepository
 {
 
-    public function findWithMessages($id, $page)
+    public function findWithMessages($slugName, $page)
     {
         $trick = $this->getEntityManager()->getRepository(Trick::class)
-            ->find($id);
+            ->findOneBy(['slugName' => $slugName]);
 
         // Getting the messages set from given chat page
         $all = $trick->getMessages();  // Get all messages
@@ -28,7 +29,7 @@ class TrickRepository extends \Doctrine\ORM\EntityRepository
         }
         else // Else messages needs to be paginate
         {
-            $start = ($chatPage-1) * 10;          // Define witch is the first message
+            $start = ($page-1) * 10;          // Define witch is the first message
             if($start <= $allCount){
                 $messages = $trick->getMessages($start);    // If message exists get the slice
             }else{                                          // If it doesn't get last 10 messages
@@ -36,11 +37,13 @@ class TrickRepository extends \Doctrine\ORM\EntityRepository
             }
         }
 
-        foreach($messages as $message) {
-            $trick->setMessages($message);
-        }
+//        $trick->clearMessages();
+//
+//        foreach($messages as $message) {
+//            $trick->setMessages($message);
+//        }
 
-        return $trick;
+        return ['trick' => $trick, 'messages'=> $messages];
     }
 
 }
