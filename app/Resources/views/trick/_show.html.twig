@@ -76,15 +76,13 @@
                 <section class="openbox">
 
                     <!-- Trick's pictures -->
-                    {% for img in trick.imgs %}
-                        {% if loop.index0 != 0 %}
-                            <a href="{{ img.url }}" data-fancybox="medias">
-                                <span class="hovertxt">
-                                    VOIR
-                                </span>
-                                <img src="{{ img.url }}" alt="{{ img.alt }}">
-                            </a>
-                        {% endif %}
+                    {% for img in trick.imgs|slice(1, trick.imgs.count) %}
+                        <a href="{{ img.url }}" data-fancybox="medias">
+                            <span class="hovertxt">
+                                VOIR
+                            </span>
+                            <img src="{{ img.url }}" alt="{{ img.alt }}">
+                        </a>
                     {% endfor %}
 
                     <!-- Trick's videos -->
