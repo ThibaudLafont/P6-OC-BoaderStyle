@@ -29,6 +29,10 @@ services:
         public: true
         tags: ['controller.service_arguments']
 
+    event_dispatcher:
+        class: 'Symfony\Component\EventDispatcher\EventDispatcher'
+        public: true
+
     # Entity Trait
     AppBundle\Entity\:
         resource: '../../src/AppBundle/Entity/'
