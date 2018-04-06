@@ -180,34 +180,7 @@
     <!-- Import FancyBox for medias gallery -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.js"></script>
     <!-- FancyBox settings -->
-    <script>
-        // Options for the first group
-        $('[data-fancybox="medias"]').fancybox({
-            protect: true,
-            loop: true,
-            buttons : [
-                'zoom',
-                'thumbs',
-                'share',
-                'close',
-            ]
-        });
-    </script>
+    <script src="/js/show-trick-fancybox.js"></script>
     <!-- Open media box -->
-    <script>
-        function openmediabox(){
-            if($('#show_gallery .openbox').is(':visible')){
-                $('#show_gallery .openbox').hide();
-            }else{
-                $('#show_gallery .openbox').show();
-            }
-        }
-        function openchatbox(){
-            if($('#show_chat .openbox').is(':visible')){
-                $('#show_chat .openbox').hide();
-            }else{
-                $('#show_chat .openbox').show();
-            }
-        }
-    </script>
+    <script src="/js/show-trick-toggle-medias.js"></script>
 {% endblock %}
