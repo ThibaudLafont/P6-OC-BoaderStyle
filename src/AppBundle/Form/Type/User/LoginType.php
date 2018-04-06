@@ -38,7 +38,10 @@ class LoginType extends AbstractType
             )
             ->add(  // Add password field
                 'plainPassword',
-                PasswordType::class
+                PasswordType::class,
+                [
+                    'label' => 'Mot de passe'
+                ]
             )
             ->add(  // Add save button
                 'submit',
