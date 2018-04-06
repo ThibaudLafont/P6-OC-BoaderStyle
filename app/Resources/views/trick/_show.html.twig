@@ -123,14 +123,7 @@
 
                 <!-- Messages display -->
                 <div id="posted_messages">
-                    <!-- No message -->
-                    {% if messages is empty %}
-                        <span class="noentry">
-                            Aucun message posté.
-                        </span>
-                    {% endif %}
-                    
-                    <!-- If messages -->
+                    <!-- messages -->
                     {% for message in messages %}
                         <div class="message">
                             <div class="vm_cell">
@@ -142,9 +135,11 @@
                                 <span class="message_content">{{ message.content }} </span>
                             </div>
                         </div>
-                        {% if not loop.last %}
-                            <hr>
-                        {% endif %}
+                        <hr>
+                    {% else %}
+                        <span class="noentry">
+                            Aucun message posté.
+                        </span>
                     {% endfor %}
 
                     <!-- Pagination -->
