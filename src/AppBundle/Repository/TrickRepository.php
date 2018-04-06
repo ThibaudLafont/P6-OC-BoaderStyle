@@ -25,7 +25,6 @@ class TrickRepository extends \Doctrine\ORM\EntityRepository
 
         if($allCount <= 10){
             $messages = $all;     // If there is under 10 messages store it
-            $pgNbr = null;        // Set the page number to 0
         }
         else // Else messages needs to be paginate
         {
@@ -36,12 +35,6 @@ class TrickRepository extends \Doctrine\ORM\EntityRepository
                 $messages = $trick->getMessages($allCount - 10);
             }
         }
-
-//        $trick->clearMessages();
-//
-//        foreach($messages as $message) {
-//            $trick->setMessages($message);
-//        }
 
         return ['trick' => $trick, 'messages'=> $messages];
     }

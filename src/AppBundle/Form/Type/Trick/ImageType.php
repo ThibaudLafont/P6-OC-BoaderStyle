@@ -81,7 +81,6 @@ class ImageType extends AbstractType
      */
     public function configureOptions(OptionsResolver $resolver)
     {
-        // TODO: CSRF ??
         $resolver->setDefaults(array(
             'data_class' => 'AppBundle\Entity\Trick\TrickImage',  // Target entity,
         ));

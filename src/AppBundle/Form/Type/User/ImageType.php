@@ -43,7 +43,6 @@ class ImageType extends AbstractType
      */
     public function configureOptions(OptionsResolver $resolver)
     {
-        // TODO: CRSF protection ??
         $resolver->setDefaults(array(
             'data_class' => 'AppBundle\Entity\User\UserImage',
             'validation_groups' => 'default'// Targeted entity
