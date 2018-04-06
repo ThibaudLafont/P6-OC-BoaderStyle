@@ -27,8 +27,12 @@
         <!-- Admin's actions -->
         {% if is_granted('ROLE_ADMIN') %}
             <div id="show_edit_actions">
-                <a href="/admin/edit/trick/{{ trick.id }}" class="pink_button">Modifier</a>
-                <a href="/admin/delete/trick/{{ trick.id }}" class="pink_button">Supprimer</a>
+                <form action="/admin/edit/trick/{{ trick.id }}">
+                    <input type="submit" value="Modifier">
+                </form>
+                <form action="/admin/delete/trick/{{ trick.id }}" method="post">
+                    <input type="submit" value="Supprimer">
+                </form>
             </div>
         {% endif %}
 

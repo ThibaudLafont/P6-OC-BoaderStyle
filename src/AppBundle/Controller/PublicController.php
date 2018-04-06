@@ -6,6 +6,7 @@ use AppBundle\Entity\Message\Message;
 use AppBundle\Entity\Trick\Category;
 use AppBundle\Form\Type\MessageType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Yaml\Yaml;
@@ -16,6 +17,7 @@ class PublicController extends Controller
      * Home page of the website, display a list of all tricks
      *
      * @Route("/", name="trick_list")
+     * @Method({"GET"})
      */
     public function listAction(Request $request)
     {
@@ -45,6 +47,7 @@ class PublicController extends Controller
      *          "cat"="([a-z]+|-)+"
      *     }
      * )
+     * @Method({"GET"})
      */
     public function listByCategoryAction($slugName)
     {
@@ -81,6 +84,7 @@ class PublicController extends Controller
      *     "/tricks/{slugName}/{chatPage}",
      *     name="trick_show"
      * )
+     * @Method({"GET"})
      */
     public function showAction(Request $request, $slugName, $chatPage = 1)
     {
@@ -135,6 +139,7 @@ class PublicController extends Controller
      * Learn more about cookies policy
      *
      * @Route("/utilisation-cookies", name="cookies_chart")
+     * @Method({"GET"})
      */
     public function cookiesChartAction(){
         return $this->render('app/_cookie_chart.html.twig');

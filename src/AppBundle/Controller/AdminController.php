@@ -9,6 +9,7 @@ use AppBundle\Form\Type\Trick\TrickType;
 use AppBundle\Form\Type\Trick\TrickImageType;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -23,6 +24,7 @@ class AdminController extends Controller
      * Handle the submission of the form to
      *
      * @Route("/admin/add/trick", name="trick_add")
+     * @Method({"GET", "POST"})
      */
     public function addAction(Request $request)
     {
@@ -59,6 +61,7 @@ class AdminController extends Controller
      * Handle the submission of the form to
      *
      * @Route("/admin/edit/trick/{id}", name="trick_edit")
+     * @Method({"GET", "POST"})
      */
     public function editAction(Request $request, $id)
     {
@@ -91,6 +94,7 @@ class AdminController extends Controller
      * This route lead to the form wich allow an authentificated user to delete a trick
      *
      * @Route("/admin/delete/trick/{id}", name="trick_delete")
+     * @Method({"POST"})
      */
     public function deleteAction($id){
         // Get EntityManager and Trick Manager
@@ -111,6 +115,7 @@ class AdminController extends Controller
      * Handle the submission of the form to
      *
      * @Route("/admin/add/category", name="category_add")
+     * @Method({"GET", "POST"})
      */
     public function addCategory(Request $request){
         $category = new Category();

@@ -14,6 +14,7 @@ use AppBundle\Form\Type\User\PwdResetType;
 use AppBundle\Form\Type\User\RegisterType;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
@@ -66,6 +67,7 @@ class UserController extends Controller
      * Login route
      *
      * @Route("/login", name="user_login")
+     * @Method({"GET"})
      */
     public function loginAction(Request $request, AuthenticationUtils $authUtils){
 
@@ -95,6 +97,7 @@ class UserController extends Controller
      * to a valid user_resetpwd
      *
      * @Route("/user/mot-de-passe-oublie", name="user_resetpwd_form")
+     * @Method({"GET", "POST"})
      */
     public function resetPwdFormAction(Request $request){
 
@@ -157,6 +160,7 @@ class UserController extends Controller
      * Will display a reset password form if a request is pending thought the given url
      *
      * @Route("/user/reset-password/{token}", name="user_resetpwd")
+     * @Method({"GET", "POST"})
      */
     public function resetPwdAction(Request $request, $token){
 
@@ -209,6 +213,7 @@ class UserController extends Controller
      * Allow the anthenticate user to edit his profil informations
      *
      * @Route("/admin/user", name="user_edit")
+     * @Method({"GET", "POST"})
      */
     public function userEditAction(Request $request){
 
