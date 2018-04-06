@@ -100,7 +100,7 @@
 
         <!-- Trick's content -->
         <h2>Explications</h2>
-        <p>{{ trick.description|striptags('<h3>,<h2>,<br>')|raw }}</p>
+        <p>{{ trick.description }}</p>
 
         <!-- Trick's chat -->
         <section id="show_chat">
@@ -123,36 +123,38 @@
 
                 <!-- Messages display -->
                 <div id="posted_messages">
+                    <!-- No message -->
                     {% if messages is empty %}
                         <span class="noentry">
                             Aucun message posté.
                         </span>
-                    {% else %}
-                        {% for message in messages %}
-                            <div class="message">
-                                <div class="vm_cell">
-                                    <img src="{{ message.user.img.url }}" alt="{{ message.user.img.alt }}">
-                                </div>
-                                <div class="vt_cell message_right_block">
-                                    <span class="message_author_name">{{ message.user.fullName }}</span>
-                                    <span class="message_creation_date">{{ message.frenchDate }}</span>
-                                    <span class="message_content">{{ message.content }} </span>
-                                </div>
-                            </div>
-                            {% if not loop.last %}
-                                <hr>
-                            {% endif %}
-                        {% endfor %}
-                        {% if pgNbr is not null %}
-                            <p id="chat_pagination">
-                            {% for i in 1..pgNbr %}
-                                <a href="
-                                    {{ path('trick_show', {'slugName' : trick.slugName, 'chatPage' : i }) }}
-                                ">{{ i }}</a>
-                            {% endfor %}
-                            </p>
-                        {% endif %}
                     {% endif %}
+                    
+                    <!-- If messages -->
+                    {% for message in messages %}
+                        <div class="message">
+                            <div class="vm_cell">
+                                <img src="{{ message.user.img.url }}" alt="{{ message.user.img.alt }}">
+                            </div>
+                            <div class="vt_cell message_right_block">
+                                <span class="message_author_name">{{ message.user.fullName }}</span>
+                                <span class="message_creation_date">{{ message.frenchDate }}</span>
+                                <span class="message_content">{{ message.content }} </span>
+                            </div>
+                        </div>
+                        {% if not loop.last %}
+                            <hr>
+                        {% endif %}
+                    {% endfor %}
+
+                    <!-- Pagination -->
+                    <p id="chat_pagination">
+                    {% for i in 1..pgNbr %}
+                        <a href="
+                            {{ path('trick_show', {'slugName' : trick.slugName, 'chatPage' : i }) }}
+                        ">{{ i }}</a>
+                    {% endfor %}
+                    </p>
                 </div>
 
                 <!-- If user is logged, display the form -->

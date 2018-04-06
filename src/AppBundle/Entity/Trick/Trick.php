@@ -95,7 +95,7 @@ class Trick
      *      minMessage = "La description doit faire au moins {{ limit }} caractères"
      * )
      * @AppAssert\AllowedTags(
-     *     allowedTags = "<h3><h2><br>"
+     *     allowedTags = ""
      * )
      */
     private $description;

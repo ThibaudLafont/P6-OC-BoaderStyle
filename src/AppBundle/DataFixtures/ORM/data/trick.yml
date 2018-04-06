@@ -8,7 +8,7 @@
   category: Grabs
   name: Mute
   description: Le Mute Grab c'est quand pendant un saut vous aggripez vote planche entre vos deux pieds,
-               côté frontside. Ce geste s'effectue avec la main avant. <br/>
+               côté frontside. Ce geste s'effectue avec la main avant.
                Voir la vidéo youtube ci-dessus !
 
   ## Medias
@@ -34,7 +34,7 @@
   author: Thibaud
   category: Grabs
   name: Style Week
-  description: Le Style Week, aussi appelé Melancholie ou Sad ressemble au <a href="/trick/mute"/>mute</a>.
+  description: Le Style Week, aussi appelé Melancholie ou Sad ressemble au mute.
                Avec votre main avant vous saisissez votre planche entre vos deux jambes, mais au niveau de la
                carre backside.
 
@@ -207,7 +207,7 @@
       name: men-doing-japan-air
       alt: Un snowboarder réalisant un Japan Air
       format: jpeg
-      position: 1w
+      position: 1
   # Videos
   video:
     1:
