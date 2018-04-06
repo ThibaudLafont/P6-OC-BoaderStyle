@@ -84,7 +84,7 @@ class PublicController extends Controller
      *     "/tricks/{slugName}/{chatPage}",
      *     name="trick_show"
      * )
-     * @Method({"GET"})
+     * @Method({"GET", "POST"})
      */
     public function showAction(Request $request, $slugName, $chatPage = 1)
     {

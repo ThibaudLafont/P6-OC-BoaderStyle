@@ -25,6 +25,7 @@ class UserController extends Controller
      * Register route
      *
      * @Route("/register", name="user_register")
+     * @Method({"GET", "POST"})
      */
     public function registerAction(Request $request)
     {
