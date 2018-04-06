@@ -38,19 +38,22 @@ class PublicController extends Controller
     /**
      * Find all tricks witch belong to a category and render list template
      *
-     * @Route("/{id}/tricks", name="category_trick_list")
+     * @Route(
+     *     "/tricks/{slugName}",
+     *     name="category_trick_list",
+     *     requirements={
+     *          "cat"="([a-z]+|-)+"
+     *     }
+     * )
      */
-    public function listByCategoryAction($id)
+    public function listByCategoryAction($slugName)
     {
         // Get Doctrine Categories Entity Manager
         $cm = $this->getDoctrine()->getManager()
             ->getRepository('AppBundle:Trick\Category');  // Get the Category Entity Manager
 
-        // Get all categories for filter option
-        $categories = $cm->findBy([],['name' => 'ASC']);
-
         // Then loop on every found entry to check if one matche with URL given name
-        $category = $cm->find($id);
+        $category = $cm->findOneBy(['slugName' => $slugName]);
 
         // If no category is related to the URL given name
         if(is_null($category)){
@@ -60,6 +63,9 @@ class PublicController extends Controller
 
         // Get all the stored tricks in asked category
         $tricks = $category->getTricks();
+
+        // Get all categories for filter option
+        $categories = $cm->findBy([],['name' => 'ASC']);
 
         // Render the list_template with found tricks and category collection
         return $this->render('trick/_list.html.twig', compact('tricks', 'categories'));
@@ -71,7 +77,10 @@ class PublicController extends Controller
      * Authentificate user can post new messages and anon user only can read then
      * Handle the submission of the form too
      *
-     * @Route("/trick/{id}/{chatPage}", name="trick_show")
+     * @Route(
+     *     "/trick/{id}/{chatPage}",
+     *     name="trick_show"
+     * )
      */
     public function showAction(Request $request, $id, $chatPage = 1)
     {

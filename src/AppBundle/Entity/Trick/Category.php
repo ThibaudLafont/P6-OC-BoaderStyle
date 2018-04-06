@@ -82,7 +82,7 @@ class Category
     ///////////////////
 
     public function getEditUrl(){
-        return '/' . $this->getId() .  '/tricks/';
+        return '/tricks/' . $this->getSlugName();
     }
 
 
