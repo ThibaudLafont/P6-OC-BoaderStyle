@@ -77,6 +77,7 @@ class Fixtures extends Fixture
             $user->setMail($value['mail']);
             $user->setImg($img);
 
+//            $manager->persist($img);
             $manager->persist($user); // Persist the created user
         }
 
@@ -133,9 +134,8 @@ class Fixtures extends Fixture
             $trick->setAuthor($author);
             $trick->setCategory($category);
 
-            // Persist and flush the trick in order to assign it to related imgs and videos
+            // Persist trick in order to assign it to related imgs and videos
             $manager->persist($trick);
-            $manager->flush();
 
             // Images creation
             $i=1;  // Creation of index for images position
@@ -161,28 +161,31 @@ class Fixtures extends Fixture
                 $img->setPosition($i);
                 $i++;  // Incrementation of index for position
 
-                // Persist and flush the created TrickImage
+                // Persist the created TrickImage
                 $manager->persist($img);
-                $manager->flush();
             }
 
             // Videos creation
             $i=1;  // Creation of index for videos position
-            foreach ($value['video'] as $video_value) {
+            if(!empty($value['video'])){
+                foreach ($value['video'] as $video_value) {
 
-                // Video creation and hydration from yalm's fetched data
-                $video = new TrickVideo();
-                $video->setName($video_value['name']);
-                $video->setSrc($video_value['src']);
-                $video->setAlt($video_value['alt']);
-                $video->addTrick($trick);
-                $video->setPosition($i);
-                $i++;  // Incrementation of index for position
+                    // Video creation and hydration from yalm's fetched data
+                    $video = new TrickVideo();
+                    $video->setName($video_value['name']);
+                    $video->setSrc($video_value['src']);
+                    $video->setAlt($video_value['alt']);
+                    $video->addTrick($trick);
+                    $video->setPosition($i);
+                    $i++;  // Incrementation of index for position
 
-                // Persist and flush the TrickVideo
-                $manager->persist($video);
-                $manager->flush();
+                    // Persist the TrickVideo
+                    $manager->persist($video);
+                }
             }
+
+            // Flush at end
+            $manager->flush();
         }
     }
 }

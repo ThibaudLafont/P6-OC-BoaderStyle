@@ -75,7 +75,7 @@ class ImageUploader
         $imgName = $this->getSluggifier()->sluggify($img->getName());  // Get the current name of the entity and sluggify it
         $img->setName($imgName);                                       // Set the sluggified name to the entity
 
-        // TODO : should we specify and assign the new image extension ?
+        $img->setFormat($img->getFile()->guessExtension());
 
         // Define the actual and the wanted image full path
         $path = $this->getUploader()->getWebRootDir() . $img->getWebDir();  // Define the root path to image folder
@@ -86,6 +86,16 @@ class ImageUploader
         rename($oldName, $newName);
     }
 
+    /**
+     * When the file of a local media is change,
+     * but the img entity is not delete
+     *
+     * @param Local $img
+     */
+    public function replace(Local $img){
+        $this->remove($img);
+        $this->upload($img);
+    }
     /**
      * Property used to remove file related to the given entity
      * Database update is done though the doctrine listener

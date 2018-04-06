@@ -18,7 +18,14 @@ abstract class External extends Media
      * @var string
      *
      * @ORM\Column(name="src", type="string", length=255)
-     * @Assert\NotBlank(message="Veuillez renseigner une URL")
+     * @Assert\NotBlank(
+     *     message="Veuillez renseigner une URL"
+     * )
+     * @Assert\Url(
+     *     message="L'url fournie est invalide",
+     *     protocols={"https", "http"},
+     *     checkDNS=true
+     * )
      */
     protected $src;
 

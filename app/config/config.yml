@@ -23,6 +23,7 @@ framework:
     default_locale: '%locale%'
     trusted_hosts: ~
     session:
+        name: SNOWSESSID
         handler_id: session.handler.native_file
         save_path: '%kernel.project_dir%/var/sessions/%kernel.environment%'
     fragments: ~
@@ -46,7 +47,7 @@ doctrine:
         user: '%database_user%'
         password: '%database_password%'
         charset: UTF8
-        server_version: 5.6
+        server_version: 5.7
 
     orm:
         auto_generate_proxy_classes: '%kernel.debug%'

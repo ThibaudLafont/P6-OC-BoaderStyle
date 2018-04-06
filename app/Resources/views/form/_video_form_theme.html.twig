@@ -3,6 +3,7 @@
 
         {% if video_url is not null %}
             <embed width="250" height="120" src="{{ asset(video_url) }}">
+            {{ form_widget(form) }}
         {% else %}
             {{ block('form_widget') }}
         {% endif %}

@@ -5,6 +5,7 @@ namespace AppBundle\Entity\Trick;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use AppBundle\Validator\Constraints as AppAssert;
 
 /**
@@ -13,6 +14,12 @@ use AppBundle\Validator\Constraints as AppAssert;
  *
  * @ORM\Table(name="category")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\CategoryRepository")
+ * @ORM\EntityListeners({"AppBundle\EventListener\CategoryListener"})
+ *
+ * @UniqueEntity(
+ *     "name",
+ *     message="Cette catégorie existe déjà"
+ * )
  */
 class Category
 {
@@ -30,7 +37,12 @@ class Category
      *
      * @var string
      *
-     * @ORM\Column(name="name", type="string", length=255, unique=true)
+     * @ORM\Column(
+     *     name="name",
+     *     type="string",
+     *     length=255,
+     *     unique=true
+     * )
      * @Assert\NotBlank(message="Le nom est obligatoire")
      * @Assert\Length(
      *      min = 2,
@@ -42,12 +54,25 @@ class Category
     private $name;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(
+     *     name="slug_name",
+     *     type="string",
+     *     length=255,
+     *     unique=true
+     * )
+     */
+    private $slugName;
+
+    /**
      * Tricks belong to the category
      *
      * @ORM\OneToMany(
      *     targetEntity="Trick",
      *     mappedBy="category"
      * )
+     * @ORM\OrderBy({"name"="ASC"})
      */
     private $tricks;
 
@@ -56,7 +81,7 @@ class Category
     ///////////////////
 
     public function getEditUrl(){
-        return '/tricks/' . $this->getName();
+        return '/' . $this->getSlugName() . '/tricks';
     }
 
 
@@ -117,5 +142,21 @@ class Category
      */
     public function getTricks(){
         return $this->tricks;
+    }
+
+    /**
+     * @return string
+     */
+    public function getSlugName(): string
+    {
+        return $this->slugName;
+    }
+
+    /**
+     * @param string $slugName
+     */
+    public function setSlugName(string $slugName)
+    {
+        $this->slugName = $slugName;
     }
 }

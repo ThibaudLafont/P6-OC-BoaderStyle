@@ -5,8 +5,10 @@ namespace AppBundle\Entity\Trick;
 use AppBundle\Entity\Message\Message;
 use AppBundle\Entity\User\User;
 use Doctrine\Common\Collections\ArrayCollection;
+
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use AppBundle\Validator\Constraints as AppAssert;
 
 
@@ -17,6 +19,11 @@ use AppBundle\Validator\Constraints as AppAssert;
  * @ORM\Table(name="trick")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\TrickRepository")
  * @ORM\EntityListeners({"AppBundle\EventListener\TrickListener"})
+ *
+ * @UniqueEntity(
+ *     "name",
+ *     message="Ce titre est déjà pris. Vérifiez si la figure existe déjà sur le site !"
+ * )
  */
 class Trick
 {
@@ -33,9 +40,20 @@ class Trick
      * Name of the trick
      *
      * @var string
+     * @ORM\Column(
+     *     name="name",
+     *     type="string",
+     *     length=255,
+     *     unique=true
+     * )
      *
-     * @ORM\Column(name="name", type="string", length=255, unique=true)
-     * @Assert\NotBlank(message="Le nom est obligatoire")
+     * // Validators
+     * @Assert\NotBlank(
+     *     message="Le nom est obligatoire"
+     * )
+     * @AppAssert\AllowedTags(
+     *     message="Aucune balise HTML ici..."
+     * )
      * @Assert\Length(
      *      min = 2,
      *      max = 55,
@@ -46,18 +64,38 @@ class Trick
     private $name;
 
     /**
+     * @var string
+     *
+     *
+     * @ORM\Column(
+     *     name="slug_name",
+     *     type="string",
+     *     length=255,
+     *     unique=true
+     * )
+     */
+    private $slugName;
+
+    /**
      * Trick's description
      *
      * @var string
      *
-     * @ORM\Column(name="description", type="text")
-     * @Assert\NotBlank(message="Le nom est obligatoire")
+     * @ORM\Column(
+     *     name="description",
+     *     type="text"
+     * )
+     *
+     * // Validators
+     * @Assert\NotBlank(
+     *     message="Le nom est obligatoire"
+     * )
      * @Assert\Length(
      *      min = 10,
      *      minMessage = "La description doit faire au moins {{ limit }} caractères"
      * )
      * @AppAssert\AllowedTags(
-     *     allowedTags = "<h3><h2><br>"
+     *     allowedTags = ""
      * )
      */
     private $description;
@@ -65,7 +103,10 @@ class Trick
     /**
      * User who post or edit the trick
      *
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\User\User", inversedBy="tricks")
+     * @ORM\ManyToOne(
+     *     targetEntity="AppBundle\Entity\User\User",
+     *     inversedBy="tricks"
+     * )
      */
     private $author;
 
@@ -76,16 +117,21 @@ class Trick
      *     targetEntity="Category",
      *     inversedBy="tricks"
      * )
-     * @Assert\NotBlank(message="Veuillez choisir une catégorie")
+     * @Assert\NotBlank(
+     *     message="Veuillez choisir une catégorie"
+     * )
      */
     private $category;
 
     /**
-     *
      * @ORM\ManyToMany(
      *     targetEntity="TrickImage",
      *     mappedBy="trick",
      *     cascade={"persist", "remove"}
+     * )
+     * @ORM\OrderBy({"position"="ASC"})
+     * @Assert\NotNull(
+     *     message="Une image principale est demandée"
      * )
      * @Assert\Valid()
      */
@@ -99,6 +145,7 @@ class Trick
      *     mappedBy="trick",
      *     cascade={"persist", "remove"}
      * )
+     * @ORM\OrderBy({"position"="ASC"})
      * @Assert\Valid()
      */
     private $videos;
@@ -106,7 +153,10 @@ class Trick
     /**
      * Posted messages related to the trick
      *
-     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Message\Message", mappedBy="trick")
+     * @ORM\OneToMany(
+     *     targetEntity="AppBundle\Entity\Message\Message",
+     *     mappedBy="trick"
+     * )
      * @Assert\Valid()
      */
     private $messages;
@@ -119,6 +169,7 @@ class Trick
     {
         $this->imgs = new ArrayCollection();
         $this->videos = new ArrayCollection();
+        $this->messages = new ArrayCollection();
     }
 
       ///////////////////
@@ -126,12 +177,20 @@ class Trick
     ///////////////////
 
     /**
+     * @Assert\IsTrue(message="Une image principale est requise")
+     */
+    public function isImgsValid()
+    {
+        return $this->getImgs()->count() !== 0;
+    }
+
+    /**
      * Return url to trick_show
      *
      * @return string
      */
     public function getUrl(){
-        return '/trick/' . $this->getId();
+        return '/tricks/' . $this->getSlugName();
     }
 
     /**
@@ -241,6 +300,10 @@ class Trick
         return $this;
     }
 
+    public function clearMessages()
+    {
+        $this->messages = new ArrayCollection();
+    }
 
     ///////////////////
     ///// GETTERS /////
@@ -302,7 +365,31 @@ class Trick
     /**
      * @return Message
      */
-    public function getMessages(){
-        return $this->messages;
+    public function getMessages($start = null){
+
+        if(is_null($start)) return $this->messages;
+        else return $this->messages->slice($start, 10);
+
+    }
+
+    public function getMessagesPagesNumber()
+    {
+        return intval($this->getMessages()->count() / 10) + 1;
+    }
+
+    /**
+     * @return string
+     */
+    public function getSlugName(): string
+    {
+        return $this->slugName;
+    }
+
+    /**
+     * @param string $slugName
+     */
+    public function setSlugName(string $slugName)
+    {
+        $this->slugName = $slugName;
     }
 }

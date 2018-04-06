@@ -1,18 +1,30 @@
+/*FONTS*/
+@font-face {
+    font-family: "latol";          /* Lato light */
+    src: url("/fonts/latol.ttf");
+}
+@font-face {
+    font-family: "lato";          /* Lato Regular */
+    src: url("/fonts/lato.ttf");
+}
 /*RESET*/
 body{
     margin:0;
 }
 *{
     color : #4b4b49;
+    font-family: "latol";
 }
 h1, h2, h3, h4, h5, h6{
     color: #ee826c;
+    font-family: "lato";
+    font-weight: normal;
 }
 /*GENERAL*/
 h1{
     text-align: center;
     color: #ee826c;
-    font-weight: normal;
+    font-weight: bold;
     font-size : 26px;
     margin-top: 0.75rem;
     margin-bottom: 0;
@@ -23,7 +35,7 @@ input
 }
 #main_content{
     padding : 0 1rem;
-    max-width: 700px;
+    max-width: 600px;
     margin: auto;
 }
 .ta-right{
@@ -42,6 +54,10 @@ hr.pink{
     color: white;
     text-decoration: none;
     padding: 0.25rem 0.5rem;
+}
+#error_message{
+    margin-bottom: 5rem;
+    text-align: center;
 }
 
 /*LEFT AND RIGHT + VERTICAL ALIGN MIDDLE*/
@@ -66,6 +82,34 @@ hr.pink{
 }
 .vt_cell{
     vertical-align: top;
+}
+
+/*COOKIES WARNING*/
+#cookies_warning{
+    background-color: #ee826c;
+    padding: 1rem 1.5rem;
+    text-align: center;
+}
+span#cookie_message{
+    color: white;
+    font-weight: bold;
+}
+#cookies_warning *{
+    box-sizing: border-box;
+}
+#cookies_warning div{
+    margin: 1.25rem 0 0.25rem 0;
+}
+#cookies_buttons a{
+    text-decoration: none;
+    background-color: #4b4b49;
+    color: white;
+    padding : 0.25rem 0.5rem;
+}
+
+/*COOKIE_CHART*/
+section#cookie_chart p{
+    text-align: justify;
 }
 
 /*HEADER*/
@@ -138,18 +182,27 @@ a#header_home_link h3{
 }
 
 /*FLASH MESSAGES*/
-.flash-success
-{
+.flash{
     text-align: center;
-    background-color: #64cf77;
     color: white;
     font-size: 18px;
+    font-weight: bold;
     padding : 1rem 0.75rem;
     position: absolute;
     top: 1rem;
     left: 0.75rem;
     right: 0.75rem;
+    border : 2px solid white;
 }
+.flash-success
+{
+    background-color: #64cf77;
+}
+.flash-error
+{
+    background-color: red;
+}
+
 
 /*FOOTER*/
 footer{
@@ -247,12 +300,18 @@ footer{
 }
 
 /*ITEM TRICK LIST*/
+p.no_item
+{
+    margin-top: 1.25rem !important;
+}
 hr.trick_item_hr{
     margin: 1.5rem 0 0 0;
     border: 2px solid #d3c5a6;
 }
 .trick_list_item{
     padding : 0 0.75rem;
+    max-width: 450px;
+    margin: auto;
 }
 .trick_list_item .item_header h2{
     font-weight: normal;
@@ -312,6 +371,18 @@ hr.trick_item_hr{
 #show_edit_actions a{
     margin : 0 0.25rem;
 }
+#show_edit_actions form {
+    display: inline-block;
+    box-sizing: border-box;
+}
+#show_edit_actions form input{
+    box-sizing: border-box;
+    background-color: #ee826c;
+    color: white;
+    text-decoration: none;
+    padding: 0.25rem 0.5rem;
+    border: none;
+}
 #show_article{
     box-sizing: border-box;
     margin-top : 1.5rem;
@@ -334,6 +405,7 @@ hr.trick_item_hr{
     width: 100%;
     margin-top: 1rem;
     border: 4px solid #4b4b49;
+    border-bottom: none;
 }
 #top_show_gallery,
 #top_show_chat
@@ -398,9 +470,6 @@ hr.trick_item_hr{
     width: 100%;
     margin-top: 0.75rem;
 }
-.message_right_block{
-    padding-top: 0.25rem;
-}
 .message_author_name{
     color: #ee826c;
     font-size: 18px;
@@ -422,6 +491,9 @@ hr.trick_item_hr{
     width: 100%;
     border-collapse: collapse;
 }
+#chat_pagination{
+    text-align: center;
+}
 #MessageType_content{
     height : 45px;
     box-sizing: border-box;
@@ -431,6 +503,7 @@ hr.trick_item_hr{
     height: 45px;
     width: 100%;
     padding: 10px;
+    margin: 0;
     background-color: #ee826c;
     background-image: url('/media/picto/ArrowSend.png');
     background-size: 60%;
@@ -520,8 +593,9 @@ hr.hr_form_section
 {
     margin : 1rem 0 0 0;
 }
+.form_errors,
 .form_errors *{
-    color: red;
+    color: red !important;
 }
 
 /* collection forms*/

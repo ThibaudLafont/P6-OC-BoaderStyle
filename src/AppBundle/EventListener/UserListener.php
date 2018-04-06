@@ -3,6 +3,8 @@ namespace AppBundle\EventListener;
 
 use AppBundle\Entity\User\User;
 use AppBundle\Service\ImageUploader;
+use Doctrine\ORM\Event\LifecycleEventArgs;
+use Doctrine\ORM\Event\PreUpdateEventArgs;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
@@ -15,21 +17,17 @@ use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 class UserListener
 {
 
-    /**
-     * @var ImageUploader
-     */
-    private $uploader;
     private $encoder;
 
-    public function __construct(ImageUploader $uploader, UserPasswordEncoderInterface $encoder)
+    public function __construct(UserPasswordEncoderInterface $encoder)
     {
-        $this->uploader = $uploader;
         $this->encoder = $encoder;
     }
 
     /** @ORM\PrePersist */
-    public function prePersist(User $user)
+    public function prePersist(User $user, LifecycleEventArgs $args)
     {
+
         // Chiffrement et assignation du mdp renseigné
         $pwd = $this->encoder->encodePassword($user, $user->getPlainPassword());
         $user->setPassword($pwd);
@@ -38,35 +36,24 @@ class UserListener
         $img = $user->getImg();
         $img->setName($user->getFullName());
         $img->setAlt("Photo de {$user->getFullName()}");
+        // Get EM and ask for UserImagePersist (Call UserImageListener prePersist)
+        $args->getEntityManager()->persist($img);
 
-        $this->uploader->upload($img);
     }
-
 
     /** @ORM\PreFlush */
     public function preFlush(User $user)
     {
-        // TODO : Fix fixture problem at preflush (or optimize user_edit)
-//        if(!is_null($user->getId())){
-//
-//            // En cas de changement de la photo
-//            if(!is_null($user->getImg()->getFile())){
-//                $this->uploader->replace($user->getImg());
-//            }
-//
-//            // En cas de changement de mot de passe
-//            if(!is_null($user->getPlainPassword())){
-//                // Chiffrement et assignation du mdp renseigné
-//                $pwd = $this->encoder->encodePassword($user, $user->getPlainPassword());
-//                $user->setPassword($pwd);
-//            }
-//
-//        }
 
-    }
+        // In case of password change
+        if(!is_null($user->getPlainPassword())){
 
-    public function getUploader(){
-        return $this->uploader;
+            // Chiffrement et assignation du mdp renseigné
+            $pwd = $this->encoder->encodePassword($user, $user->getPlainPassword());
+            $user->setPassword($pwd);
+
+        }
+
     }
 
 }

@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Erreur {{ status_code }}</h1>
+
+    <p id="error_message">
+        Il y a eu un problème pendant le chargement de la page, <br/>
+        <a href="/">me rediriger</a>
+    </p>
+
+{% endblock %}

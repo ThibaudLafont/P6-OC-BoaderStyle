@@ -76,6 +76,9 @@ class Message
     ///// SETTERS /////
     ///////////////////
 
+    public function setId($id){
+        $this->id = $id;
+    }
     /**
      * Set creationDate
      *

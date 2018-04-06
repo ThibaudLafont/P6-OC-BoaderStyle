@@ -56,6 +56,7 @@ class EditType extends AbstractType
                 [
                     // General options
                     'type' => EmailType::class,
+                    'label' => 'Adresse mail',
                     // First field options
                     'first_options' => [
                         'label' => false,
@@ -79,12 +80,14 @@ class EditType extends AbstractType
                     // General options
                     'type' => PasswordType::class,
                     'required' => false,
+                    'label' => 'Mot de passe',
                     'first_name' => 'pass',      // Define a name for the first field
                     'second_name' => 'confirm',  // Define a name for the repeat field
                     'invalid_message' => 'Les mots de passe ne correspondent pas',
                     // First field options
                     'first_options' => [
                         'label' => false,
+                        'required' => false,
                         'attr' => [
                             'placeholder' => 'Mot de passe'
                         ]

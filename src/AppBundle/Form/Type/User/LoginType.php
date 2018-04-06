@@ -28,6 +28,7 @@ class LoginType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
+            ->setAction('/login_check')
             ->add(  // Add username
                 'userName',
                 TextType::class,
@@ -37,7 +38,10 @@ class LoginType extends AbstractType
             )
             ->add(  // Add password field
                 'plainPassword',
-                PasswordType::class
+                PasswordType::class,
+                [
+                    'label' => 'Mot de passe'
+                ]
             )
             ->add(  // Add save button
                 'submit',
@@ -57,6 +61,7 @@ class LoginType extends AbstractType
     {
         $resolver->setDefaults(array(
             'data_class' => 'AppBundle\Entity\User\User',                     // Targeted entity
+            'validation_groups' => ['login'],
             // CSRF protection
             'csrf_protection' => true,
             'csrf_field_name' => '_token',

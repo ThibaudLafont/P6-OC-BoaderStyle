@@ -9,8 +9,10 @@
 namespace AppBundle\EventListener;
 
 use AppBundle\Entity\Trick\Trick;
+use AppBundle\Service\Sluggifier;
 use AppBundle\Service\TrickImageUploader;
 use Doctrine\ORM\Event\LifecycleEventArgs;
+
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 
@@ -31,14 +33,20 @@ class TrickListener
     private $tokenStorage;
 
     /**
+     * @var Sluggifier
+     */
+    private $sluggifier;
+
+    /**
      * TrickListener constructor.
      * Assign tokenStorage Attribute though Depency Injection
      *
      * @param TokenStorageInterface $tokenStorage
      */
-    public function __construct(TokenStorageInterface $tokenStorage)
+    public function __construct(TokenStorageInterface $tokenStorage, Sluggifier $sluggifier)
     {
         $this->tokenStorage = $tokenStorage;
+        $this->setSluggifier($sluggifier);
     }
 
     /**
@@ -51,10 +59,13 @@ class TrickListener
 
         // Get the session
         $session = $this->tokenStorage->getToken();
+
         // If session exists, assign the user to the trick
         // ( we check if session exist cause of fixtures feature )
         if(!is_null($session)) $trick->setAuthor($session->getUser());
 
+        // Sluggify name
+        $this->sluggifyTrickName($trick);
     }
 
     /**
@@ -69,23 +80,53 @@ class TrickListener
 
         // Assign the user to the trick
         $trick->setAuthor($author);
+
+        // Sluggify name
+        $this->sluggifyTrickName($trick);
     }
 
     /**
      * Before removing a Trick, check if messages exists and remove them if needed
      *
-     * @ORM\PreRemove
+     * @ORM\PostRemove
      */
-    public function preRemove(Trick $trick, LifecycleEventArgs $args)
+    public function postRemove(Trick $trick, LifecycleEventArgs $args)
     {
         // Get the EntityManager and ask it the trick's messages
         $em = $args->getEntityManager();
-        $messages = $trick->getMessages();
+        $messages = $trick->getMessages();  // Store the messages
 
         // Remove found messages
         foreach($messages as $message){
-            $em->remove($message);
+            $em->remove($message);          // For each index, ask the message remove
         }
+
     }
+
+    private function sluggifyTrickName(Trick $trick)
+    {
+        $trick->setSlugName(
+            $this->getSluggifier()->sluggify(
+                $trick->getName()
+            )
+        );
+    }
+
+    /**
+     * @return Sluggifier
+     */
+    public function getSluggifier(): Sluggifier
+    {
+        return $this->sluggifier;
+    }
+
+    /**
+     * @param Sluggifier $sluggifier
+     */
+    public function setSluggifier(Sluggifier $sluggifier)
+    {
+        $this->sluggifier = $sluggifier;
+    }
+
 
 }

@@ -9,6 +9,7 @@ use Doctrine\ORM\Mapping as ORM;
  *
  * @ORM\Table(name="user_image")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\UserImageRepository")
+ * @ORM\EntityListeners({"AppBundle\EventListener\UserImageListener"})
  */
 class UserImage extends Local
 {

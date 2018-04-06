@@ -29,4 +29,5 @@ class AllowedTags extends Constraint
      * @var string
      */
     public $message = 'Les seules balises html autorisées sont {{ allowed_tags }}';
+
 }

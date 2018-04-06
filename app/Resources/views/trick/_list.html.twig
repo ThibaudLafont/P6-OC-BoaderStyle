@@ -19,10 +19,14 @@
             </div>
             <div id="category_list" class="openbox">
 
+
+                {% if categories is empty %}
+                    <p class="no_item">Aucune catégorie...</p>
+                {% endif %}
+
                 {% for cat in categories %}
                     <div>
                         <a href="{{ cat.editUrl }}">
-                            <img src="/media/img/users/thibaud-lafont.jpeg" alt="{{ cat.name }}"><br/>
                             <span>{{ cat.name }}</span>
                         </a>
                     </div>
@@ -34,6 +38,8 @@
 
     {% if tricks is not empty %}
         <hr class="trick_item_hr">
+    {% else %}
+        <p class="no_item">Aucune figure ici...</p>
     {% endif %}
 
     {% for trick in tricks %}
@@ -53,7 +59,7 @@
             <img class="item_main_img" src="{{ trick.imgs[0].url }}" alt="{{ trick.imgs[0].alt }}">
 
             <p class="item_description">
-                {{ trick.descriptionFrag }}
+                {{ trick.descriptionFrag|striptags() }}
             </p>
 
             <span class="item_show_link">
@@ -74,13 +80,5 @@
 
 
 {% block javascripts %}
-    <script>
-        function openbox(){
-            if($('#category_list.openbox').is(':visible')){
-                $('#category_list.openbox').hide();
-            }else{
-                $('#category_list.openbox').show();
-            }
-        }
-    </script>
+    <script src="/js/list-tricks-toggle-categories.js"></script>
 {% endblock %}

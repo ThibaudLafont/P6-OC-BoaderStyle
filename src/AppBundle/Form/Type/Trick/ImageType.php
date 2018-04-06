@@ -1,14 +1,17 @@
 <?php
 namespace AppBundle\Form\Type\Trick;
 
+use AppBundle\Entity\Trick\TrickImage;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Form\FormInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 // Fields
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Validator\Constraints\Image;
 
 /**
  * Class ImageType
@@ -46,6 +49,17 @@ class ImageType extends AbstractType
                 FileType::class,
                 [
                     'label' => 'Fichier',
+                    'constraints' => [
+                        new Image([
+                            'allowSquare' => false,
+                            'allowPortrait' => false,
+                            'allowLandscape' => true,
+                            'minRatio' => '1.4',
+                            'allowSquareMessage' => 'Une image au format paysage est demandée',
+                            'allowPortraitMessage' => 'Une image au format paysage est demandée',
+                            'minRatioMessage' => 'Votre image s\'approche trop d\'un carré (ratio min L/H : 1.4)'
+                        ])
+                    ],
                     'image_property' => 'url'       // Add the custom image_property, defined in ImageTypeExtension
                 ]
             )
@@ -67,9 +81,8 @@ class ImageType extends AbstractType
      */
     public function configureOptions(OptionsResolver $resolver)
     {
-        // TODO: CSRF ??
         $resolver->setDefaults(array(
-            'data_class' => 'AppBundle\Entity\Trick\TrickImage'  // Target entity
+            'data_class' => 'AppBundle\Entity\Trick\TrickImage',  // Target entity,
         ));
     }
 

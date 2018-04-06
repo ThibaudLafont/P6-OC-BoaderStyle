@@ -1,6 +1,7 @@
 <?php
 namespace AppBundle\Service;
 
+use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 /**
@@ -41,7 +42,7 @@ class Uploader
      * @param $filename  : Name you want for the target file
      * @param $webPath   : Web path to folder (and not the server root path)
      */
-    public function upload($file, $filename, $webPath)
+    public function upload(File $file, $filename, $webPath)
     {
         // Call the move property of the given File instance
         $file->move(

@@ -7,6 +7,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 // Fields
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Validator\Constraints\Image;
 
 /**
  * Class ImageType
@@ -42,9 +43,9 @@ class ImageType extends AbstractType
      */
     public function configureOptions(OptionsResolver $resolver)
     {
-        // TODO: CRSF protection ??
         $resolver->setDefaults(array(
-            'data_class' => 'AppBundle\Entity\User\UserImage'  // Targeted entity
+            'data_class' => 'AppBundle\Entity\User\UserImage',
+            'validation_groups' => 'default'// Targeted entity
         ));
     }
 

@@ -20,6 +20,16 @@
 
     </head>
     <body>
+        <!-- Cookie usage prevent -->
+        <section id="cookies_warning">
+            <span id="cookie_message">
+                Ce site utilise des cookies pour améliorer votre expérience utilisateur.
+            </span>
+            <div id="cookies_buttons">
+                <a href="/utilisation-cookies">En savoir plus</a>
+                <a href="#" onclick="hideCookieBox()">Compris !</a>
+            </div>
+        </section>
 
         <!-- Header and NavBar -->
         <header>
@@ -104,8 +114,8 @@
             {% for message in messages %}
 
                 <!-- Create a div class with flash-message type for front-work -->
-                <div class="flash-{{ label }}">
-                    {{ message|raw }}
+                <div class="flash flash-{{ label }}">
+                    {{ message }}
                 </div>
 
             {% endfor %}
@@ -136,8 +146,12 @@
                     <div class="cell">
                         <span id="aware_message_content">
                             <h4>ATTENTION !</h4>
-                            <span>Message d'avertissement à définir</span>
-                            <a href="/warning">En savoir plus</a>
+                            <span>
+                                Informez vous sur la sécurité
+                            </span>
+                            <a href="https://www.surf-prevention.com/fiche-regles-de-securite-en-snowpark-68-17.php">
+                                En savoir plus
+                            </a>
                         </span>
                     </div>
 
@@ -180,23 +194,7 @@
         </script>
 
         <!-- Navbar openbox handling -->
-        <script>
-
-            // Hide all blocks with openbox class attribute (all are subjects for slide up accordion display
-            $('.openbox').hide();
-
-            // Detect and put a timer on flash-messages for hide them
-            $('.flash-success').delay(5000).fadeOut( 500 );
-
-            // Openbox function for navbar
-            function opennavbar(){
-                if($('#navbar .openbox').is(':visible')){
-                    $('#navbar .openbox').hide();
-                }else{
-                    $('#navbar .openbox').show();
-                }
-            }
-        </script>
+        <script src="/js/navbar-toggle.js"></script>
 
         <!-- Specifics children JS scripts come here -->
         {% block javascripts %}{% endblock %}

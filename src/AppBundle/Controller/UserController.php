@@ -14,8 +14,10 @@ use AppBundle\Form\Type\User\PwdResetType;
 use AppBundle\Form\Type\User\RegisterType;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
 class UserController extends Controller
 {
@@ -23,9 +25,17 @@ class UserController extends Controller
      * Register route
      *
      * @Route("/register", name="user_register")
+     * @Method({"GET", "POST"})
      */
     public function registerAction(Request $request)
     {
+
+        // Check if user is already logged in, if it's the case redirect and inform him
+        if($this->isGranted('ROLE_ADMIN')){
+            $this->addFlash('info', 'Vous êtes déjà inscris');
+            return $this->redirectToRoute('trick_list');
+        }
+
         // Creation of new User entity
         $user = new User();
         $img = new UserImage();
@@ -58,16 +68,29 @@ class UserController extends Controller
      * Login route
      *
      * @Route("/login", name="user_login")
+     * @Method({"GET"})
      */
-    public function loginAction(Request $request){
+    public function loginAction(Request $request, AuthenticationUtils $authUtils){
+
+        // Check if user is already logged in, if it's the case redirect and inform him
+        if($this->isGranted('ROLE_ADMIN')){
+            $this->addFlash('info', 'Vous êtes déjà authentifié');
+            return $this->redirectToRoute('trick_list');
+        }
 
         // Creation of form
         $user = new User();
         $form = $this->get('form.factory')->create(LoginType::class, $user);
 
-        return $this->render('user/_login.html.twig', ['form' => $form->createView()]);
-    }
+        // If there is an authentification problem, add flash for inform user
+        $error = $authUtils->getLastAuthenticationError();
+        if($error) $this->addFlash('error', 'Identifiants inconnus');
 
+
+        // Render the view
+        return $this->render('user/_login.html.twig', ['form' => $form->createView(), 'error' => $error]);
+
+    }
 
     /**
      * This page is for the request for resetting a password
@@ -75,8 +98,16 @@ class UserController extends Controller
      * to a valid user_resetpwd
      *
      * @Route("/user/mot-de-passe-oublie", name="user_resetpwd_form")
+     * @Method({"GET", "POST"})
      */
     public function resetPwdFormAction(Request $request){
+
+        // Check if user is already logged in, if it's the case redirect and inform him he can edit his profil
+        if($this->isGranted('ROLE_ADMIN')){
+            $this->addFlash('info', 'Vous êtes connecté, vous pouvez changer votre mot de pass ici');
+            return $this->redirectToRoute('user_edit');
+        }
+
         // Creation of form
         $user = new User();
         $form = $this->get('form.factory')->create(PwdResetRequestType::class, $user);
@@ -107,7 +138,7 @@ class UserController extends Controller
 
                     // If knowed username, display a informative flash message
                     $this->addFlash(
-                        'info',
+                        'success',
                         'Votre demande de réinitialisation a bien été enregistrée, vérifiez vos emails.'
                     );
                 }
@@ -123,12 +154,14 @@ class UserController extends Controller
 
         // If no submission, render the form
         return $this->render('user/_pwd_reset.html.twig', ['form' => $form->createView()]);
+
     }
 
     /**
      * Will display a reset password form if a request is pending thought the given url
      *
      * @Route("/user/reset-password/{token}", name="user_resetpwd")
+     * @Method({"GET", "POST"})
      */
     public function resetPwdAction(Request $request, $token){
 
@@ -181,6 +214,7 @@ class UserController extends Controller
      * Allow the anthenticate user to edit his profil informations
      *
      * @Route("/admin/user", name="user_edit")
+     * @Method({"GET", "POST"})
      */
     public function userEditAction(Request $request){
 

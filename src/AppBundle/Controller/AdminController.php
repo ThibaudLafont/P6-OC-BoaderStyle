@@ -9,6 +9,7 @@ use AppBundle\Form\Type\Trick\TrickType;
 use AppBundle\Form\Type\Trick\TrickImageType;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -23,10 +24,10 @@ class AdminController extends Controller
      * Handle the submission of the form to
      *
      * @Route("/admin/add/trick", name="trick_add")
+     * @Method({"GET", "POST"})
      */
     public function addAction(Request $request)
     {
-
         // Creation of form
         $trick = new Trick();
         $form = $this->get('form.factory')->create(TrickType::class, $trick);
@@ -43,8 +44,9 @@ class AdminController extends Controller
             // In case of succed, redirection to trick_list with flash message
             $this->addFlash(
                 'success',
-                'Vous bien ajouté un article, à voir <a href="'. $trick->getUrl() . '">ici</a>'
+                "Vous bien ajouté un article"
             );
+
             return $this->redirectToRoute('trick_list');
 
         }
@@ -59,6 +61,7 @@ class AdminController extends Controller
      * Handle the submission of the form to
      *
      * @Route("/admin/edit/trick/{id}", name="trick_edit")
+     * @Method({"GET", "POST"})
      */
     public function editAction(Request $request, $id)
     {
@@ -76,31 +79,35 @@ class AdminController extends Controller
             $em = $this->getDoctrine()->getManager();
             $em->flush();
 
-            $this->addFlash('success', 'Vous bien modifié "' . $trick->getName() . '", à voir <a href="'. $trick->getUrl() . '">ici</a>');
+            $this->addFlash('success', 'Vous bien modifié "' . $trick->getName() . '"');
             return $this->redirectToRoute('trick_list');
 
         }
 
-        return $this->render('trick/_form.html.twig', ['form' => $form->createView(), 'title' => $trick->getName()]);
-
+        return $this->render(
+            'trick/_form.html.twig',
+            ['form' => $form->createView(), 'title' => $trick->getName()]
+        );
     }
 
     /**
      * This route lead to the form wich allow an authentificated user to delete a trick
      *
      * @Route("/admin/delete/trick/{id}", name="trick_delete")
+     * @Method({"POST"})
      */
     public function deleteAction($id){
-
+        // Get EntityManager and Trick Manager
         $em = $this->getDoctrine()->getManager();
         $trick = $em->getRepository('AppBundle:Trick\Trick')->find($id); // Get the trick related to asked id
 
+        // Remove the trick related to ID found in URL
         $em->remove($trick);
         $em->flush();
 
+        // Redirect the user after success, add a flash message for inform user
         $this->addFlash('success', 'Vous bien supprimé "' . $trick->getName() . '"');
-        return $this->redirectToRoute('trick_list');
-
+        return $this->redirectToRoute('trick_list');  // Return to the home page
     }
 
     /**
@@ -108,6 +115,7 @@ class AdminController extends Controller
      * Handle the submission of the form to
      *
      * @Route("/admin/add/category", name="category_add")
+     * @Method({"GET", "POST"})
      */
     public function addCategory(Request $request){
         $category = new Category();

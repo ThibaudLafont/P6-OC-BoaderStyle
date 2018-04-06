@@ -27,8 +27,12 @@
         <!-- Admin's actions -->
         {% if is_granted('ROLE_ADMIN') %}
             <div id="show_edit_actions">
-                <a href="/admin/edit/trick/{{ trick.id }}" class="pink_button">Modifier</a>
-                <a href="/admin/delete/trick/{{ trick.id }}" class="pink_button">Supprimer</a>
+                <form action="/admin/edit/trick/{{ trick.id }}">
+                    <input type="submit" value="Modifier">
+                </form>
+                <form action="/admin/delete/trick/{{ trick.id }}" method="post">
+                    <input type="submit" value="Supprimer">
+                </form>
             </div>
         {% endif %}
 
@@ -52,7 +56,7 @@
         <section>
 
             <!-- Main trick's picture -->
-            <a href="{{ trick.imgs[0].url }}" data-fancybox="imgs">
+            <a href="{{ trick.imgs[0].url }}" data-fancybox="medias">
                 <img id="show_main_img" src="{{ trick.imgs[0].url }}" alt="{{ trick.imgs[0].alt }}">
             </a>
 
@@ -76,15 +80,13 @@
                 <section class="openbox">
 
                     <!-- Trick's pictures -->
-                    {% for img in trick.imgs %}
-                        {% if loop.index0 != 0 %}
-                            <a href="{{ img.url }}" data-fancybox="medias">
-                                <span class="hovertxt">
-                                    VOIR
-                                </span>
-                                <img src="{{ img.url }}" alt="{{ img.alt }}">
-                            </a>
-                        {% endif %}
+                    {% for img in trick.imgs|slice(1, trick.imgs.count) %}
+                        <a href="{{ img.url }}" data-fancybox="medias">
+                            <span class="hovertxt">
+                                VOIR
+                            </span>
+                            <img src="{{ img.url }}" alt="{{ img.alt }}">
+                        </a>
                     {% endfor %}
 
                     <!-- Trick's videos -->
@@ -123,27 +125,33 @@
 
                 <!-- Messages display -->
                 <div id="posted_messages">
-                    {% if trick.messages is empty %}
+                    <!-- messages -->
+                    {% for message in messages %}
+                        <div class="message">
+                            <div class="vm_cell">
+                                <img src="{{ message.user.img.url }}" alt="{{ message.user.img.alt }}">
+                            </div>
+                            <div class="vt_cell message_right_block">
+                                <span class="message_author_name">{{ message.user.fullName }}</span>
+                                <span class="message_creation_date">{{ message.frenchDate }}</span>
+                                <span class="message_content">{{ message.content }} </span>
+                            </div>
+                        </div>
+                        <hr>
+                    {% else %}
                         <span class="noentry">
                             Aucun message posté.
                         </span>
-                    {% else %}
-                        {% for message in trick.messages %}
-                            <div class="message">
-                                <div class="vt_cell">
-                                    <img src="{{ message.user.img.url }}" alt="{{ message.user.img.alt }}">
-                                </div>
-                                <div class="vt_cell message_right_block">
-                                    <span class="message_author_name">{{ message.user.fullName }}</span>
-                                    <span class="message_creation_date">{{ message.frenchDate }}</span>
-                                    <span class="message_content">{{ message.content }} </span>
-                                </div>
-                            </div>
-                            {% if not loop.last %}
-                                <hr>
-                            {% endif %}
-                        {% endfor %}
-                    {% endif %}
+                    {% endfor %}
+
+                    <!-- Pagination -->
+                    <p id="chat_pagination">
+                    {% for i in 1..pgNbr %}
+                        <a href="
+                            {{ path('trick_show', {'slugName' : trick.slugName, 'chatPage' : i }) }}
+                        ">{{ i }}</a>
+                    {% endfor %}
+                    </p>
                 </div>
 
                 <!-- If user is logged, display the form -->
@@ -174,34 +182,7 @@
     <!-- Import FancyBox for medias gallery -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.js"></script>
     <!-- FancyBox settings -->
-    <script>
-        // Options for the first group
-        $('[data-fancybox="imgs"]').fancybox({
-            protect: true,
-            loop: true,
-            buttons : [
-                'zoom',
-                'thumbs',
-                'share',
-                'close',
-            ]
-        });
-    </script>
+    <script src="/js/show-trick-fancybox.js"></script>
     <!-- Open media box -->
-    <script>
-        function openmediabox(){
-            if($('#show_gallery .openbox').is(':visible')){
-                $('#show_gallery .openbox').hide();
-            }else{
-                $('#show_gallery .openbox').show();
-            }
-        }
-        function openchatbox(){
-            if($('#show_chat .openbox').is(':visible')){
-                $('#show_chat .openbox').hide();
-            }else{
-                $('#show_chat .openbox').show();
-            }
-        }
-    </script>
+    <script src="/js/show-trick-toggle-medias.js"></script>
 {% endblock %}

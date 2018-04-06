@@ -35,8 +35,22 @@ class TrickVideo extends External
      * @param $src
      */
     public function setSrc($src){
+
+        // If no source given, return
         if($src === null) return;
-        if(strpos($src, 'watch?v=')) $src = str_replace('watch?v=', 'embed/', $src);
+
+        // Youtube
+        if(strpos($src, 'watch?v=')){
+            $src = str_replace('watch?v=', 'embed/', $src);
+        }
+
+        // DailyMotion
+        if(strpos($src, 'dailymotion')){
+            $pos = strpos($src, '/video');
+            $src = substr_replace($src, '/embed', $pos, 0);
+        }
+
+        // Assign to attribute
         $this->src = $src;
     }
 }
