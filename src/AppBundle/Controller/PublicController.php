@@ -38,9 +38,9 @@ class PublicController extends Controller
     /**
      * Find all tricks witch belong to a category and render list template
      *
-     * @Route("/tricks/{cat_name}", name="category_trick_list")
+     * @Route("/{id}/tricks", name="category_trick_list")
      */
-    public function listByCategoryAction($cat_name)
+    public function listByCategoryAction($id)
     {
         // Get Doctrine Categories Entity Manager
         $cm = $this->getDoctrine()->getManager()
@@ -50,14 +50,7 @@ class PublicController extends Controller
         $categories = $cm->findBy([],['name' => 'ASC']);
 
         // Then loop on every found entry to check if one matche with URL given name
-        $category = null;                        // Init $category for below success test
-        foreach($categories as $cat)
-        {
-            if($cat->getName() === $cat_name){
-                $category = $cat;               // If a category match, store it
-                break;
-            }
-        }
+        $category = $cm->find($id);
 
         // If no category is related to the URL given name
         if(is_null($category)){

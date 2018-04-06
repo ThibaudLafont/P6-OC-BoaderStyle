@@ -26,7 +26,6 @@ class AdminController extends Controller
      */
     public function addAction(Request $request)
     {
-
         // Creation of form
         $trick = new Trick();
         $form = $this->get('form.factory')->create(TrickType::class, $trick);
@@ -43,7 +42,7 @@ class AdminController extends Controller
             // In case of succed, redirection to trick_list with flash message
             $this->addFlash(
                 'success',
-                "Vous bien ajouté un article, à voir <a href='{$trick->getUrl()}'>ici</a>"
+                "Vous bien ajouté un article"
             );
 
             return $this->redirectToRoute('trick_list');
@@ -77,13 +76,15 @@ class AdminController extends Controller
             $em = $this->getDoctrine()->getManager();
             $em->flush();
 
-            $this->addFlash('success', 'Vous bien modifié "' . $trick->getName() . '", à voir <a href="'. $trick->getUrl() . '">ici</a>');
+            $this->addFlash('success', 'Vous bien modifié "' . $trick->getName() . '"');
             return $this->redirectToRoute('trick_list');
 
         }
 
-        return $this->render('trick/_form.html.twig', ['form' => $form->createView(), 'title' => $trick->getName()]);
-
+        return $this->render(
+            'trick/_form.html.twig',
+            ['form' => $form->createView(), 'title' => $trick->getName()]
+        );
     }
 
     /**
@@ -92,7 +93,6 @@ class AdminController extends Controller
      * @Route("/admin/delete/trick/{id}", name="trick_delete")
      */
     public function deleteAction($id){
-
         // Get EntityManager and Trick Manager
         $em = $this->getDoctrine()->getManager();
         $trick = $em->getRepository('AppBundle:Trick\Trick')->find($id); // Get the trick related to asked id
@@ -104,7 +104,6 @@ class AdminController extends Controller
         // Redirect the user after success, add a flash message for inform user
         $this->addFlash('success', 'Vous bien supprimé "' . $trick->getName() . '"');
         return $this->redirectToRoute('trick_list');  // Return to the home page
-
     }
 
     /**

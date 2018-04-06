@@ -14,6 +14,7 @@ use AppBundle\Validator\Constraints as AppAssert;
  *
  * @ORM\Table(name="category")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\CategoryRepository")
+ * @ORM\EntityListeners({"AppBundle\EventListener\CategoryListener"})
  *
  * @UniqueEntity(
  *     "name",
@@ -53,6 +54,19 @@ class Category
     private $name;
 
     /**
+     * @var string
+     *
+     *
+     * @ORM\Column(
+     *     name="slug_name",
+     *     type="string",
+     *     length=255,
+     *     unique=true
+     * )
+     */
+    private $slugName;
+
+    /**
      * Tricks belong to the category
      *
      * @ORM\OneToMany(
@@ -68,7 +82,7 @@ class Category
     ///////////////////
 
     public function getEditUrl(){
-        return '/tricks/' . $this->getName();
+        return '/' . $this->getId() .  '/tricks/';
     }
 
 
@@ -129,5 +143,21 @@ class Category
      */
     public function getTricks(){
         return $this->tricks;
+    }
+
+    /**
+     * @return string
+     */
+    public function getSlugName(): string
+    {
+        return $this->slugName;
+    }
+
+    /**
+     * @param string $slugName
+     */
+    public function setSlugName(string $slugName)
+    {
+        $this->slugName = $slugName;
     }
 }
