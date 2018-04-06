@@ -354,4 +354,9 @@ class Trick
         else return $this->messages->slice($start, 10);
 
     }
+
+    public function getMessagesPagesNumber()
+    {
+        return intval($this->getMessages()->count() / 10) + 1;
+    }
 }

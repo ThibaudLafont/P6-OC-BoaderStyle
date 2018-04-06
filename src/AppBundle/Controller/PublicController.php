@@ -86,28 +86,9 @@ class PublicController extends Controller
     {
 
         // Getting trick related to given id
-        $trick = $this->getDoctrine()->getRepository('AppBundle:Trick\Trick')->find($id);
+        $trick = $this->getDoctrine()->getRepository('AppBundle:Trick\Trick')
+            ->findWithMessages($id, $chatPage);
 
-        // Getting the messages set from given chat page
-        $all = $trick->getMessages();  // Get all messages
-        $allCount = $all->count();     // Define number of messages
-
-        if($allCount <= 10){
-            $messages = $all;     // If there is under 10 messages store it
-            $pgNbr = null;        // Set the page number to 0
-        }
-        else // Else messages needs to be paginate
-        {
-            $start = ($chatPage-1) * 10;          // Define witch is the first message
-            $pgNbr = intval($allCount / 10) + 1;  // Then define number of pages
-            if($start <= $allCount){
-                $messages = $trick->getMessages($start);    // If message exists get the slice
-            }else{                                          // If it doesn't redirect to first page
-                return $this->redirectToRoute('trick_show', ['id' => $id, 'chatPage' => 1]);
-            }
-        }
-
-        //
         // Creation of new message entity
         $message = new Message();
         $message->setTrick($trick);
@@ -128,7 +109,8 @@ class PublicController extends Controller
                 $em->persist($message);
                 $em->flush();
 
-                // TODO: add flash message
+                // Add flash message
+                $this->addFlash('success', 'Votre message a bien été posté');
 
                 return $this->redirectToRoute('trick_show', ['id' => $trick->getId()]);
             }
@@ -139,8 +121,8 @@ class PublicController extends Controller
             'trick/_show.html.twig',
             [
                 'trick' => $trick,
-                'pgNbr' => $pgNbr,
-                'messages'=>$messages,
+                'pgNbr' => $trick->getMessagesPagesNumber(),
+                'messages'=> $trick->getMessages(),
                 'form' => $form->createView()
             ]
         );
